@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/publish_header_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="Publish Me!"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/parking_add_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/publish_header_txt"
+        android:text="Parking address:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/address_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/parking_add_txt"
+        android:layout_toEndOf="@+id/parking_add_txt"
+        android:layout_toRightOf="@+id/parking_add_txt"
+        android:ems="10"
+        android:inputType="textPostalAddress" />
+
+    <TextView
+        android:id="@+id/when_to_rent_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cost_txt"
+        android:layout_marginTop="35dp"
+        android:text="When to rent it?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/cost_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/parking_add_txt"
+        android:layout_marginTop="35dp"
+        android:text="cost per hour:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <EditText
+        android:id="@+id/comments_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="comments: " />
+
+    <CheckBox
+        android:id="@+id/approve_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/paypal_btn"
+        android:checked="false"
+        android:text="I approve that the parking is in my property" />
+
+    <NumberPicker
+        android:id="@+id/cost_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cost_txt"
+        android:layout_alignTop="@+id/cost_txt"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/paypal_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comments_input"
+        android:layout_toEndOf="@+id/cost_txt"
+        android:layout_toRightOf="@+id/cost_txt"
+        android:src="C:/Users/Adi/AndroidStudioProjects/ParkMeTrain/app/src/main/res/drawable/paypalLogo.png" />
+
+    <CheckBox
+        android:id="@+id/save_details_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/approve_check"
+        android:checked="true"
+        android:text="Save details for next time" />
+
+    <Button
+        android:id="@+id/update_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/save_details_check"
+        android:layout_toLeftOf="@+id/address_input"
+        android:layout_toStartOf="@+id/address_input"
+        android:text="Update" />
+
+    <Button
+        android:id="@+id/reset_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/save_details_check"
+        android:layout_toEndOf="@+id/publish_header_txt"
+        android:layout_toRightOf="@+id/publish_header_txt"
+        android:text="Reset" />
+
+    <Button
+        android:id="@+id/open_calander_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/when_to_rent_txt"
+        android:layout_alignLeft="@+id/cost_picker"
+        android:layout_alignStart="@+id/cost_picker"
+        android:text="Open calander" />
+
+</RelativeLayout>
