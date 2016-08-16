@@ -92,7 +92,7 @@
         android:layout_below="@+id/comments_input"
         android:layout_toEndOf="@+id/cost_txt"
         android:layout_toRightOf="@+id/cost_txt"
-        android:src="C:/Users/Adi/AndroidStudioProjects/ParkMeTrain/app/src/main/res/drawable/paypalLogo.png" />
+        android:src="C:/Users/rotemoh/Desktop/AndroidStudioProjects/ParkMe/app/src/main/res/drawable/paypalLogo.png" />
 
     <CheckBox
         android:id="@+id/save_details_check"

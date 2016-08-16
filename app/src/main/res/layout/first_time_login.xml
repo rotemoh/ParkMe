@@ -71,5 +71,5 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editText"
         android:layout_centerHorizontal="true"
-        android:src="C:/Users/Adi/AndroidStudioProjects/ParkMeTrain/app/src/main/res/drawable/627.jpg" />
+        android:src="C:/Users/rotemoh/Desktop/AndroidStudioProjects/ParkMe/app/src/main/res/drawable/logo.jpg"/>
 </RelativeLayout>

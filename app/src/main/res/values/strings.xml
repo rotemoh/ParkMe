@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">ParkMe</string>
+    <string name="app_name">ParkMeTrain</string>
     <string name="action_settings">Settings</string>
+    <string name="action_exit">Exit</string>
+    <string name="action_my_account">My Account</string>
 </resources>
