@@ -65,11 +65,11 @@
         android:layout_below="@+id/log_in_btn"
         android:text="Sign in" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
-        android:layout_centerHorizontal="true"
-        android:src="C:/Users/rotemoh/Desktop/AndroidStudioProjects/ParkMe/app/src/main/res/drawable/logo.jpg"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/editText"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:src="C:/Users/rotemoh/Desktop/AndroidStudioProjects/ParkMe/app/src/main/res/drawable/logo.jpg"/>-->
 </RelativeLayout>
