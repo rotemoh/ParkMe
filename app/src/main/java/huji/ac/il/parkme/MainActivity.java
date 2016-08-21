@@ -1,58 +1,54 @@
 package huji.ac.il.parkme;
 
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+    ActionBar actionbar;
+    ViewPager viewPager;
+    FragmentPagerAdapter ft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        ft = new FragmentPageAdapter(getSupportFragmentManager());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        actionbar = getActionBar();
+        // add the adapter to the view pager
+        viewPager.setAdapter(ft);
+        //adding the tabs
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionbar.addTab(actionbar.newTab().setText("Personal area").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Find parking").setTabListener(this));
+        actionbar.addTab(actionbar.newTab().setText("Rent parking").setTabListener(this));
+    }
+
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void testUpload() {
-        int i =  1;
-        int ii = 4;
-        int iii = i + ii;
     }
 }
