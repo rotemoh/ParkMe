@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "13794693178",
+    "firebase_url": "https://parkme-ed986.firebaseio.com",
+    "project_id": "parkme-ed986",
+    "storage_bucket": "parkme-ed986.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13794693178:android:a3f8174c6df782e4",
+        "android_client_info": {
+          "package_name": "huji.ac.il.parkme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "13794693178-mbnjj4br5li5a03v3bie8m05s3cpohro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEE-FaT6EtndILVs6Da2CGPwhusxkiLGE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
