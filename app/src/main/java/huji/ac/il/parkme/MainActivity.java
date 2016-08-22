@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
-        private String fragments[] = {"Find parking", "Publish parking"};
+        private String fragments[] = {"Find parking", "Publish parking", "My calender"};
         public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
             super(supportFragmentManager);
         }
@@ -57,12 +57,14 @@ public class MainActivity extends FragmentActivity {
                     return new FindParkingFragment();
                 case 1:
                     return new PublishParkingFragment();
+                case 2:
+                    return new CalenderFragment();
                 default:
                     break;
             }
             return null;
         }
-
+//        FFE3FAEC
         @Override
         public int getCount() {
             return fragments.length;
