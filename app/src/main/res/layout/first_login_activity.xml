@@ -15,7 +15,7 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Full Name" />
+        android:hint="Full Name" />
 
     <EditText
         android:id="@+id/email_input"
