@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 public class MainActivity extends FragmentActivity {
     TabLayout tabLayout;
@@ -61,7 +62,6 @@ public class MainActivity extends FragmentActivity {
             }
             return null;
         }
-//        FFE3FAEC
         @Override
         public int getCount() {
             return fragments.length;
@@ -71,5 +71,7 @@ public class MainActivity extends FragmentActivity {
         public CharSequence getPageTitle(int position) {
             return fragments[position];
         }
+
+
     }
 }
