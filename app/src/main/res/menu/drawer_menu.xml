@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Change details">
+        <menu>
+            <item
+                android:id="@+id/change_parking"
+                android:title="Change parking details"
+                ></item>
+            <item
+                android:id="@+id/change_payment"
+                android:title="Change payment details"
+                ></item>
+        </menu>
+    </item>
+</menu>

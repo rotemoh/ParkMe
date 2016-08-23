@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
 
 public class MainActivity extends FragmentActivity {
     TabLayout tabLayout;
@@ -19,7 +19,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
+//        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager(), getApplicationContext()));
