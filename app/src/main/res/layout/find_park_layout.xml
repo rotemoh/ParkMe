@@ -9,24 +9,17 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/find_header_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="34dp"
-            android:text="Find Me!"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
             android:id="@+id/where_to_search_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/find_header_txt"
-            android:layout_marginTop="32dp"
-            android:layout_toStartOf="@+id/find_header_txt"
             android:text="Where to sreach?"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginLeft="34dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="49dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:id="@+id/by_address_input"
@@ -39,7 +32,7 @@
             android:layout_marginStart="32dp"
             android:ems="10"
             android:inputType="textPostalAddress"
-            android:text="By address " />
+            android:hint="By address " />
 
         <EditText
             android:id="@+id/by_central_location_input"
@@ -50,58 +43,68 @@
             android:layout_below="@+id/by_address_input"
             android:ems="10"
             android:inputType="textPostalAddress"
-            android:text="By central location" />
+            android:hint="By central location" />
 
         <TextView
             android:id="@+id/when_to_rent_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="When to rent it?"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginTop="38dp"
             android:layout_below="@+id/by_central_location_input"
             android:layout_alignLeft="@+id/where_to_search_txt"
             android:layout_alignStart="@+id/where_to_search_txt" />
-
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fromDatePicker"
-            android:datePickerMode="spinner"
-            android:spinnersShown="true"
-            android:calendarViewShown="false"
-            android:layout_below="@+id/when_to_rent_txt"
-            android:layout_centerHorizontal="true" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/start_txt"
             android:text="start"
-            android:layout_above="@+id/untilDatePicker"
-            android:layout_alignLeft="@+id/when_to_rent_txt"
-            android:layout_alignStart="@+id/when_to_rent_txt"
-            android:layout_marginBottom="73dp" />
+            android:layout_below="@+id/when_to_rent_txt"
+            android:layout_alignLeft="@+id/by_central_location_input"
+            android:layout_alignStart="@+id/by_central_location_input" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="continue"
+            android:id="@+id/continue_btn"
+            android:theme="@style/Button.Tinted"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/find_end_date_input"
+            android:layout_centerHorizontal="true" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/end_txt"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/find_start_date_input"
+            android:layout_alignTop="@+id/start_txt"
+            android:layout_toRightOf="@+id/start_txt"
+            android:layout_toEndOf="@+id/start_txt"
+            android:hint="dd/mm/yyyy" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_date"
             android:text="end"
-            android:layout_marginTop="83dp"
-            android:layout_below="@+id/fromDatePicker"
+            android:layout_below="@+id/start_txt"
             android:layout_alignLeft="@+id/start_txt"
             android:layout_alignStart="@+id/start_txt" />
 
-        <DatePicker
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/untilDatePicker"
-            android:datePickerMode="spinner"
-            android:spinnersShown="true"
-            android:calendarViewShown="false"
-            android:layout_below="@+id/fromDatePicker"
-            android:layout_centerHorizontal="true" />
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/find_end_date_input"
+            android:layout_alignTop="@+id/end_date"
+            android:layout_toRightOf="@+id/end_date"
+            android:layout_toEndOf="@+id/end_date"
+            android:hint="dd/mm/yyyy" />
 
     </RelativeLayout>
 </ScrollView>
