@@ -79,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
-        private String fragments[] = {"Find parking", "Publish parking", "My calender"};
+        private String fragments[] = {"My calender", "Publish parking", "Find parking"};
         public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
             super(supportFragmentManager);
         }
@@ -93,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return new FindParkingFragment();
+                    return new CalenderFragment();
                 case 1:
                     return new PublishParkingFragment();
                 case 2:
-                    return new CalenderFragment();
+                    return new FindParkingFragment();
                 default:
                     break;
             }

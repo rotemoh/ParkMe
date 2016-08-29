@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -182,11 +181,11 @@ public class EmailPasswordActivity extends BaseActivity implements
         if (user != null) {
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+//            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
-            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+//            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
         }
     }
 
@@ -201,8 +200,8 @@ public class EmailPasswordActivity extends BaseActivity implements
 
         } else if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-        } else if (i == R.id.sign_out_button) {
-            signOut();
+//        } else if (i == R.id.sign_out_button) {
+//            signOut();
         }
     }
 }

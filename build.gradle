@@ -7,10 +7,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.google.gms:google-services:3.0.0'
-
-        //classpath 'com.google.gms:google-services:3.0.0'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -23,4 +19,6 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
+//compile 'com.google.android.gms:play-services-appindexing:9.4.0'
+//compile 'com.google.android.gms:play-services:9.4.0'
+//compile 'com.google.android.gms:play-services-gcm:9.4.0'

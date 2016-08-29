@@ -21,5 +21,8 @@
     <string name="emailpassword_status_fmt">Email User: %s</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="firebase_user_management">Firebase User Management</string>
-
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_availabel_parking_list">AvailabelParkingList</string>
+    <string name="title_activity_parking_info">ParkingInfo</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
 </resources>

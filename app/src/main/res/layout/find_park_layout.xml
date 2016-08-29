@@ -56,14 +56,15 @@
             android:layout_alignLeft="@+id/where_to_search_txt"
             android:layout_alignStart="@+id/where_to_search_txt" />
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/start_txt"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="start"
-            android:layout_below="@+id/when_to_rent_txt"
-            android:layout_alignLeft="@+id/by_central_location_input"
-            android:layout_alignStart="@+id/by_central_location_input" />
+            android:layout_above="@+id/find_end_date_input"
+            android:layout_toLeftOf="@+id/find_start_date_input"
+            android:layout_toStartOf="@+id/find_start_date_input" />
 
         <Button
             android:layout_width="wrap_content"
@@ -81,17 +82,17 @@
             android:inputType="date"
             android:ems="10"
             android:id="@+id/find_start_date_input"
-            android:layout_alignTop="@+id/start_txt"
-            android:layout_toRightOf="@+id/start_txt"
-            android:layout_toEndOf="@+id/start_txt"
-            android:hint="dd/mm/yyyy" />
+            android:hint="dd/mm/yyyy"
+            android:layout_below="@+id/when_to_rent_txt"
+            android:layout_centerHorizontal="true" />
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/end_date"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="end"
-            android:layout_below="@+id/start_txt"
+            android:layout_alignBottom="@+id/find_end_date_input"
             android:layout_alignLeft="@+id/start_txt"
             android:layout_alignStart="@+id/start_txt" />
 
@@ -101,10 +102,10 @@
             android:inputType="date"
             android:ems="10"
             android:id="@+id/find_end_date_input"
-            android:layout_alignTop="@+id/end_date"
-            android:layout_toRightOf="@+id/end_date"
-            android:layout_toEndOf="@+id/end_date"
-            android:hint="dd/mm/yyyy" />
+            android:hint="dd/mm/yyyy"
+            android:layout_below="@+id/find_start_date_input"
+            android:layout_alignLeft="@+id/find_start_date_input"
+            android:layout_alignStart="@+id/find_start_date_input" />
 
     </RelativeLayout>
 </ScrollView>
