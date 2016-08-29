@@ -19,7 +19,6 @@ public class FindParkingFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.find_park_layout, container, false);
         Button continueBtn = (Button) rootView.findViewById(R.id.continue_btn);
         continueBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AvailableParkingListActivity.class);

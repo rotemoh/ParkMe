@@ -25,4 +25,5 @@
     <string name="title_activity_availabel_parking_list">AvailabelParkingList</string>
     <string name="title_activity_parking_info">ParkingInfo</string>
     <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="title_activity_parking_payment">ParkingPaymentActivity</string>
 </resources>
