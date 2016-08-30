@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:text="Parking address:"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="40dp"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/save_details_check"
-            android:layout_alignEnd="@+id/save_details_check" />
+            android:layout_alignLeft="@+id/address_input"
+            android:layout_alignStart="@+id/address_input" />
 
         <EditText
             android:id="@+id/address_input"
@@ -27,9 +27,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPostalAddress"
-            android:layout_below="@+id/parking_add_txt"
-            android:layout_alignLeft="@+id/parking_add_txt"
-            android:layout_alignStart="@+id/parking_add_txt" />
+            android:layout_alignLeft="@+id/cost_txt"
+            android:layout_alignStart="@+id/cost_txt"
+            android:layout_below="@+id/parking_add_txt" />
 
         <TextView
             android:id="@+id/when_to_rent_txt"
@@ -38,8 +38,8 @@
             android:text="When to rent it?"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_below="@+id/cost_picker"
-            android:layout_alignRight="@+id/save_details_check"
-            android:layout_alignEnd="@+id/save_details_check" />
+            android:layout_alignLeft="@+id/comments_input"
+            android:layout_alignStart="@+id/comments_input" />
 
         <TextView
             android:id="@+id/cost_txt"
@@ -48,8 +48,8 @@
             android:text="cost per hour:"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_below="@+id/address_input"
-            android:layout_alignLeft="@+id/address_input"
-            android:layout_alignStart="@+id/address_input" />
+            android:layout_alignLeft="@+id/approve_check"
+            android:layout_alignStart="@+id/approve_check" />
 
         <EditText
             android:id="@+id/comments_input"
@@ -58,10 +58,9 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:text="comments: "
-            android:layout_marginTop="49dp"
-            android:layout_below="@+id/publish_start_date_input"
-            android:layout_alignLeft="@+id/when_to_rent_txt"
-            android:layout_alignStart="@+id/when_to_rent_txt" />
+            android:layout_below="@+id/publish_end_date_input"
+            android:layout_alignLeft="@+id/cost_txt"
+            android:layout_alignStart="@+id/cost_txt" />
 
         <CheckBox
             android:id="@+id/approve_check"
@@ -70,8 +69,8 @@
             android:checked="false"
             android:text="I approve that the parking is in my property"
             android:layout_below="@+id/comments_input"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignLeft="@+id/save_details_check"
+            android:layout_alignStart="@+id/save_details_check" />
 
         <!--<ImageButton-->
         <!--android:id="@+id/paypal_btn"-->
@@ -90,7 +89,9 @@
             android:text="Save details for next time"
             android:layout_below="@+id/approve_check"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp" />
 
         <Button
             android:id="@+id/update_btn"
@@ -128,7 +129,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="start"
-            android:id="@+id/textView2"
+            android:id="@+id/start"
             android:layout_alignBottom="@+id/publish_start_date_input"
             android:layout_alignLeft="@+id/when_to_rent_txt"
             android:layout_alignStart="@+id/when_to_rent_txt" />
@@ -140,8 +141,10 @@
             android:text="end"
             android:id="@+id/textView3"
             android:layout_below="@+id/publish_start_date_input"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2" />
+            android:layout_alignLeft="@+id/start"
+            android:layout_alignStart="@+id/start"
+            android:layout_alignRight="@+id/start"
+            android:layout_alignEnd="@+id/start" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -150,7 +153,7 @@
             android:ems="10"
             android:id="@+id/publish_end_date_input"
             android:hint="dd/mm/yyyy"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/start"
             android:layout_alignLeft="@+id/publish_start_date_input"
             android:layout_alignStart="@+id/publish_start_date_input" />
 
@@ -159,8 +162,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cost_txt"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2" />
+            android:layout_toRightOf="@+id/start"
+            android:layout_toEndOf="@+id/start" />
     </RelativeLayout>
     </LinearLayout>
 </ScrollView>
