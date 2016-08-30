@@ -14,10 +14,10 @@ public class ParkingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parking_info);
         Intent intent = getIntent();
-        String itemValue = intent.getStringExtra("itemValue");
+        String address = intent.getStringExtra("address");
         TextView editText = (TextView) findViewById(R.id.address_txt);
-        editText.setText(itemValue);
-
+        editText.setText(address);
+//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         Button continueBtn = (Button) findViewById(R.id.continue_btn);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

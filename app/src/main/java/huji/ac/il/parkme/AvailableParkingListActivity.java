@@ -12,7 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class AvailableParkingListActivity extends AppCompatActivity {
-    ListView listView ;
+    ListView listView;
+//    String address;
     Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listViewParking);
 
         // Defined Array values to show in ListView
-        //TODO: change to the addresses in the area
+        //TODO: change to the addresses in the area. will get it from the DB.
         final String[] values = new String[] {"Android List View",
                 "Adapter implementation",
                 "Simple List View In Android",
@@ -30,7 +31,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 "List View Source Code",
                 "List View Array Adapter",
                 "Android Example List View"};
-        final String[] address = new String[] {"address 1, cost 1",
+        final String[] addresses = new String[] {"address 1, cost 1",
                 "address 2, cost 2",
                 "address 3, cost 3",
                 "address 4, cost 4",
@@ -38,6 +39,8 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 "address 6, cost 6",
                 "address 7, cost 7",
                 "address 8, cost 8"};
+        Intent intent = getIntent();
+//        address = intent.getStringExtra("address");
 
         // Define a new Adapter:
         //Context, Layout for the row, ID of the TextView to which
@@ -50,7 +53,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
                 text1.setText(values[position]);
-                text2.setText(address[position]);
+                text2.setText(addresses[position]);
                 return view;
             }
         };
@@ -62,20 +65,13 @@ public class AvailableParkingListActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // ListView Clicked item index
-                int itemPosition = position;
-
                 // ListView Clicked item value
-                String itemValue = (String) listView.getItemAtPosition(position);
+                String address = (String) listView.getItemAtPosition(position);
 
-//                // Show Alert
-//                Toast.makeText(getApplicationContext(),
-//                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-//                        .show();
                 Intent intent = new Intent(AvailableParkingListActivity.this, ParkingInfoActivity.class);
-                intent.putExtra("itemValue", itemValue);
+//                Intent intent = new Intent(AvailableParkingListActivity.this, ParkingPaymentActivity.class);
+                intent.putExtra("address", address);
                 startActivityForResult(intent,1);//TODO: check if need result
-
             }
         });
     }
