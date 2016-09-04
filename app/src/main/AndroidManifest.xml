@@ -36,6 +36,8 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".EmailPasswordActivity"></activity>
+        <activity android:name=".UpdateParkingFragment"></activity>
+        <activity android:name=".UpdatePaymentFragment"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

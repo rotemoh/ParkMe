@@ -76,11 +76,16 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 
                 switch (item.getItemId()) {
-                    case R.id.update_payment:
+//                    case R.id.
+                    case R.id.change_payment:
+//                        UpdatePaymentFragment fragmentS1 = new UpdatePaymentFragment();
+//                        getFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentS1).commit();
                         Intent intentPayment = new Intent(MainActivity.this, UpdatePaymentFragment.class);
                         startActivity(intentPayment);
                         break;
-                    case R.id.update_parking:
+                    case R.id.change_parking:
+//                        UpdateParkingFragment fragmentS2 = new UpdateParkingFragment();
+//                        getFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentS2).commit();
                         Intent intentParking = new Intent(MainActivity.this, UpdateParkingFragment.class);
                         startActivity(intentParking);
                         break;
