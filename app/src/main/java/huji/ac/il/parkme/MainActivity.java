@@ -1,8 +1,10 @@
 package huji.ac.il.parkme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,9 +60,53 @@ public class MainActivity extends AppCompatActivity {
                 R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+//                //Checking if the item is in checked state or not, if not make it in checked state
+//                if (menuItem.isChecked()) menuItem.setChecked(false);
+//                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                drawerLayout.closeDrawers();
+
+                switch (item.getItemId()) {
+                    case R.id.update_payment:
+                        Intent intentPayment = new Intent(MainActivity.this, UpdatePaymentFragment.class);
+                        startActivity(intentPayment);
+                        break;
+                    case R.id.update_parking:
+                        Intent intentParking = new Intent(MainActivity.this, UpdateParkingFragment.class);
+                        startActivity(intentParking);
+                        break;
+                    case R.id.logout:
+                        Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
+                        startActivity(intentEmailPassword);
+
+//                    // if this position is to add fragment
+
+//                    FragmentManager fragmentManager = getSupportFragmentManager();
+//                    fragmentManager
+//                            .beginTransaction()
+//                            .replace(R.id.container,
+//                                    PlaceholderFragment.newInstance(position + 1)).commit();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -77,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

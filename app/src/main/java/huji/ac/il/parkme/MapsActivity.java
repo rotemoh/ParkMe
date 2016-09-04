@@ -113,20 +113,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + addLatitude + "\nLong: " + addLongitude, Toast.LENGTH_LONG).show();
 //        }
         //getting the current position's lat & long:
-        GPSTracker gps = new GPSTracker(MapsActivity.this);
-
-        // check if GPS enabled
-        if(gps.canGetLocation()){
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-            //TODO: remove the toast
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-        }else{
-            // can't get location
-            // GPS or Network is not enabled
-            // Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
-        }
+//        GPSTracker gps = new GPSTracker(MapsActivity.this);
+//
+//        // check if GPS enabled
+//        if(gps.canGetLocation()){
+//            double latitude = gps.getLatitude();
+//            double longitude = gps.getLongitude();
+//            //TODO: remove the toast
+//            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+//        }else{
+//            // can't get location
+//            // GPS or Network is not enabled
+//            // Ask user to enable GPS/network in settings
+//            gps.showSettingsAlert();
+//        }
 
         // Setting onclick event listener for the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
