@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager(), getApplicationContext()));
@@ -68,38 +70,21 @@ public class MainActivity extends AppCompatActivity {
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-//                //Checking if the item is in checked state or not, if not make it in checked state
-//                if (menuItem.isChecked()) menuItem.setChecked(false);
-//                else menuItem.setChecked(true);
-
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
 
                 switch (item.getItemId()) {
-//                    case R.id.
                     case R.id.change_payment:
-//                        UpdatePaymentFragment fragmentS1 = new UpdatePaymentFragment();
-//                        getFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentS1).commit();
                         Intent intentPayment = new Intent(MainActivity.this, UpdatePaymentFragment.class);
                         startActivity(intentPayment);
                         break;
                     case R.id.change_parking:
-//                        UpdateParkingFragment fragmentS2 = new UpdateParkingFragment();
-//                        getFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentS2).commit();
                         Intent intentParking = new Intent(MainActivity.this, UpdateParkingFragment.class);
                         startActivity(intentParking);
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
                         startActivity(intentEmailPassword);
-
-//                    // if this position is to add fragment
-
-//                    FragmentManager fragmentManager = getSupportFragmentManager();
-//                    fragmentManager
-//                            .beginTransaction()
-//                            .replace(R.id.container,
-//                                    PlaceholderFragment.newInstance(position + 1)).commit();
                         break;
                     default:
                         break;
@@ -108,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
