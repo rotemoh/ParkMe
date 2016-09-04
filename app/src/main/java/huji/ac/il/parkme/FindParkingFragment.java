@@ -26,7 +26,6 @@ public class FindParkingFragment extends Fragment{
                 Intent intent = new Intent(getContext(), AvailableParkingListActivity.class);
                 intent.putExtra("address", address.getText());
                 startActivity(intent);
-
             }
         });
         return rootView;

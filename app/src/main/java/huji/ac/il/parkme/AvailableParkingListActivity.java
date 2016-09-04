@@ -24,7 +24,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         // Defined Array values to show in ListView
         //TODO: change to the addresses in the area. will get it from the DB.
         final String[] values = new String[] {"Android List View",
-                "Adapter implementation",
+                "Gilboa 94 Alfei Menashe",
                 "Simple List View In Android",
                 "Create List View Android",
                 "Android Example",
