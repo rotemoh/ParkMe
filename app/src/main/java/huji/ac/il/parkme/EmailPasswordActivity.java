@@ -30,9 +30,6 @@ public class EmailPasswordActivity extends BaseActivity implements
 
     private static final String TAG = "EmailPassword";
     private final static int REQUEST_CODE_FIRST_LOGIN = 80;
-    private final static int REQUEST_CODE_LOGOUT = 82;
-    //private final static int EmailPasswordActivityID = 1;
-    //public final static int FirstLoginActivityID = 2;
 
     private EditText mEmailField;
     private EditText mPasswordField;
@@ -117,6 +114,7 @@ public class EmailPasswordActivity extends BaseActivity implements
         //mDatabase.child("users").setValue()
         //mDatabase.child("users").setValue(mAuth.getCurrentUser());
         mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).setValue(user);
+//        mDatabase.child("users").child("Parking").setValue("Tel Aviv");
     }
 
     /**
@@ -234,12 +232,6 @@ public class EmailPasswordActivity extends BaseActivity implements
                 Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
                 startActivity(MainActivity);
             }
-        } else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_FIRST_LOGIN) {
-
         }
-
     }
-
-
-
 }
