@@ -163,6 +163,7 @@ public class EmailPasswordActivity extends BaseActivity implements
 //        updateUI(null);
 //    }
 
+
     private boolean validateForm() {
         boolean valid = true;
 
