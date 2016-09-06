@@ -5,14 +5,19 @@ package huji.ac.il.parkme;
  */
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,7 +29,11 @@ public class EmailPasswordActivity extends BaseActivity implements
 
     private static final String TAG = "EmailPassword";
     private final static int REQUEST_CODE_FIRST_LOGIN = 80;
+    //private final static int EmailPasswordActivityID = 1;
+    //public final static int FirstLoginActivityID = 2;
 
+    private TextView mStatusTextView;
+    private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
 
@@ -34,6 +43,14 @@ public class EmailPasswordActivity extends BaseActivity implements
 
     // [START declare_auth_listener]
     private FirebaseAuth.AuthStateListener mAuthListener;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+    private int requestCode;
+    private int resultCode;
+    private Intent data;
     // [END declare_auth_listener]
 
     @Override
@@ -41,6 +58,9 @@ public class EmailPasswordActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emailpassword);
 
+        // Views
+        mStatusTextView = (TextView) findViewById(R.id.status);
+        mDetailTextView = (TextView) findViewById(R.id.detail);
         mEmailField = (EditText) findViewById(R.id.field_email);
         mPasswordField = (EditText) findViewById(R.id.field_password);
 
@@ -71,30 +91,27 @@ public class EmailPasswordActivity extends BaseActivity implements
             }
         };
         // [END auth_state_listener]
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     // [START on_start_add_listener]
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
     }
-    // [END on_start_add_listener]
+
 
     // [START on_stop_remove_listener]
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
-    // [END on_stop_remove_listener]
-    private void createAccount(String email, String password) {
+
+    public void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
-        if (!validateForm()) {
-            return;
-        }
+
         showProgressDialog();
 
         // [START create_user_with_email]
@@ -111,6 +128,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                             Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                         }
+
                         // [START_EXCLUDE]
                         hideProgressDialog();
                         // [END_EXCLUDE]
@@ -119,13 +137,19 @@ public class EmailPasswordActivity extends BaseActivity implements
         // [END create_user_with_email]
     }
 
-    private void signIn(String email, String password) {
+    /**
+     *
+     * @param email
+     * @param password
+     */
+    public void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
             return;
         }
 
         showProgressDialog();
+
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -142,6 +166,10 @@ public class EmailPasswordActivity extends BaseActivity implements
                                     Toast.LENGTH_SHORT).show();
                         }
 
+                        // [START_EXCLUDE]
+                        if (!task.isSuccessful()) {
+                            mStatusTextView.setText(R.string.auth_failed);
+                        }
                         hideProgressDialog();
                         // [END_EXCLUDE]
                     }
@@ -149,10 +177,10 @@ public class EmailPasswordActivity extends BaseActivity implements
         // [END sign_in_with_email]
     }
 
-    private void signOut() {
-        mAuth.signOut();
-        updateUI(null);
-    }
+//    private void signOut() {
+//        mAuth.signOut();
+//        updateUI(null);
+//    }
 
     private boolean validateForm() {
         boolean valid = true;
@@ -179,13 +207,19 @@ public class EmailPasswordActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
+            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-//            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
         } else {
+            mStatusTextView.setText(R.string.signed_out);
+            mDetailTextView.setText(null);
+
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
-//            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
         }
     }
 
@@ -195,13 +229,30 @@ public class EmailPasswordActivity extends BaseActivity implements
         if (i == R.id.email_create_account_button) {
             Intent addFirstLoginPage = new Intent(EmailPasswordActivity.this, FirstLoginActivity.class);
             startActivityForResult(addFirstLoginPage, REQUEST_CODE_FIRST_LOGIN);
+            //startActivity(addFirstLoginPage);
+
             //todo: move below call to inside a onClick func of CREATE_ACCOUNT btn in the above activity:
             //createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
 
         } else if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-//        } else if (i == R.id.sign_out_button) {
-//            signOut();
         }
+    }
+
+    //todo: delete???
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_FIRST_LOGIN) {
+            if (data.hasExtra("emailF") && data.hasExtra("passwordF")) {
+                //return to "EmailPasswordActivity" with the email & password
+                //which were typed in the "FirstLoginActivity"
+                mEmailField.setText(data.getStringExtra("emailF"));
+                mPasswordField.setText(data.getStringExtra("passwordF"));
+                createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
+                startActivity(MainActivity);
+            }
+        }
+
     }
 }
