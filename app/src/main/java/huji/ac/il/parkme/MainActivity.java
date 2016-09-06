@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.firebase.client.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
@@ -25,14 +24,12 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
-
-        mAuth = FirebaseAuth.getInstance();
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
-                        mAuth.signOut();
                         startActivity(intentEmailPassword);
                         break;
                     default:
