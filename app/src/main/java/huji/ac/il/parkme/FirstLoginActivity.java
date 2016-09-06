@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
+//import com.google.android.gms.appindexing.Action;
+//import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.Objects;
@@ -53,6 +53,9 @@ public class FirstLoginActivity extends AppCompatActivity {
                 //EPActivity.createAccount(email.getText().toString(), password.getText().toString());
                 data.putExtra("emailF", email.getText().toString());
                 data.putExtra("passwordF", password.getText().toString());
+                data.putExtra("phoneF", phone.getText().toString());
+                data.putExtra("fullNameF", fullName.getText().toString());
+
                 // Activity finished ok, return the data
                 setResult(RESULT_OK, data);
                 //EPActivity.signIn(email.getText().toString(), password.getText().toString(), EPActivity.FirstLoginActivityID);
