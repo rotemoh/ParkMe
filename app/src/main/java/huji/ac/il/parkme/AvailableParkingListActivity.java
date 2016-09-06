@@ -23,7 +23,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
 
         // Defined Array values to show in ListView
         //TODO: change to the addresses in the area. will get it from the DB.
-        final String[] values = new String[] {"Android List View",
+        final String[] addresses = new String[] {"Android List View",
                 "Gilboa 94 Alfei Menashe",
                 "Simple List View In Android",
                 "Create List View Android",
@@ -31,7 +31,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 "List View Source Code",
                 "List View Array Adapter",
                 "Android Example List View"};
-        final String[] addresses = new String[] {"address 1, cost 1",
+        final String[] info = new String[] {"address 1, cost 1",
                 "address 2, cost 2",
                 "address 3, cost 3",
                 "address 4, cost 4",
@@ -45,15 +45,15 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         // Define a new Adapter:
         //Context, Layout for the row, ID of the TextView to which
         // the data is written and the Array of data.
-        ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_2, android.R.id.text1, values) {
+        ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_2, android.R.id.text1, addresses) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                text1.setText(values[position]);
-                text2.setText(addresses[position]);
+                text1.setText(addresses[position]);
+                text2.setText(info[position]);
                 return view;
             }
         };

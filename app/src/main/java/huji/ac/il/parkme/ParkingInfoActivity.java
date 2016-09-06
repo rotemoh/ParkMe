@@ -83,7 +83,7 @@ public class ParkingInfoActivity extends AppCompatActivity implements OnMapReady
             mMap.addMarker(options);
             //zoom on the asked address.
             mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(12));//TODO change to 11?
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(16));//TODO change to 12?
         } catch (IOException e) {
             e.printStackTrace();
         }

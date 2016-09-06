@@ -69,22 +69,9 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="I approve that the parking is in my property"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="26dp"
             android:layout_below="@+id/comments_input"
-            android:layout_alignLeft="@+id/save_details_check"
-            android:layout_alignStart="@+id/save_details_check" />
-
-        <CheckBox
-            android:id="@+id/save_details_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Save details for next time"
-            android:layout_below="@+id/approve_check"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="36dp"
-            android:layout_marginStart="36dp" />
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/update_btn"
@@ -103,7 +90,7 @@
             android:layout_height="wrap_content"
             android:text="Reset"
             android:theme="@style/Button.Tinted"
-            android:layout_below="@+id/save_details_check"
+            android:layout_below="@+id/approve_check"
             android:layout_toRightOf="@+id/parking_add_txt"
             android:layout_toEndOf="@+id/parking_add_txt" />
 
@@ -134,11 +121,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="end"
             android:id="@+id/textView3"
-            android:layout_below="@+id/publish_start_date_input"
-            android:layout_alignLeft="@+id/start"
-            android:layout_alignStart="@+id/start"
-            android:layout_alignRight="@+id/start"
-            android:layout_alignEnd="@+id/start" />
+            android:layout_alignTop="@+id/publish_end_date_input"
+            android:layout_toLeftOf="@+id/cost_picker"
+            android:layout_toStartOf="@+id/cost_picker" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -160,6 +145,22 @@
             android:layout_toRightOf="@+id/start"
             android:layout_toEndOf="@+id/start"
             />
+
+
+
+            <!--<fragment-->
+                <!--android:id="@+id/autocomplete_fragment"-->
+                <!--android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/margin_medium"-->
+            <!--android:layout_marginBottom="@dimen/margin_medium">-->
+        <!--</android.support.v7.widget.CardView>-->
+
     </RelativeLayout>
+
     </LinearLayout>
 </ScrollView>
