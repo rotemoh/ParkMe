@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:baselineAligned="true"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
+    android:gravity="center_vertical|center_horizontal">
 
     <CalendarView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/calendarView2" />
+        android:id="@+id/calendarView"
+        android:minDate="01/01/2016"
+        android:maxDate="01/01/2116" />
 </LinearLayout>

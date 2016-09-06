@@ -58,9 +58,10 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:text="comments: "
+            android:layout_marginTop="26dp"
             android:layout_below="@+id/publish_end_date_input"
-            android:layout_alignLeft="@+id/cost_txt"
-            android:layout_alignStart="@+id/cost_txt" />
+            android:layout_alignLeft="@+id/approve_check"
+            android:layout_alignStart="@+id/approve_check" />
 
         <CheckBox
             android:id="@+id/approve_check"
@@ -68,18 +69,10 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="I approve that the parking is in my property"
+            android:layout_marginTop="28dp"
             android:layout_below="@+id/comments_input"
             android:layout_alignLeft="@+id/save_details_check"
             android:layout_alignStart="@+id/save_details_check" />
-
-        <!--<ImageButton-->
-        <!--android:id="@+id/paypal_btn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/comments_input"-->
-        <!--android:layout_toEndOf="@+id/cost_txt"-->
-        <!--android:layout_toRightOf="@+id/cost_txt"-->
-        <!--android:src="C:/Users/rotemoh/Desktop/AndroidStudioProjects/ParkMe/app/src/main/res/drawable/paypalLogo.png" />-->
 
         <CheckBox
             android:id="@+id/save_details_check"
@@ -99,19 +92,20 @@
             android:layout_height="wrap_content"
             android:text="Update"
             android:theme="@style/Button.Tinted"
-            android:layout_below="@+id/save_details_check"
-            android:layout_alignRight="@+id/cost_txt"
-            android:layout_alignEnd="@+id/cost_txt" />
+            android:layout_alignBaseline="@+id/reset_btn"
+            android:layout_alignBottom="@+id/reset_btn"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3" />
 
         <Button
             android:id="@+id/reset_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reset"
-            android:layout_alignTop="@+id/update_btn"
-            android:layout_toRightOf="@+id/comments_input"
-            android:layout_toEndOf="@+id/comments_input"
-            android:theme="@style/Button.Tinted" />
+            android:theme="@style/Button.Tinted"
+            android:layout_below="@+id/save_details_check"
+            android:layout_toRightOf="@+id/parking_add_txt"
+            android:layout_toEndOf="@+id/parking_add_txt" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -121,8 +115,8 @@
             android:id="@+id/publish_start_date_input"
             android:hint="dd/mm/yyyy"
             android:layout_below="@+id/when_to_rent_txt"
-            android:layout_alignRight="@+id/reset_btn"
-            android:layout_alignEnd="@+id/reset_btn" />
+            android:layout_alignRight="@+id/approve_check"
+            android:layout_alignEnd="@+id/approve_check" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -153,6 +147,7 @@
             android:ems="10"
             android:id="@+id/publish_end_date_input"
             android:hint="dd/mm/yyyy"
+            android:numeric="integer"
             android:layout_below="@+id/start"
             android:layout_alignLeft="@+id/publish_start_date_input"
             android:layout_alignStart="@+id/publish_start_date_input" />
@@ -163,7 +158,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/cost_txt"
             android:layout_toRightOf="@+id/start"
-            android:layout_toEndOf="@+id/start" />
+            android:layout_toEndOf="@+id/start"
+            />
     </RelativeLayout>
     </LinearLayout>
 </ScrollView>
