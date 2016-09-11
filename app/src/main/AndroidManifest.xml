@@ -33,11 +33,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".EmailPasswordActivity" />-->
+        <!-- <activity android:name=".EmailPasswordActivity" /> -->
 
-        <!--<activity android:name=".FirstLoginActivity"></activity>-->
+
+        <!-- <activity android:name=".FirstLoginActivity"></activity> -->
         <activity android:name=".MainActivity" />
-
         <activity android:name=".UpdateParkingFragment" />
         <activity android:name=".UpdatePaymentFragment" />
 
@@ -63,6 +63,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name=".EmailSend"></activity>
     </application>
 
 </manifest>

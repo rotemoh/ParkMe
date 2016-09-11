@@ -17,6 +17,16 @@
         </menu>
     </item>
     <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"
+        ></item>
+    <item
+        android:id="@+id/contact_us"
+        android:title="Contact us"
+        android:icon="@drawable/phone"
+        ></item>
+    <item
         android:id="@+id/logout"
         android:title="Logout"
         android:icon="@drawable/logout"

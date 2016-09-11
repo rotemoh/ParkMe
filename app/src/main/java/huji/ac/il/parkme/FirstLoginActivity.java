@@ -1,20 +1,15 @@
 package huji.ac.il.parkme;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 //import com.google.android.gms.appindexing.Action;
 //import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.util.Objects;
 
 /**
  * Created by rotemoh on 23/08/2016.
@@ -27,6 +22,7 @@ public class FirstLoginActivity extends AppCompatActivity {
     private EditText password;
     private EditText rePassword;
     private EmailPasswordActivity EPActivity;
+    private Toolbar toolbar;
 
 
     @Override
@@ -35,7 +31,8 @@ public class FirstLoginActivity extends AppCompatActivity {
         setContentView(R.layout.first_login_activity);
         final Intent data = new Intent();
         EPActivity = new EmailPasswordActivity();
-
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         fullName = (EditText) findViewById(R.id.full_name_input);
         email = (EditText) findViewById(R.id.email_input);
         phone = (EditText) findViewById(R.id.phone_input);
