@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -23,12 +27,17 @@ public class PublishParkingFragment extends Fragment {
     Button resetBtn, updateBtn;
     EditText addressIn, commentsIn, sDateIn, eDateIn;
     CheckBox approve;
+
+    public DatabaseReference PPdatabase;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.publish_park_layout, container, false);
         addressIn = (EditText)rootView.findViewById(R.id.address_input);
         commentsIn = (EditText)rootView.findViewById(R.id.comments_input);
         sDateIn = (EditText)rootView.findViewById(R.id.publish_start_date_input);
         eDateIn = (EditText)rootView.findViewById(R.id.publish_end_date_input);
+        PPdatabase = FirebaseDatabase.getInstance().getReference();
+
 //.setError
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         approve.setError("Required.");
@@ -95,6 +104,17 @@ public class PublishParkingFragment extends Fragment {
                     Toast.makeText(getActivity(), "Data updated successfully",
                             Toast.LENGTH_SHORT).show();
                 }
+
+                String key = PPdatabase.child("Parking").push().getKey();
+                Parking addParking = new Parking(addressIn.getText().toString(), "Azrieli",
+                        "Tel Aviv",FirebaseAuth.getInstance().getCurrentUser().getUid(), "" + numberpicker.getValue());
+//                Parking addParking = new Parking(addressInput.getText().toString(), "Azrieli",
+//                        "Tel Aviv", FirebaseAuth.getInstance().getCurrentUser().getUid(), "" + costPicker.getValue());
+
+                PPdatabase.child("Parking").child(key).setValue(addParking);
+                //todo- add messege "publish parking is succ
+                Toast.makeText(getActivity(), "Parking published successfully",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
