@@ -67,11 +67,11 @@ public class ParkingPaymentActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.change_payment:
-                        Intent intentPayment = new Intent(ParkingPaymentActivity.this, UpdatePaymentFragment.class);
+                        Intent intentPayment = new Intent(ParkingPaymentActivity.this, UpdatePaymentActivity.class);
                         startActivity(intentPayment);
                         break;
                     case R.id.change_parking:
-                        Intent intentParking = new Intent(ParkingPaymentActivity.this, UpdateParkingFragment.class);
+                        Intent intentParking = new Intent(ParkingPaymentActivity.this, UpdateParkingActivity.class);
                         startActivity(intentParking);
                         break;
                     case R.id.logout:

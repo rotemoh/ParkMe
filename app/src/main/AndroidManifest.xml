@@ -38,8 +38,8 @@
 
         <!-- <activity android:name=".FirstLoginActivity"></activity> -->
         <activity android:name=".MainActivity" />
-        <activity android:name=".UpdateParkingFragment" />
-        <activity android:name=".UpdatePaymentFragment" />
+        <activity android:name=".UpdateParkingActivity" />
+        <activity android:name=".UpdatePaymentActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

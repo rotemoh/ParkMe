@@ -13,7 +13,7 @@ import android.view.MenuItem;
 /**
  * Created by Adi on 22/08/2016.
  */
-public class UpdatePaymentFragment extends AppCompatActivity {
+public class UpdatePaymentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -43,23 +43,23 @@ public class UpdatePaymentFragment extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.change_payment:
-                        Intent intentPayment = new Intent(UpdatePaymentFragment.this, UpdatePaymentFragment.class);
+                        Intent intentPayment = new Intent(UpdatePaymentActivity.this, UpdatePaymentActivity.class);
                         startActivity(intentPayment);
                         break;
                     case R.id.change_parking:
-                        Intent intentParking = new Intent(UpdatePaymentFragment.this, UpdateParkingFragment.class);
+                        Intent intentParking = new Intent(UpdatePaymentActivity.this, UpdateParkingActivity.class);
                         startActivity(intentParking);
                         break;
                     case R.id.logout:
-                        Intent intentEmailPassword = new Intent(UpdatePaymentFragment.this, EmailPasswordActivity.class);
+                        Intent intentEmailPassword = new Intent(UpdatePaymentActivity.this, EmailPasswordActivity.class);
                         startActivity(intentEmailPassword);
                         break;
                     case R.id.home:
-                        Intent homeIntent = new Intent(UpdatePaymentFragment.this, MainActivity.class);
+                        Intent homeIntent = new Intent(UpdatePaymentActivity.this, MainActivity.class);
                         startActivity(homeIntent);
                         break;
                     case R.id.contact_us:
-                        Intent contactIntent = new Intent(UpdatePaymentFragment.this, EmailSend.class);
+                        Intent contactIntent = new Intent(UpdatePaymentActivity.this, EmailSend.class);
                         startActivity(contactIntent);
                         break;
                     default:
