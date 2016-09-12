@@ -91,7 +91,10 @@ public class PublishParkingFragment extends Fragment {
                 try {
                     startDate = dateFormat.parse(startDateStr);
                     endDate = dateFormat.parse(endDateStr);
-                    if (startDate.after(endDate) || (startDate.before(new Date()))){
+
+                    //todo-  check (startDate.after(new Date()))
+                    if (startDate.after(endDate))
+                    {
                         throw new Exception();
                     }
                 } catch (Exception e) {
