@@ -9,47 +9,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-public class ParkingPaymentActivity extends AppCompatActivity {
-    String address;
-    Intent intent;
+/**
+ * Created by Adi on 22/08/2016.
+ */
+public class UpdatePaymentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parking_payment);
-        Button routBtn = (Button) findViewById(R.id.rout_btn);
-        Button homeBtn = (Button) findViewById(R.id.home_btn);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("ParkeMe");
+        setContentView(R.layout.update_payment_layout);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        intent = getIntent();
-        address = intent.getStringExtra("address");
-        routBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent routIntent = new Intent(ParkingPaymentActivity.this, MapsActivity.class);
-                routIntent.putExtra("address", address);
-                startActivity(routIntent);
-            }
-        });
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent homeIntent = new Intent(ParkingPaymentActivity.this, MainActivity.class);
-                startActivity(homeIntent);
-            }
-        });
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -67,23 +43,23 @@ public class ParkingPaymentActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.change_payment:
-                        Intent intentPayment = new Intent(ParkingPaymentActivity.this, UpdatePaymentActivity.class);
+                        Intent intentPayment = new Intent(UpdatePaymentActivity.this, UpdatePaymentActivity.class);
                         startActivity(intentPayment);
                         break;
                     case R.id.change_parking:
-                        Intent intentParking = new Intent(ParkingPaymentActivity.this, UpdateParkingActivity.class);
+                        Intent intentParking = new Intent(UpdatePaymentActivity.this, UpdateParkingActivity.class);
                         startActivity(intentParking);
                         break;
                     case R.id.logout:
-                        Intent intentEmailPassword = new Intent(ParkingPaymentActivity.this, EmailPasswordActivity.class);
+                        Intent intentEmailPassword = new Intent(UpdatePaymentActivity.this, EmailPasswordActivity.class);
                         startActivity(intentEmailPassword);
                         break;
                     case R.id.home:
-                        Intent homeIntent = new Intent(ParkingPaymentActivity.this, MainActivity.class);
+                        Intent homeIntent = new Intent(UpdatePaymentActivity.this, MainActivity.class);
                         startActivity(homeIntent);
                         break;
                     case R.id.contact_us:
-                        Intent contactIntent = new Intent(ParkingPaymentActivity.this, EmailSend.class);
+                        Intent contactIntent = new Intent(UpdatePaymentActivity.this, EmailSend.class);
                         startActivity(contactIntent);
                         break;
                     default:
@@ -92,8 +68,6 @@ public class ParkingPaymentActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
     @Override
@@ -103,7 +77,7 @@ public class ParkingPaymentActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
@@ -118,5 +92,5 @@ public class ParkingPaymentActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-}
 
+}

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
-
+    String fullName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Intent intent = getIntent();
+        fullName = intent.getStringExtra("fullName");
+        toolbar.setSubtitle("Hello, " + fullName); //TODO: check the username name
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,25 +78,31 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.change_payment:
-                        Intent intentPayment = new Intent(MainActivity.this, UpdatePaymentFragment.class);
+                        Intent intentPayment = new Intent(MainActivity.this, UpdatePaymentActivity.class);
                         startActivity(intentPayment);
                         break;
                     case R.id.change_parking:
-                        Intent intentParking = new Intent(MainActivity.this, UpdateParkingFragment.class);
+                        Intent intentParking = new Intent(MainActivity.this, UpdateParkingActivity.class);
                         startActivity(intentParking);
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
                         startActivity(intentEmailPassword);
                         break;
-                    default:
+                    case R.id.home:
+                        Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(homeIntent);
+                        break;
+                     case R.id.contact_us:
+                        Intent contactIntent = new Intent(MainActivity.this, EmailSend.class);
+                        startActivity(contactIntent);
+                        break;
+                     default:
                         break;
                 }
                 return true;
             }
         });
-
-
     }
 
     @Override

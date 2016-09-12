@@ -7,45 +7,43 @@
     tools:context="huji.ac.il.tab.MainActivity"
     android:id="@+id/main_layout"
     android:orientation="vertical">
-    <!--<include-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--layout="@layout/toolbar_layout"-->
-        <!--/>-->
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/toolbar_layout"
+        />
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawerLayout">
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="pay and go park"
+                android:id="@+id/rout_btn"
+                android:theme="@style/Button.Tinted" />
 
-    <!--<android.support.v4.widget.DrawerLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/drawerLayout">-->
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="pay and go to home"
+                android:id="@+id/home_btn"
+                android:layout_gravity="center_horizontal"
+                android:theme="@style/Button.Tinted" />
+        </LinearLayout>
 
-
-        <!--&lt;!&ndash; the nav. view is the second child of the main activity&ndash;&gt;-->
-        <!--<android.support.design.widget.NavigationView-->
-            <!--android:layout_width="280dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:id="@+id/navigation_view"-->
-            <!--android:layout_gravity="start"-->
-            <!--app:menu="@menu/drawer_menu"-->
-            <!--app:headerLayout="@layout/navigation_drawer_header"></android.support.design.widget.NavigationView>-->
-    <!--</android.support.v4.widget.DrawerLayout>-->
-<LinearLayout
-    android:layout_width="350dp"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="pay and go park"
-        android:id="@+id/rout_btn"
-        android:theme="@style/Button.Tinted" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="pay and go to home"
-        android:id="@+id/home_btn"
-        android:layout_gravity="center_horizontal"
-        android:theme="@style/Button.Tinted" />
-</LinearLayout>
+        <android.support.design.widget.NavigationView
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:id="@+id/navigation_view"
+            android:layout_gravity="start"
+            app:menu="@menu/drawer_menu"
+            app:headerLayout="@layout/navigation_drawer_header">
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>
