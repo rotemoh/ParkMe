@@ -3,6 +3,7 @@ package huji.ac.il.parkme;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +18,53 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class AvailableParkingListActivity extends AppCompatActivity {
     ListView listView;
-//    String address;
+    public String address;
+    public double addressLat;
+    public double addressLng;
+
     Context context = this;
     private Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    public DatabaseReference availableParkingDatabase;
+    public ArrayList<ParkPair> parkingDistances;
+    public float[] results;
 
+    public class ParkPair implements Comparable {
+        public double distance;
+        public String parkId;
+
+        public ParkPair(String parkId, double distance) {
+            this.parkId = parkId;
+            this.distance = distance;
+        }
+
+        @Override
+        public int compareTo(Object another) {
+            ParkPair p2 = (ParkPair)another;
+            if (this.distance > p2.distance) {
+                return 1;
+            } else if (this.distance < p2.distance){
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +75,60 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        availableParkingDatabase = FirebaseDatabase.getInstance().getReference();
+
+        parkingDistances = new ArrayList();
+        Intent intent = getIntent();
+        address = intent.getStringExtra("address");
+        addressLat = intent.getDoubleExtra("addressLat", 0);
+        addressLng = intent.getDoubleExtra("addressLng", 0);
+
+        ValueEventListener parkingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot parkingSnapshot) {
+                int i = 0;
+                for(DataSnapshot parking : parkingSnapshot.getChildren()) {
+                    results = new float[]{0 , 0 , 0, 0};
+                    Location.distanceBetween(
+                            (double) parking.child("latitude").getValue(),
+                            (double) parking.child("longitude").getValue(),
+                            addressLat,
+                            addressLng,
+                            results);
+                    parkingDistances.add(new ParkPair(parking.getKey(), results[0] / 1000))
+                    ;
+
+                    System.out.println("parkingDistances[" + i + "] :  " + parkingDistances.get(i).distance);
+                    i++;
+                }
+                Collections.sort(parkingDistances);
+                System.out.println(parkingDistances.get(0).distance);
+                System.out.println(parkingDistances.get(1).distance);
+                System.out.println(parkingDistances.get(2).distance);
+                System.out.println(parkingDistances.get(3).distance);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                // ...
+            }
+        };
+        availableParkingDatabase.child("Parking").addValueEventListener(parkingListener);
+
+
         // Defined Array values to show in ListView
         //TODO: change to the addresses in the area. will get it from the DB.
         final String[] addresses = new String[] {"Android List View",
                 "Gilboa 94 Alfei Menashe",
-                "Simple List View In Android",
+                "hi",
                 "Create List View Android",
                 "Android Example",
                 "List View Source Code",
                 "List View Array Adapter",
                 "Android Example List View"};
-        final String[] info = new String[] {"address 1, cost 1",
+        final String[] info = new String[] {"dis 1, cost 1",
                 "address 2, cost 2",
                 "address 3, cost 3",
                 "address 4, cost 4",
@@ -53,8 +136,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 "address 6, cost 6",
                 "address 7, cost 7",
                 "address 8, cost 8"};
-        Intent intent = getIntent();
-//        address = intent.getStringExtra("address");
+
 
         // Define a new Adapter:
         //Context, Layout for the row, ID of the TextView to which
@@ -157,5 +239,6 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
