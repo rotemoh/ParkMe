@@ -30,7 +30,7 @@
                 android:id="@+id/tabLayout"
                 android:layout_centerHorizontal="true"
                 android:fillViewport="false"
-                android:background="#FF009688" />
+                android:background="@color/colorPrimaryDark"/>
 
             <android.support.v4.view.ViewPager
                 android:layout_width="wrap_content"

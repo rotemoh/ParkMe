@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lib_calendar_background">#e5e5e5</color>
+    <color name="lib_calendar_background_flat">#eeeeee</color>
+    <color name="lib_calendar_day_background">@android:color/white</color>
+    <color name="lib_calendar_day_background_disabled">#f2f2f2</color>
+    <color name="lib_calendar_day_textcolor">#686868</color>
+    <color name="lib_calendar_day_textcolor_disabled">#cbcbcb</color>
+    <declare-styleable name="AbstractCalendarView"><attr format="enum" name="dayStyle"><enum name="tiled" value="0"/><enum name="flat" value="1"/></attr><attr format="enum" name="firstDayOfWeek"><enum name="sunday" value="1"/><enum name="monday" value="2"/><enum name="tuesday" value="3"/><enum name="wednesday" value="4"/><enum name="thursday" value="5"/><enum name="friday" value="6"/><enum name="saturday" value="7"/></attr><attr format="enum" name="lastDayOfWeek"><enum name="sunday" value="1"/><enum name="monday" value="2"/><enum name="tuesday" value="3"/><enum name="wednesday" value="4"/><enum name="thursday" value="5"/><enum name="friday" value="6"/><enum name="saturday" value="7"/></attr></declare-styleable>
+    <dimen name="lib_calendar_day_padding_sides">2dp</dimen>
+    <dimen name="lib_calendar_day_size">44dp</dimen>
+    <dimen name="lib_calendar_day_textsize">22dp</dimen>
+    <dimen name="lib_category_padding_bottom">4dp</dimen>
+    <dimen name="lib_category_padding_sides">1.5dp</dimen>
+    <dimen name="lib_category_size">4dp</dimen>
+    <dimen name="lib_category_view_padding_startend">5dp</dimen>
+    <dimen name="lib_default_title_indicator_clip_padding">4dp</dimen>
+    <dimen name="lib_default_title_indicator_footer_indicator_height">4dp</dimen>
+    <dimen name="lib_default_title_indicator_footer_indicator_underline_padding">20dp</dimen>
+    <dimen name="lib_default_title_indicator_footer_padding">7dp</dimen>
+    <dimen name="lib_default_title_indicator_text_size">15dp</dimen>
+    <dimen name="lib_default_title_indicator_title_padding">5dp</dimen>
+    <dimen name="lib_default_title_indicator_top_padding">7dp</dimen>
+    <string name="lib_header_friday">FRI</string>
+    <string name="lib_header_monday">MON</string>
+    <string name="lib_header_saturday">SAT</string>
+    <string name="lib_header_sunday">SUN</string>
+    <string name="lib_header_thursday">THU</string>
+    <string name="lib_header_tuesday">TUE</string>
+    <string name="lib_header_wednesday">WED</string>
+    <string name="lib_month_april">APRIL</string>
+    <string name="lib_month_august">AUGUST</string>
+    <string name="lib_month_december">DECEMBER</string>
+    <string name="lib_month_february">FEBRUARY</string>
+    <string name="lib_month_january">JANUARY</string>
+    <string name="lib_month_july">JULY</string>
+    <string name="lib_month_june">JUNE</string>
+    <string name="lib_month_march">MARCH</string>
+    <string name="lib_month_may">MAY</string>
+    <string name="lib_month_november">NOVEMBER</string>
+    <string name="lib_month_october">OCTOBER</string>
+    <string name="lib_month_september">SEPTEMBER</string>
+</resources>

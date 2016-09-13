@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vdesmet.lib.calendar.MultiCalendarView;
+
+import java.util.Calendar;
+
 /**
  * Created by Adi on 22/08/2016.
  */
@@ -15,19 +19,17 @@ public class CalenderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.calander_layout, container, false);
-//        DatePicker simpleDatePicker = (DatePicker)rootView.findViewById(R.id.datePicker); // initiate a date picker
-//
-//        simpleDatePicker.setSpinnersShown(false);
-//        int day = simpleDatePicker.getDayOfMonth(); // get the selected day of the month
-//        int month = simpleDatePicker.getMonth(); // get the selected month
-//        int year = simpleDatePicker.getYear(); // get the selected year
-//        Date minDate = new Date(year-1, month, day);
-//        long minDateMilliSeconds = minDate.getTime();
-//        Date maxDate = new Date(year+5, month, day);
-//        long maxDateMilliSeconds = maxDate.getTime();
-//        simpleDatePicker.setMinDate(minDateMilliSeconds);
-//        simpleDatePicker.setMaxDate(maxDateMilliSeconds);
+// Retrieve the CalendarView
+        MultiCalendarView multiMonth = (MultiCalendarView) rootView.findViewById(R.id.multi_calendar);
 
+// Set the first valid day
+        final Calendar firstValidDay = Calendar.getInstance();
+        multiMonth.setFirstValidDay(firstValidDay);
+
+// Set the last valid day
+        final Calendar lastValidDay = Calendar.getInstance();
+        lastValidDay.add(Calendar.YEAR, 1);
+        multiMonth.setLastValidDay(lastValidDay);
         return rootView;
 
     }

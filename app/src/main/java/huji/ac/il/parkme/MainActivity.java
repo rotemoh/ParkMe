@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager(), getApplicationContext()));
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+//        tabLayout.setTabTextColors(R.color.unselected, R.color.default_color);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
-        private String fragments[] = {"My calender", "Publish parking", "Find parking"};
+        private String fragments[] = {"My calender", "Add park", "Find park"};
         public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
             super(supportFragmentManager);
         }
