@@ -232,7 +232,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                 createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString(),
                         data.getStringExtra("fullNameF"), data.getStringExtra("phoneF"));
                 Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
-//                MainActivity.putExtra("fullName", data.getStringExtra("fullNameF"));
+                MainActivity.putExtra("fullName", data.getStringExtra("fullNameF"));
                 startActivity(MainActivity);
             }
         }
