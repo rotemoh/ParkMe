@@ -33,10 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity android:name=".EmailPasswordActivity" />
-
-
-         <activity android:name=".FirstLoginActivity"></activity>
+        <!--<activity android:name=".EmailPasswordActivity" />-->
+        <!--<activity android:name=".FirstLoginActivity" />-->
         <activity android:name=".MainActivity" />
         <activity android:name=".UpdateParkingActivity" />
         <activity android:name=".UpdatePaymentActivity" />
@@ -46,7 +44,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyDZvsPjPRrmnQnHaKVGRUopvqYy2VaA3UI" />
 
         <activity
             android:name=".AvailableParkingListActivity"
@@ -63,7 +61,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".EmailSend"></activity>
+        <activity android:name=".EmailSend" />
     </application>
 
 </manifest>

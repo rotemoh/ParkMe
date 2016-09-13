@@ -39,7 +39,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         //TODO: change to the addresses in the area. will get it from the DB.
         final String[] addresses = new String[] {"Android List View",
                 "Gilboa 94 Alfei Menashe",
-                "Simple List View In Android",
+                "Habima",
                 "Create List View Android",
                 "Android Example",
                 "List View Source Code",

@@ -26,4 +26,6 @@
     <string name="title_activity_parking_info">ParkingInfo</string>
     <string name="title_activity_drawer">DrawerActivity</string>
     <string name="title_activity_parking_payment">ParkingPaymentActivity</string>
+    <string name="title_activity_maps1">Map</string>
+
 </resources>

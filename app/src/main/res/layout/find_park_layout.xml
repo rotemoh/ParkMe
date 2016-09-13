@@ -32,18 +32,7 @@
             android:layout_marginStart="32dp"
             android:ems="10"
             android:inputType="textPostalAddress"
-            android:hint="By address " />
-
-        <EditText
-            android:id="@+id/by_central_location_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/by_address_input"
-            android:layout_alignStart="@+id/by_address_input"
-            android:layout_below="@+id/by_address_input"
-            android:ems="10"
-            android:inputType="textPostalAddress"
-            android:hint="By central location" />
+            android:hint="By address or by location" />
 
         <TextView
             android:id="@+id/when_to_rent_txt"
@@ -52,9 +41,9 @@
             android:text="When to rent it?"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginTop="38dp"
-            android:layout_below="@+id/by_central_location_input"
             android:layout_alignLeft="@+id/where_to_search_txt"
-            android:layout_alignStart="@+id/where_to_search_txt" />
+            android:layout_alignStart="@+id/where_to_search_txt"
+            android:layout_below="@+id/by_address_input" />
 
         <TextView
             android:layout_width="wrap_content"
