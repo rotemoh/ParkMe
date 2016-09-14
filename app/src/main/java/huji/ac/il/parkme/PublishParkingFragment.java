@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -25,13 +24,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.google.firebase.auth.FirebaseAuth.*;
+import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
 /**
  * Created by Adi on 21/08/2016.
  */
 public class PublishParkingFragment extends Fragment {
-    public NumberPicker numberpicker;
+    public EditText costInput;
     public Button resetBtn, updateBtn;
     public EditText addressIn, commentsIn, sDateIn, eDateIn;
     public CheckBox approve;
@@ -51,16 +50,16 @@ public class PublishParkingFragment extends Fragment {
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
 
-        numberpicker = (NumberPicker)rootView.findViewById(R.id.cost_picker);
-        numberpicker.setMinValue(0);
-        numberpicker.setMaxValue(100);
-
-        numberpicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                //TODO
-            }
-        });
+//        numberpicker = (NumberPicker)rootView.findViewById(R.id.cost_picker);
+//        numberpicker.setMinValue(0);
+//        numberpicker.setMaxValue(100);
+//
+//        numberpicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+//            @Override
+//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+//                //TODO
+//            }
+//        });
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +69,7 @@ public class PublishParkingFragment extends Fragment {
                 sDateIn.setText("");
                 eDateIn.setText("");
                 approve.setChecked(false);
-                numberpicker.setValue(0);
+                costInput.setText("0");
             }
         });
 
@@ -108,7 +107,7 @@ public class PublishParkingFragment extends Fragment {
                 point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
                 String key = PPdatabase.child("Parking").push().getKey();
                 Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
-                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
+                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + costInput.getText());
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();

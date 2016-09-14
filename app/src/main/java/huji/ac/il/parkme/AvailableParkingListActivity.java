@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class AvailableParkingListActivity extends AppCompatActivity {
     ListView listView;
-//    String address;
+    TextView dest;
     Context context = this;
     private Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -29,6 +29,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.found_parking_list);
+        dest = (TextView)findViewById(R.id.destination_txt);
         listView = (ListView) findViewById(R.id.listViewParking);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle("ParkeMe");
@@ -53,8 +54,14 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 "address 6, cost 6",
                 "address 7, cost 7",
                 "address 8, cost 8"};
+
         Intent intent = getIntent();
-//        address = intent.getStringExtra("address");
+        Bundle b = intent.getExtras();
+        if(b!=null)
+        {
+            String address = b.get("address").toString();
+            dest.setText("Available parking for address: " + address);
+        }
 
         // Define a new Adapter:
         //Context, Layout for the row, ID of the TextView to which
