@@ -62,6 +62,6 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             // Show the selected TextView as bold
             day.setTypeface(Typeface.DEFAULT_BOLD);
         }
-        System.out.println("############## " + dayInMillis + "#########");
+//        System.out.println("############## " + dayInMillis + "#########");
     }
 }
