@@ -41,11 +41,11 @@ public class CustomDayAdapter implements DayAdapter {
 
     @Override
     public boolean isDayEnabled(final long dayInMillis) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(dayInMillis);
+//        final Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(dayInMillis);
 
         // Disable all saturdays
-        return calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY;
+        return true /*calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY*/;
     }
 
     @Override
@@ -61,10 +61,8 @@ public class CustomDayAdapter implements DayAdapter {
     public void updateHeaderTextView(final TextView header, final int dayOfWeek) {
         switch(dayOfWeek) {
             case Calendar.SATURDAY:
-            case Calendar.SUNDAY:
                 header.setTextColor(Color.RED);
                 break;
-
             default:
                 header.setTextColor(Color.BLUE);
                 break;
