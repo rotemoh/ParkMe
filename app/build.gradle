@@ -8,8 +8,8 @@ android {
         applicationId "huji.ac.il.parkme"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 7
-        versionName "7"
+        versionCode 9
+        versionName "9"
 //        multiDexEnabled true
     }
     buildTypes {
@@ -41,7 +41,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-places:9.4.0'
     compile 'com.google.android.gms:play-services-nearby:9.4.0'
     //    compile 'com.google.android.gms:play-services:9.4.0'
-    //compile project(':libs:holoCalendar')
     compile project(':holoCalendarModule')
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,1 +1,1 @@
-include ':app', ':holoCalendarModule'
+include ':holoCalendarModule', ':app'
