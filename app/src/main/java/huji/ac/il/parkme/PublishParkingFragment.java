@@ -1,4 +1,3 @@
-
 package huji.ac.il.parkme;
 
 import android.location.Address;
@@ -104,10 +103,14 @@ public class PublishParkingFragment extends Fragment {
                 }
 
 
-                LatLng point;
-                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+//                LatLng point;
+//                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+//                String key = PPdatabase.child("Parking").push().getKey();
+//                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
+//                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 String key = PPdatabase.child("Parking").push().getKey();
-                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
+                Parking addParking = new Parking(addressIn.getText().toString(),
+                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), "Azrieli",
                         "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
@@ -195,4 +198,3 @@ public class PublishParkingFragment extends Fragment {
         return valid;
     }
 }
-
