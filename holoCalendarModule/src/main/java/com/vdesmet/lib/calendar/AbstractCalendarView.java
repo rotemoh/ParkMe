@@ -68,11 +68,11 @@ public abstract class AbstractCalendarView extends LinearLayout {
             try {
                 // Retrieve the first day of week
                 //noinspection ConstantConditions
-                final int firstDay = a.getInt(R.styleable.AbstractCalendarView_firstDayOfWeek, Calendar.MONDAY);
+                final int firstDay = a.getInt(R.styleable.AbstractCalendarView_firstDayOfWeek, Calendar.SUNDAY);
                 setFirstDayOfWeek(firstDay);
 
                 // Retrieve the last day of week
-                final int lastDay = a.getInt(R.styleable.AbstractCalendarView_firstDayOfWeek, Calendar.SUNDAY);
+                final int lastDay = a.getInt(R.styleable.AbstractCalendarView_firstDayOfWeek, Calendar.SATURDAY);
                 setLastDayOfWeek(lastDay);
 
                 // Retrieve the style for the day views
@@ -113,7 +113,7 @@ public abstract class AbstractCalendarView extends LinearLayout {
 
         if(mFirstValidDay != null) {
             // Fix first day of week in the Calendar
-            mFirstValidDay.setFirstDayOfWeek(mFirstDayOfWeek);
+            mFirstValidDay.setFirstDayOfWeek(day);
 
             // update calendar
             updateCalendar();

@@ -1,4 +1,3 @@
-
 package huji.ac.il.parkme;
 
 import android.location.Address;
@@ -13,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,6 +28,7 @@ import static com.google.firebase.auth.FirebaseAuth.getInstance;
  * Created by Adi on 21/08/2016.
  */
 public class PublishParkingFragment extends Fragment {
+//    public NumberPicker numberpicker;
     public EditText costInput;
     public Button resetBtn, updateBtn;
     public EditText addressIn, commentsIn, sDateIn, eDateIn;
@@ -49,15 +48,16 @@ public class PublishParkingFragment extends Fragment {
         PPauth = getInstance();
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
-
+        costInput = (EditText) rootView.findViewById(R.id.cost_input);
+//
 //        numberpicker = (NumberPicker)rootView.findViewById(R.id.cost_picker);
 //        numberpicker.setMinValue(0);
 //        numberpicker.setMaxValue(100);
-//
+
 //        numberpicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
 //            @Override
 //            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-//                //TODO
+                //TODO
 //            }
 //        });
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
@@ -69,7 +69,8 @@ public class PublishParkingFragment extends Fragment {
                 sDateIn.setText("");
                 eDateIn.setText("");
                 approve.setChecked(false);
-                costInput.setText("0");
+                costInput.setText("");
+//                numberpicker.setValue(0);
             }
         });
 
@@ -103,11 +104,15 @@ public class PublishParkingFragment extends Fragment {
                 }
 
 
-                LatLng point;
-                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+//                LatLng point;
+//                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+//                String key = PPdatabase.child("Parking").push().getKey();
+//                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
+//                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 String key = PPdatabase.child("Parking").push().getKey();
-                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
-                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + costInput.getText());
+                Parking addParking = new Parking(addressIn.getText().toString(),
+                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), "Azrieli",
+                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + costInput.getText().toString());
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
@@ -194,4 +199,3 @@ public class PublishParkingFragment extends Fragment {
         return valid;
     }
 }
-
