@@ -104,14 +104,10 @@ public class PublishParkingFragment extends Fragment {
                 }
 
 
-//                LatLng point;
-//                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-//                String key = PPdatabase.child("Parking").push().getKey();
-//                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
-//                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
+                LatLng point;
+                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
                 String key = PPdatabase.child("Parking").push().getKey();
-                Parking addParking = new Parking(addressIn.getText().toString(),
-                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), "Azrieli",
+                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
                         "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
