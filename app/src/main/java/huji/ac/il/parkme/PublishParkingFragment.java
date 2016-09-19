@@ -30,7 +30,7 @@ import static com.google.firebase.auth.FirebaseAuth.*;
  * Created by Adi on 21/08/2016.
  */
 public class PublishParkingFragment extends Fragment {
-    public NumberPicker numberpicker;
+    public EditText costIn;
     public Button resetBtn, updateBtn;
     public EditText addressIn, commentsIn, sDateIn, eDateIn;
     public CheckBox approve;
@@ -50,16 +50,8 @@ public class PublishParkingFragment extends Fragment {
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
 
-        numberpicker = (NumberPicker)rootView.findViewById(R.id.cost_picker);
-        numberpicker.setMinValue(0);
-        numberpicker.setMaxValue(100);
+        costIn = (EditText)rootView.findViewById(R.id.cost_input);
 
-        numberpicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                //TODO
-            }
-        });
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +61,7 @@ public class PublishParkingFragment extends Fragment {
                 sDateIn.setText("");
                 eDateIn.setText("");
                 approve.setChecked(false);
-                numberpicker.setValue(0);
+                costIn.setText("");
             }
         });
 
@@ -90,7 +82,7 @@ public class PublishParkingFragment extends Fragment {
                 try {
                     startDate = dateFormat.parse(startDateStr);
                     endDate = dateFormat.parse(endDateStr);
-
+                    startDate.setMinutes(1);
                     //todo-  check (startDate.after(new Date()))
                     if (startDate.after(endDate))
                     {
@@ -102,16 +94,11 @@ public class PublishParkingFragment extends Fragment {
                     return;
                 }
 
-
-//                LatLng point;
-//                point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-//                String key = PPdatabase.child("Parking").push().getKey();
-//                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
-//                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 String key = PPdatabase.child("Parking").push().getKey();
                 Parking addParking = new Parking(addressIn.getText().toString(),
-                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), "Azrieli",
-                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
+                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), startDate,
+                        endDate, PPauth.getCurrentUser().getUid(), "" + costIn.getText().toString());
+
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
