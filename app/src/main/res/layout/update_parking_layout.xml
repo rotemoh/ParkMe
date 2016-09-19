@@ -16,48 +16,56 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/parking_add_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Parking address:"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignLeft="@+id/address_input"
-            android:layout_alignStart="@+id/address_input" />
+        <!--<TextView-->
+            <!--android:id="@+id/parking_add_txt"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Parking address:"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:layout_alignLeft="@+id/address_input"-->
+            <!--android:layout_alignStart="@+id/address_input" />-->
 
-        <EditText
-            android:id="@+id/address_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPostalAddress"
-            android:layout_below="@+id/parking_add_txt"
-            android:layout_centerHorizontal="true" />
-        <TextView
-            android:id="@+id/cost_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cost per hour:"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_below="@+id/address_input"
-            android:layout_alignLeft="@+id/address_input"
-            android:layout_alignStart="@+id/address_input" />
+        <!--<EditText-->
+            <!--android:id="@+id/address_input"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ems="10"-->
+            <!--android:inputType="textPostalAddress"-->
+            <!--android:layout_below="@+id/parking_add_txt"-->
+            <!--android:layout_centerHorizontal="true" />-->
+        <!--<TextView-->
+            <!--android:id="@+id/cost_txt"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="cost per hour:"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:layout_below="@+id/address_input"-->
+            <!--android:layout_alignLeft="@+id/address_input"-->
+            <!--android:layout_alignStart="@+id/address_input" />-->
 
-        <NumberPicker
-            android:id="@+id/cost_picker"
+        <!--<NumberPicker-->
+            <!--android:id="@+id/cost_picker"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/cost_txt"-->
+            <!--android:layout_centerHorizontal="true" />-->
+        <!--<Button-->
+            <!--android:id="@+id/reset_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Reset"-->
+            <!--android:theme="@style/Button.Tinted"-->
+            <!--android:layout_marginTop="52dp"-->
+            <!--android:layout_below="@+id/cost_picker"-->
+            <!--android:layout_centerHorizontal="true" />-->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cost_txt"
-            android:layout_centerHorizontal="true" />
-        <Button
-            android:id="@+id/reset_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reset"
-            android:theme="@style/Button.Tinted"
-            android:layout_marginTop="52dp"
-            android:layout_below="@+id/cost_picker"
-            android:layout_centerHorizontal="true" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:hint="Coming soon..."/>
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="250dp"

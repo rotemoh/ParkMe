@@ -15,16 +15,23 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/reset_btn"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reset"
-                android:theme="@style/Button.Tinted"
-                android:layout_alignParentBottom="true"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/textView"
+                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="124dp" />
+                android:hint="Coming soon..."/>
+            <!--<Button-->
+                <!--android:id="@+id/reset_btn"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Reset"-->
+                <!--android:theme="@style/Button.Tinted"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginBottom="124dp" />-->
         </RelativeLayout>
         <android.support.design.widget.NavigationView
             android:layout_width="250dp"

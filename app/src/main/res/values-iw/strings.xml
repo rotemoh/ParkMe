@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ParkMe</string>
+    <string name="action_exit">יציאה</string>
+    <string name="action_my_account">החשבון שלי</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="auth_failed">אימות נכשל</string>
+    <string name="create_account">צור חשבון</string>
+    <string name="emailpassword_status_fmt"></string>
+    <string name="hint_password">סיסמא</string>
+    <string name="hint_user_id">שם משתמש</string>
+    <string name="loading">טוען....</string>
+    <string name="sign_in">התחבר</string>
+    <string name="sign_out">התנתק</string>
+    <string name="signed_out">התנתק</string>
+    <string name="hint_email">אימייל</string>
+</resources>

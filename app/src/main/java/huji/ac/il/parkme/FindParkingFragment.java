@@ -30,8 +30,8 @@ public class FindParkingFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.find_park_layout, container, false);
         addressIn = (EditText)rootView.findViewById(R.id.by_address_input);
-        sDateIn = (EditText)rootView.findViewById(R.id.find_start_date_input);
-        eDateIn = (EditText)rootView.findViewById(R.id.find_end_date_input);
+        sDateIn = (EditText)rootView.findViewById(R.id.publish_start_date_input);
+        eDateIn = (EditText)rootView.findViewById(R.id.publish_end_date_input);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
 
         Button continueBtn = (Button) rootView.findViewById(R.id.continue_btn);
