@@ -28,7 +28,6 @@ import static com.google.firebase.auth.FirebaseAuth.getInstance;
  * Created by Adi on 21/08/2016.
  */
 public class PublishParkingFragment extends Fragment {
-//    public NumberPicker numberpicker;
     public EditText costInput;
     public Button resetBtn, updateBtn;
     public EditText addressIn, commentsIn, sDateIn, eDateIn;
@@ -107,7 +106,6 @@ public class PublishParkingFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
         return rootView;
     }
 

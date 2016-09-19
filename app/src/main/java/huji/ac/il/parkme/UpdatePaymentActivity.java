@@ -42,10 +42,6 @@ public class UpdatePaymentActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 
                 switch (item.getItemId()) {
-                    case R.id.change_payment:
-                        Intent intentPayment = new Intent(UpdatePaymentActivity.this, UpdatePaymentActivity.class);
-                        startActivity(intentPayment);
-                        break;
                     case R.id.change_parking:
                         Intent intentParking = new Intent(UpdatePaymentActivity.this, UpdateParkingActivity.class);
                         startActivity(intentParking);
