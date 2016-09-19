@@ -36,10 +36,10 @@ public class AvailableParkingListActivity extends AppCompatActivity {
     public double addressLat;
     public double addressLng;
 
-    Context context = this;
+    public Context context = this;
     private Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
     public DatabaseReference availableParkingDatabase;
     public ArrayList<ParkPair> parkingDistances;
     public float[] results;
@@ -88,6 +88,9 @@ public class AvailableParkingListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot parkingSnapshot) {
                 int i = 0;
                 for(DataSnapshot parking : parkingSnapshot.getChildren()) {
+                    if (!isOverlapDates()) {
+                        continue;
+                    }
                     results = new float[]{0 , 0 , 0, 0};
                     Location.distanceBetween(
                             (double) parking.child("latitude").getValue(),
@@ -240,5 +243,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    public boolean isOverlapDates(){
+        return false;
+    }
 }
