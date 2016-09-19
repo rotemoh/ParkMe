@@ -49,17 +49,7 @@ public class PublishParkingFragment extends Fragment {
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
         costInput = (EditText) rootView.findViewById(R.id.cost_input);
-//
-//        numberpicker = (NumberPicker)rootView.findViewById(R.id.cost_picker);
-//        numberpicker.setMinValue(0);
-//        numberpicker.setMaxValue(100);
 
-//        numberpicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-//            @Override
-//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                //TODO
-//            }
-//        });
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +60,6 @@ public class PublishParkingFragment extends Fragment {
                 eDateIn.setText("");
                 approve.setChecked(false);
                 costInput.setText("");
-//                numberpicker.setValue(0);
             }
         });
 
