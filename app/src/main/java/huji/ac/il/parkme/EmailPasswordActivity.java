@@ -70,8 +70,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-//                updateUI(user)
-                ;
+//                updateUI(user);
             }
         };
     }

@@ -21,6 +21,17 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     private TextView mSelectedTextView;
     private Typeface mSelectedTypeface;
     private MultiCalendarView multiMonth;
+//    String dateString ="2016-10-03";
+//    String[] dateArray = dateString.split("-");
+//
+//    int year = Integer.parseInt(dateArray[0]);
+//    int month = Integer.parseInt(dateArray[1]);
+//    int date = Integer.parseInt(dateArray[2]);
+//
+//    GregorianCalendar gc = new GregorianCalendar(year,month,date);
+//    long timeStamp = gc.getTimeInMillies();
+   //todo: change to the dates of the user
+    private long[] orders, rents;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,13 +49,12 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         multiMonth.setLastValidDay(lastValidDay);
 
         // Create adapter
-        final CustomDayAdapter adapter = new CustomDayAdapter();
+        final CustomDayAdapter adapter = new CustomDayAdapter(orders, rents);
 
         // Set listener and adapter
         multiMonth.setOnDayClickListener(this);
         multiMonth.setDayAdapter(adapter);
         return rootView;
-
     }
     @Override
     public void onDayClick(final long dayInMillis) {
@@ -58,7 +68,6 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             // Remember the selected TextView and it's font
             mSelectedTypeface = day.getTypeface();
             mSelectedTextView = day;
-
             // Show the selected TextView as bold
             day.setTypeface(Typeface.DEFAULT_BOLD);
         }
