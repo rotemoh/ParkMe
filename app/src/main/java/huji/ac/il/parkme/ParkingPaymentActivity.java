@@ -23,7 +23,7 @@ public class ParkingPaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_payment);
-//        Button routBtn = (Button) findViewById(R.id.rout_btn);
+        Button routBtn = (Button) findViewById(R.id.rout_btn);
         Button homeBtn = (Button) findViewById(R.id.home_btn);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("ParkeMe");
@@ -33,14 +33,14 @@ public class ParkingPaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         intent = getIntent();
         address = intent.getStringExtra("address");
-//        routBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent routIntent = new Intent(ParkingPaymentActivity.this, MapsActivity.class);
-//                routIntent.putExtra("address", address);
-//                startActivity(routIntent);
-//            }
-//        });
+        routBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent routIntent = new Intent(ParkingPaymentActivity.this, MapsActivity.class);
+                routIntent.putExtra("address", address);
+                startActivity(routIntent);
+            }
+        });
 
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
