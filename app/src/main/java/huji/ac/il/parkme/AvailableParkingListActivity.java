@@ -105,10 +105,10 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                     i++;
                 }
                 Collections.sort(parkingDistances);
-                System.out.println(parkingDistances.get(0).distance);
-                System.out.println(parkingDistances.get(1).distance);
-                System.out.println(parkingDistances.get(2).distance);
-                System.out.println(parkingDistances.get(3).distance);
+//                System.out.println(parkingDistances.get(0).distance);
+//                System.out.println(parkingDistances.get(1).distance);
+//                System.out.println(parkingDistances.get(2).distance);
+//                System.out.println(parkingDistances.get(3).distance);
             }
 
 

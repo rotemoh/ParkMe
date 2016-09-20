@@ -22,8 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-//import com.google.android.gms.appindexing.Action;
-//import com.google.android.gms.appindexing.AppIndex;
 
 public class EmailPasswordActivity extends BaseActivity implements
         View.OnClickListener {
@@ -41,10 +39,12 @@ public class EmailPasswordActivity extends BaseActivity implements
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Toolbar toolbar;
 
+    public boolean isSignOut;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emailpassword);
+
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mEmailField = (EditText) findViewById(R.id.field_email);
@@ -53,7 +53,7 @@ public class EmailPasswordActivity extends BaseActivity implements
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
         findViewById(R.id.email_create_account_button).setOnClickListener(this);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
+//        findViewById(R.id.sign_out_button).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -68,22 +68,41 @@ public class EmailPasswordActivity extends BaseActivity implements
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
+//                    mAuth = FirebaseAuth.getInstance();
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-//                updateUI(user)
-                ;
+                updateUI(user);
             }
         };
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        if (b != null) {
+            isSignOut = b.getBoolean("signOut");
+        }
+        if (isSignOut){
+            System.out.println("signout!!!!!!!!!!!");
+//            signOut();
+//            mAuth = FirebaseAuth.getInstance();
+            //mAuth.addAuthStateListener(mAuthListener);
+
+//            Intent intentEmailPassword = new Intent(this, EmailPasswordActivity.class);
+//            intentEmailPassword.putExtra("signOut", false);
+//            startActivity(intentEmailPassword);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+//        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
 
@@ -113,10 +132,8 @@ public class EmailPasswordActivity extends BaseActivity implements
                     }
                 });
         UserProfile user = new UserProfile(email, fullName, phone);
-        //mDatabase.child("users").setValue()
         //mDatabase.child("users").setValue(mAuth.getCurrentUser());
         mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).setValue(user);
-//        mDatabase.child("users").child("Parking").setValue("Tel Aviv");
     }
 
     /**
@@ -186,18 +203,18 @@ public class EmailPasswordActivity extends BaseActivity implements
         return valid;
     }
 
-//    private void updateUI(FirebaseUser user) {
-//        hideProgressDialog();
-//        if (user != null) {
-//            findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
-//            findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-////            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
-//        } else {
-//            findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
-//            findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
-////            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
-//        }
-//    }
+    private void updateUI(FirebaseUser user) {
+        hideProgressDialog();
+        if (user != null) {
+            findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
+            findViewById(R.id.email_password_fields).setVisibility(View.GONE);
+//            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
+            findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
+//            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -215,7 +232,7 @@ public class EmailPasswordActivity extends BaseActivity implements
 
 //        } else if (i == R.id.sign_out_button) {
 //            signOut();
-
+//
         }
     }
 
@@ -232,7 +249,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                 createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString(),
                         data.getStringExtra("fullNameF"), data.getStringExtra("phoneF"));
                 Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
-                MainActivity.putExtra("fullName", data.getStringExtra("fullNameF"));
+                //MainActivity.putExtra("fullName", data.getStringExtra("fullNameF"));
                 startActivity(MainActivity);
             }
         }

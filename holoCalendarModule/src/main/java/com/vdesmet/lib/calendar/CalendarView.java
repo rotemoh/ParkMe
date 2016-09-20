@@ -202,7 +202,6 @@ public class CalendarView extends AbstractCalendarView implements View.OnClickLi
             weekLayout.addView(layout);
 
             if(dayOfWeek == lastDayOfWeek) {
-                System.out.println("############" + lastDayOfWeek);
                 // this is the last day in the week/row, add a new row
                 addView(weekLayout);
 
