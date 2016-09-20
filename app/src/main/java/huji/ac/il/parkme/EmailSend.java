@@ -25,17 +25,15 @@ public class EmailSend extends AppCompatActivity {
                 String to = "adiefrat49@gmail.com";
                 String subject = textSubject.getText().toString();
                 String message = textMessage.getText().toString();
-
                 Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+                email.setType("message/rfc822");
                 email.putExtra(Intent.EXTRA_SUBJECT, subject);
                 email.putExtra(Intent.EXTRA_TEXT, message);
-
-                //prompts email client only
-                email.setType("message/rfc822");
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
                 startActivity(Intent.createChooser(email, "Choose an Email client :"));
 
                 Intent homeIntent = new Intent(EmailSend.this, MainActivity.class);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeIntent);
             }
         });

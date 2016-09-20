@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 //                        fullName = dataSnapshot.child(fullName).getValue().toString();
 //                        toolbar.setSubtitle("Hello, " + fullName);
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                       for(DataSnapshot child : dataSnapshot.getChildren()) {
                             if (child.getKey().toString().equals("fullName")) {
                                 fullName = child.getValue().toString();
                                 toolbar.setSubtitle("Hello, " + fullName);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        //toolbar.setSubtitle("Hello, " + fullName);
+        toolbar.setSubtitle("Hello, " + fullName);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
-//                        intentEmailPassword.putExtra("signOut", true);
                         startActivity(intentEmailPassword);
                         break;
                     case R.id.home:

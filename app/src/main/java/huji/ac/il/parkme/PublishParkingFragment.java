@@ -108,32 +108,6 @@ public class PublishParkingFragment extends Fragment {
             }
         });
 
-
-//        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-//                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
-//
-//        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-//                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
-//                .build();
-//        autocompleteFragment.setFilter(typeFilter);
-//
-//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(Place place) {
-//                // TODO: Get info about the selected place.
-////                Log.i(TAG, "Place: " + place.getName());//get place details here
-//                Toast.makeText(getActivity(), "in on place selected",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onError(Status status) {
-//                // TODO: Handle the error.
-//                Toast.makeText(getActivity(), "in on error",
-//                        Toast.LENGTH_SHORT).show();            }
-//        });
-
         return rootView;
     }
 
