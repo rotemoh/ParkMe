@@ -45,13 +45,11 @@ public class MainActivity extends AppCompatActivity {
         MainActivityAuth = FirebaseAuth.getInstance();
         String userId = MainActivityAuth.getCurrentUser().getUid();
 
-        MainActivityDatabase.child("users").child(userId).addListenerForSingleValueEvent(
+        MainActivityDatabase.child("Users").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-//                        fullName = dataSnapshot.child(fullName).getValue().toString();
-//                        toolbar.setSubtitle("Hello, " + fullName);
-                       for(DataSnapshot child : dataSnapshot.getChildren()) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
                             if (child.getKey().toString().equals("fullName")) {
                                 fullName = child.getValue().toString();
                                 toolbar.setSubtitle("Hello, " + fullName);
@@ -65,7 +63,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        toolbar.setSubtitle("Hello, " + fullName);
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        if (b != null) {
+            System.out.println("in bundle");
+            fullName = b.getString("fullName");
+            toolbar.setSubtitle("Hello, " + fullName);
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intentParking);
                         break;
                     case R.id.logout:
+                        MainActivityAuth.signOut();
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
                         startActivity(intentEmailPassword);
                         break;

@@ -14,32 +14,37 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.FirebaseError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class EmailPasswordActivity extends BaseActivity implements
         View.OnClickListener {
 
-    private static final String TAG = "EmailPassword";
-    private final static int REQUEST_CODE_FIRST_LOGIN = 80;
+    public static final String TAG = "EmailPassword";
+    public final static int REQUEST_CODE_FIRST_LOGIN = 80;
 
-    private EditText mEmailField;
-    private EditText mPasswordField;
+    public EditText mEmailField;
+    public EditText mPasswordField;
+    public boolean isUserExist;
 
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
+    public UserProfile userProfile;
+    public DatabaseReference mDatabase;
 
-    private DatabaseReference mDatabase;
+    public FirebaseAuth.AuthStateListener mAuthListener;
+    public Toolbar toolbar;
 
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private Toolbar toolbar;
-
-    public boolean isSignOut;
+    public String newFullName;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +58,12 @@ public class EmailPasswordActivity extends BaseActivity implements
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
         findViewById(R.id.email_create_account_button).setOnClickListener(this);
-//        findViewById(R.id.sign_out_button).setOnClickListener(this);
+        findViewById(R.id.sign_out_button).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        isUserExist = false;
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -68,40 +74,24 @@ public class EmailPasswordActivity extends BaseActivity implements
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
-//                    mAuth = FirebaseAuth.getInstance();
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                updateUI(user);
+//                updateUI(user);
             }
         };
-        Intent intent = getIntent();
-        Bundle b = intent.getExtras();
-        if (b != null) {
-            isSignOut = b.getBoolean("signOut");
-        }
-        if (isSignOut){
-            System.out.println("signout!!!!!!!!!!!");
-//            signOut();
-//            mAuth = FirebaseAuth.getInstance();
-            //mAuth.addAuthStateListener(mAuthListener);
-
-//            Intent intentEmailPassword = new Intent(this, EmailPasswordActivity.class);
-//            intentEmailPassword.putExtra("signOut", false);
-//            startActivity(intentEmailPassword);
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        mAuth.addAuthStateListener(mAuthListener);
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
-//            mAuth.removeAuthStateListener(mAuthListener);
+            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
@@ -131,9 +121,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                         hideProgressDialog();
                     }
                 });
-        UserProfile user = new UserProfile(email, fullName, phone);
-        //mDatabase.child("users").setValue(mAuth.getCurrentUser());
-        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).setValue(user);
+        userProfile = new UserProfile(email, fullName, phone);
     }
 
     /**
@@ -163,6 +151,33 @@ public class EmailPasswordActivity extends BaseActivity implements
                                     Toast.LENGTH_SHORT).show();
 
                         } else {
+                            mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                        if (child.getKey().equals(mAuth.getCurrentUser().getUid())) {
+                                            isUserExist = true;
+                                            newFullName = mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("fullName").toString();
+                                            System.out.println("newFullName in: " + newFullName);
+                                            System.out.println("in true exist");
+                                        }
+                                    }
+                                    if (!isUserExist) {
+                                        System.out.println("in false exist");
+                                        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(userProfile);
+                                        newFullName = userProfile.fullName;
+                                        System.out.println("newFullName in: " + newFullName);
+                                        Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
+
+                                        MainActivity.putExtra("fullName", newFullName.toString());
+                                        startActivity(MainActivity);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
                             Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
                             startActivity(MainActivity);
                         }
@@ -175,10 +190,10 @@ public class EmailPasswordActivity extends BaseActivity implements
         // [END sign_in_with_email]
     }
 
-//    private void signOut() {
-//        mAuth.signOut();
-//        updateUI(null);
-//    }
+    private void signOut() {
+        mAuth.signOut();
+        updateUI(null);
+    }
 
 
     private boolean validateForm() {
@@ -208,11 +223,11 @@ public class EmailPasswordActivity extends BaseActivity implements
         if (user != null) {
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-//            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
-//            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
         }
     }
 
@@ -230,9 +245,8 @@ public class EmailPasswordActivity extends BaseActivity implements
         } else if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
 
-//        } else if (i == R.id.sign_out_button) {
-//            signOut();
-//
+        } else if (i == R.id.sign_out_button) {
+            signOut();
         }
     }
 
@@ -248,9 +262,9 @@ public class EmailPasswordActivity extends BaseActivity implements
                 mPasswordField.setText(data.getStringExtra("passwordF"));
                 createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString(),
                         data.getStringExtra("fullNameF"), data.getStringExtra("phoneF"));
-                Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
+                //Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
                 //MainActivity.putExtra("fullName", data.getStringExtra("fullNameF"));
-                startActivity(MainActivity);
+                //startActivity(MainActivity);
             }
         }
     }
