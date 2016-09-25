@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
-                        intentEmailPassword.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        intentEmailPassword.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intentEmailPassword);
                         break;
                      case R.id.contact_us:

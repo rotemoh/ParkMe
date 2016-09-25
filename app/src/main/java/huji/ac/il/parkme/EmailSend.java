@@ -12,40 +12,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EmailSend extends AppCompatActivity {
-    Button buttonSend;
-    EditText textSubject;
-    EditText textMessage;
+    private Button buttonSend;
+    private EditText textSubject;
+    private EditText textMessage;
     private Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_send);
-        buttonSend = (Button) findViewById(R.id.buttonSend);
-        textSubject = (EditText) findViewById(R.id.editTextSubject);
-        textMessage = (EditText) findViewById(R.id.editTextMessage);
-
-        buttonSend.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String to = "adiefrat49@gmail.com";
-                String subject = textSubject.getText().toString();
-                String message = textMessage.getText().toString();
-                Intent email = new Intent(Intent.ACTION_SEND);
-                email.setType("message/rfc822");
-                email.putExtra(Intent.EXTRA_SUBJECT, subject);
-                email.putExtra(Intent.EXTRA_TEXT, message);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
-                startActivity(Intent.createChooser(email, "Choose an Email client :"));
-
-                Intent homeIntent = new Intent(EmailSend.this, MainActivity.class);
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(homeIntent);
-            }
-        });
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -77,6 +56,7 @@ public class EmailSend extends AppCompatActivity {
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(EmailSend.this, EmailPasswordActivity.class);
+                        intentEmailPassword.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intentEmailPassword);
                         break;
                     case R.id.home:
@@ -89,8 +69,31 @@ public class EmailSend extends AppCompatActivity {
                 return true;
             }
         });
-    }
+        buttonSend = (Button) findViewById(R.id.buttonSend);
+        textSubject = (EditText) findViewById(R.id.editTextSubject);
+        textMessage = (EditText) findViewById(R.id.editTextMessage);
 
+        buttonSend.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String to = "adiefrat49@gmail.com";
+                String subject = textSubject.getText().toString();
+                String message = textMessage.getText().toString();
+
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setType("message/rfc822");
+                email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                email.putExtra(Intent.EXTRA_TEXT, message);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                Toast.makeText(EmailSend.this, "Email sanded successfully",
+                        Toast.LENGTH_SHORT).show();
+                Intent homeIntent = new Intent(EmailSend.this, MainActivity.class);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(homeIntent);
+            }
+        });
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

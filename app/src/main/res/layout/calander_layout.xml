@@ -4,48 +4,12 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal" >
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
-        <com.vdesmet.lib.calendar.MultiCalendarView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/multi_calendar"
-            android:layout_width="350dp"
-            android:layout_height="350dp" />
-        <LinearLayout
-            android:layout_width="290dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/rentpic"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+    <com.vdesmet.lib.calendar.MultiCalendarView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/multi_calendar"
+    android:layout_width="350dp"
+    android:layout_height="350dp" />
 
-                android:text=" My published parking" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="290dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/orderpic"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text=" My ordered parking    " />
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>
+

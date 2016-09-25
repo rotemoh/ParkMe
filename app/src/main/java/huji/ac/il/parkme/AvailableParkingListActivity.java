@@ -32,6 +32,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
     public String address;
     public double addressLat;
     public double addressLng;
+    TextView dest;
 
     Context context = this;
     private Toolbar toolbar;
@@ -76,12 +77,14 @@ public class AvailableParkingListActivity extends AppCompatActivity {
 
         parkingDistances = new ArrayList();
         Intent intent = getIntent();
-        address = intent.getStringExtra("address");
-        TextView editText = (TextView) findViewById(R.id.destination_txt);
-        editText.setText(address);
-
+        Bundle bundle = intent.getExtras();
+        address = bundle.get("address").toString();
+        //TODO: check if good
         addressLat = intent.getDoubleExtra("addressLat", 0);
         addressLng = intent.getDoubleExtra("addressLng", 0);
+
+        dest = (TextView)findViewById(R.id.destination_txt);
+        dest.setText("Available parking for address: " + address);
 
         ValueEventListener parkingListener = new ValueEventListener() {
             @Override
