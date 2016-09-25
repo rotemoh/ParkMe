@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="85dp"
-        android:text="Sign in"
+        android:text="Continue"
         android:theme="@style/Button.Tinted"
         android:layout_below="@+id/re_password_input"
         android:layout_centerHorizontal="true"

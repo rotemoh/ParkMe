@@ -18,8 +18,11 @@ import android.view.MenuItem;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     public TabLayout tabLayout;
@@ -40,29 +43,34 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivityDatabase = FirebaseDatabase.getInstance().getReference();
         MainActivityAuth = FirebaseAuth.getInstance();
-//        String userId = MainActivityAuth.getCurrentUser().getUid();
+        String userId = MainActivityAuth.getCurrentUser().getUid();
 
-//        MainActivityDatabase.child("users").child(userId).addListenerForSingleValueEvent(
-//                new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-////                        fullName = dataSnapshot.child(fullName).getValue().toString();
-////                        toolbar.setSubtitle("Hello, " + fullName);
-//                       for(DataSnapshot child : dataSnapshot.getChildren()) {
-//                            if (child.getKey().toString().equals("fullName")) {
-//                                fullName = child.getValue().toString();
-//                                toolbar.setSubtitle("Hello, " + fullName);
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-////                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-//                    }
-//                });
+        MainActivityDatabase.child("Users").child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            if (child.getKey().toString().equals("fullName")) {
+                                fullName = child.getValue().toString();
+                                toolbar.setSubtitle("Hello, " + fullName);
+                            }
+                        }
+                    }
 
-        toolbar.setSubtitle("Hello, " + fullName);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        if (b != null) {
+            System.out.println("in bundle");
+            fullName = b.getString("fullName");
+            toolbar.setSubtitle("Hello, " + fullName);
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,9 +123,13 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intentParking);
                         break;
                     case R.id.logout:
+                        MainActivityAuth.signOut();
                         Intent intentEmailPassword = new Intent(MainActivity.this, EmailPasswordActivity.class);
-//                        intentEmailPassword.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intentEmailPassword);
+                        break;
+                    case R.id.home:
+                        Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(homeIntent);
                         break;
                      case R.id.contact_us:
                         Intent contactIntent = new Intent(MainActivity.this, EmailSend.class);
