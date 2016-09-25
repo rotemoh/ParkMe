@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/start_txt"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="start date" />
+                    android:text="Start date" />
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/end_date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="end date"/>
+                    android:text="End date"/>
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="start time"
+                    android:text="Start time"
                     android:layout_marginTop="90dp"/>
                 <TimePicker
                     android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView4"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="end time "
+                    android:text="End time "
                     android:layout_marginTop="90dp" />
 
                 <TimePicker
@@ -140,7 +140,7 @@
                     android:id="@+id/cost_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="cost per hour:"
+                    android:text="Cost per hour:"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_below="@+id/address_input"
                     android:layout_alignLeft="@+id/start"
@@ -150,12 +150,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberSigned"
-                    android:ems="10"
-                    android:id="@+id/cost_input" />
+                    android:ems="3"
+                    android:id="@+id/cost_input"
+                    />
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/shekel"/>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/shekel"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="20dp"
+                    android:maxHeight="20dp"
+                      />
             </LinearLayout>
 
             <EditText
@@ -164,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textMultiLine"
-                android:text="comments: "
+                android:text="Comments: "
                 android:layout_below="@+id/publish_end_date_input"
                 android:layout_alignLeft="@+id/textView3"
                 android:layout_alignStart="@+id/textView3"

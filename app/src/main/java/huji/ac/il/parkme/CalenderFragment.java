@@ -21,15 +21,7 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     private TextView mSelectedTextView;
     private Typeface mSelectedTypeface;
     private MultiCalendarView multiMonth;
-//    String dateString ="2016-10-03";
-//    String[] dateArray = dateString.split("-");
-//
-//    int year = Integer.parseInt(dateArray[0]);
-//    int month = Integer.parseInt(dateArray[1]);
-//    int date = Integer.parseInt(dateArray[2]);
-//
-//    GregorianCalendar gc = new GregorianCalendar(year,month,date);
-//    long timeStamp = gc.getTimeInMillies();
+
    //todo: change to the dates of the user
     private long[] orders, rents;
     @Nullable
@@ -38,7 +30,7 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         View rootView = inflater.inflate(R.layout.calander_layout, container, false);
 // Retrieve the CalendarView
         multiMonth = (MultiCalendarView) rootView.findViewById(R.id.multi_calendar);
-
+//SquaredImageView square = new SquaredImageView(rootView, )
 // Set the first valid day
         final Calendar firstValidDay = Calendar.getInstance();
         multiMonth.setFirstValidDay(firstValidDay);

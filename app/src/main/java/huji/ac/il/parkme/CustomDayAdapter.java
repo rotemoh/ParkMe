@@ -11,12 +11,11 @@ import java.util.Calendar;
 public class CustomDayAdapter implements DayAdapter {
     private long[] orders;
     private long[] rents;
-
     private static final int[][] CATEGORY_COLORS = {
             null, null, null,
-            { Color.CYAN },
-            { Color.GREEN },
-            { Color.GREEN, Color.CYAN }
+            {Color.parseColor("#A40D44")},
+            {Color.parseColor("#81007F")},
+            {Color.parseColor("#A40D44"), Color.parseColor("#81007F")}
     };
 
 //    private final Random mRandom;
@@ -26,6 +25,8 @@ public class CustomDayAdapter implements DayAdapter {
 //        mRandom = new Random();
         orders = orders;
         rents = rents;
+        //    Context context = ;
+
         // Get the time in millis of today
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -72,10 +73,11 @@ public class CustomDayAdapter implements DayAdapter {
     public void updateHeaderTextView(final TextView header, final int dayOfWeek) {
         switch(dayOfWeek) {
             case Calendar.SATURDAY:
-                header.setTextColor(Color.RED);
+
+                header.setTextColor(Color.parseColor("#00bfa5"));
                 break;
             default:
-                header.setTextColor(Color.BLUE);
+                header.setTextColor(Color.parseColor("#7a4aaa"));
                 break;
         }
     }

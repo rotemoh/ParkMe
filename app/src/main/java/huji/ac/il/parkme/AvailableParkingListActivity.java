@@ -18,23 +18,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class AvailableParkingListActivity extends AppCompatActivity {
     ListView listView;
     public String address;
     public double addressLat;
     public double addressLng;
+    TextView dest;
 
     public Context context = this;
     private Toolbar toolbar;
@@ -79,9 +77,14 @@ public class AvailableParkingListActivity extends AppCompatActivity {
 
         parkingDistances = new ArrayList();
         Intent intent = getIntent();
-        address = intent.getStringExtra("address");
+        Bundle bundle = intent.getExtras();
+        address = bundle.get("address").toString();
+        //TODO: check if good
         addressLat = intent.getDoubleExtra("addressLat", 0);
         addressLng = intent.getDoubleExtra("addressLng", 0);
+
+        dest = (TextView)findViewById(R.id.destination_txt);
+        dest.setText("Available parking for address: " + address);
 
         ValueEventListener parkingListener = new ValueEventListener() {
             @Override
