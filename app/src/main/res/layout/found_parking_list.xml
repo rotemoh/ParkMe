@@ -10,17 +10,17 @@
         layout="@layout/toolbar_layout"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/destination_txt" />
 
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawerLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Address "
+            android:id="@+id/destination_txt" />
 
            <ListView
                android:layout_width="match_parent"

@@ -46,10 +46,6 @@ public class UpdateParkingActivity extends AppCompatActivity {
                         Intent intentPayment = new Intent(UpdateParkingActivity.this, UpdatePaymentActivity.class);
                         startActivity(intentPayment);
                         break;
-                    case R.id.change_parking:
-                        Intent intentParking = new Intent(UpdateParkingActivity.this, UpdateParkingActivity.class);
-                        startActivity(intentParking);
-                        break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(UpdateParkingActivity.this, EmailPasswordActivity.class);
                         startActivity(intentEmailPassword);

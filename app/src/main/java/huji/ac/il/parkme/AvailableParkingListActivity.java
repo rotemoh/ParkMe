@@ -18,17 +18,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class AvailableParkingListActivity extends AppCompatActivity {
     ListView listView;
@@ -80,6 +77,9 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         parkingDistances = new ArrayList();
         Intent intent = getIntent();
         address = intent.getStringExtra("address");
+        TextView editText = (TextView) findViewById(R.id.destination_txt);
+        editText.setText(address);
+
         addressLat = intent.getDoubleExtra("addressLat", 0);
         addressLng = intent.getDoubleExtra("addressLng", 0);
 

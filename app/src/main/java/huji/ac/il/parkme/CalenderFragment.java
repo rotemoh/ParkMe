@@ -1,17 +1,26 @@
 package huji.ac.il.parkme;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vdesmet.lib.calendar.MultiCalendarView;
 import com.vdesmet.lib.calendar.OnDayClickListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -21,15 +30,9 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     private TextView mSelectedTextView;
     private Typeface mSelectedTypeface;
     private MultiCalendarView multiMonth;
-//    String dateString ="2016-10-03";
-//    String[] dateArray = dateString.split("-");
-//
-//    int year = Integer.parseInt(dateArray[0]);
-//    int month = Integer.parseInt(dateArray[1]);
-//    int date = Integer.parseInt(dateArray[2]);
-//
-//    GregorianCalendar gc = new GregorianCalendar(year,month,date);
-//    long timeStamp = gc.getTimeInMillies();
+    private ListView publishLV, orderedLV;
+    private ArrayAdapter<String> adapter;
+
    //todo: change to the dates of the user
     private long[] orders, rents;
     @Nullable
@@ -71,5 +74,47 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             // Show the selected TextView as bold
             day.setTypeface(Typeface.DEFAULT_BOLD);
         }
+
+        // custom dialog
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.day_dialog);
+//        dialog.setTitle("");
+
+        dialog.show();
+        ArrayList<String> planetList = new ArrayList<String>();
+        planetList.add("hiiiii");
+//        publishLV = (ListView)dialog.findViewById(R.id.published_lv);
+        orderedLV = (ListView)dialog.findViewById(R.id.ordered_lv);
+//        registerForContextMenu(orderedLV);
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.simplerow, R.id.rowTextView, planetList);
+        orderedLV.setAdapter( adapter );
+
+// Then you can create a listener like so:
+        orderedLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                // 1. Instantiate an AlertDialog.Builder with its constructor
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                String dialogTitle = notes.get(position);
+                // 2. Chain together various setter methods to set the dialog characteristics
+//                builder.setTitle("in this date...");
+
+//                if (dialogTitle.startsWith("call") || dialogTitle.startsWith("Call")) {
+                //TODO: get the owner number
+                    final String numberToCall = "0508655309";
+                    builder.setPositiveButton("call owner", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intentCall = new Intent(Intent.ACTION_CALL);
+                            intentCall.setData(Uri.parse("tel:" + numberToCall));
+                            startActivity(intentCall);
+                        }
+                    });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            }
+        });
+
     }
 }
