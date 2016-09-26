@@ -7,22 +7,13 @@
     android:layout_height="400dp"
     android:layout_gravity="center_horizontal">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal|bottom">
-        <!--<Button-->
-            <!--android:layout_width="120dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Call Owner"-->
-            <!--android:id="@+id/call_owner_btn"-->
-            <!--android:theme="@style/Button.Tinted"-->
-            <!--android:layout_below="@+id/map"-->
-            <!--android:layout_alignRight="@+id/map"-->
-            <!--android:layout_alignEnd="@+id/map"-->
-             <!--/>-->
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_gravity="center_horizontal|bottom">-->
+       <!-- -->
+    <!--</LinearLayout>-->
 
     <TextView
         android:layout_width="wrap_content"
