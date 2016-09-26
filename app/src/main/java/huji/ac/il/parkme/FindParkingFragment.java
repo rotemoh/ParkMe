@@ -74,8 +74,8 @@ public class FindParkingFragment extends Fragment{
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                long addToStartDate = TimeUnit.MINUTES.toMillis(startTimePickerF.getMinute()) + TimeUnit.HOURS.toMillis(startTimePickerF.getHour());
-                long addToEndDate = TimeUnit.MINUTES.toMillis(endTimePickerF.getMinute()) + TimeUnit.HOURS.toMillis(endTimePickerF.getHour());
+                long addToStartDate = TimeUnit.MINUTES.toMillis(startTimePickerF.getCurrentMinute()) + TimeUnit.HOURS.toMillis(startTimePickerF.getCurrentHour() + 3);
+                long addToEndDate = TimeUnit.MINUTES.toMillis(endTimePickerF.getCurrentMinute()) + TimeUnit.HOURS.toMillis(endTimePickerF.getCurrentHour() + 3);
 
                 Intent intent = new Intent(getContext(), AvailableParkingListActivity.class);
                 intent.putExtra("address", address.getText().toString());

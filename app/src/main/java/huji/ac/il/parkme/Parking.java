@@ -15,6 +15,8 @@ public class Parking {
     public String ownerID;
     public String cost;
 
+    public Parking(){
+    }
 
     public Parking(String address, double latitude, double longitude, long startDate,
                    long endDate, String ownerID, String cost){
@@ -25,5 +27,33 @@ public class Parking {
         this.endDate = endDate;
         this.ownerID = ownerID;
         this.cost = cost;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public String getCost() {
+        return cost;
     }
 }
