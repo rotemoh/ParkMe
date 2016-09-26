@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,7 +38,7 @@ public class PublishParkingFragment extends Fragment {
     public DatabaseReference PPdatabase;
     public Geocoder geocoder;
     public List<Address> addresses;
-
+    public ArrayList<Long> startDates = new ArrayList<>(), endDates = new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.publish_park_layout, container, false);
         addressIn = (EditText)rootView.findViewById(R.id.address_input);
@@ -80,7 +81,8 @@ public class PublishParkingFragment extends Fragment {
                 try {
                     startDate = dateFormat.parse(startDateStr);
                     endDate = dateFormat.parse(endDateStr);
-
+                    startDates.add(startDate.getTime());
+                    endDates.add(endDate.getTime());
                     //todo-  check (startDate.after(new Date()))
                     if (startDate.after(endDate))
                     {
@@ -105,9 +107,10 @@ public class PublishParkingFragment extends Fragment {
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
+
                 Intent homeIntent = new Intent(getActivity(), MainActivity.class);
-                homeIntent.putExtra("startDateStr", startDateStr);
-                homeIntent.putExtra("endDateStr", endDateStr);
+                homeIntent.putExtra("startDates", startDates);
+                homeIntent.putExtra("endDates", endDates);
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeIntent);
             }

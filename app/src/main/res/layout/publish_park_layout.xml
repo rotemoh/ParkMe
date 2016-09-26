@@ -99,11 +99,11 @@
                 android:layout_alignStart="@+id/linearLayout2"
                 android:id="@+id/linearLayout3">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="98dp"
+                    android:layout_height="59dp"
                     android:id="@+id/textView2"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Start time"
+                    android:text="Start time (per day)"
                     android:layout_marginTop="90dp"/>
                 <TimePicker
                     android:layout_width="wrap_content"
@@ -120,11 +120,11 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/linearLayout4">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/textView4"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="End time "
+                    android:text="End time (per day)"
                     android:layout_marginTop="90dp" />
 
                 <TimePicker

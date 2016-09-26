@@ -16,15 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vdesmet.lib.calendar.MultiCalendarView;
 import com.vdesmet.lib.calendar.OnDayClickListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Adi on 22/08/2016.
@@ -34,6 +31,7 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     private Typeface mSelectedTypeface;
     private MultiCalendarView multiMonth;
     private ListView publishLV, orderedLV;
+    public ArrayList<Long> startDates = new ArrayList<>(), endDates = new ArrayList<>();
     //todo: change to the dates of the user
     private ArrayList<Long> orders = new ArrayList<>(), rents = new ArrayList<>();
     @Nullable
@@ -62,29 +60,37 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         Intent intent = getActivity().getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle != null) {
-            String startDateStr = bundle.get("startDateStr").toString();
-            Date startDate;
-            String endDateStr = bundle.get("endDateStr").toString();
-            Date endDate;
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                startDate = dateFormat.parse(startDateStr);
-                endDate = dateFormat.parse(endDateStr);
-                orders.add(startDate.getTime());
-                orders.add(endDate.getTime());
-                rents.add(startDate.getTime());
-                rents.add(endDate.getTime());
-                //todo-  check (startDate.after(new Date()))
-
-            } catch (Exception e) {
-                Toast.makeText(getActivity(), "Invalid date scheduling",
-                        Toast.LENGTH_SHORT).show();
+            startDates = (ArrayList<Long>)bundle.getSerializable("startDates");
+            endDates = (ArrayList<Long>)bundle.getSerializable("endDates");
+            for (int i = 0; i < startDates.size(); i++){
+                rents.addAll(getDates(startDates.get(i), endDates.get(i)));
             }
         }
         multiMonth.notifyDataSetChanged();
 
         return rootView;
     }
+
+
+    private static ArrayList<Long> getDates(Long startDate, Long endDate)
+    {
+        ArrayList<Long> dates = new ArrayList<Long>();
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTimeInMillis(startDate);
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTimeInMillis(endDate);
+
+        while(!cal1.after(cal2))
+        {
+            dates.add(cal1.getTimeInMillis());
+            cal1.add(Calendar.DATE, 1);
+        }
+        return dates;
+    }
+
+
     @Override
     public void onDayClick(final long dayInMillis) {
         // Reset the previously selected TextView to his previous Typeface
