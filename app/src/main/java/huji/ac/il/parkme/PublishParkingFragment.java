@@ -1,5 +1,6 @@
 package huji.ac.il.parkme;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -104,6 +105,11 @@ public class PublishParkingFragment extends Fragment {
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
+                Intent homeIntent = new Intent(getActivity(), MainActivity.class);
+                homeIntent.putExtra("startDateStr", startDateStr);
+                homeIntent.putExtra("endDateStr", endDateStr);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(homeIntent);
             }
         });
         return rootView;

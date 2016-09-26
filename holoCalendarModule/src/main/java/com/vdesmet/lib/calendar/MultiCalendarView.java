@@ -106,7 +106,7 @@ public class MultiCalendarView extends AbstractCalendarView {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         if(mFirstValidDay != null) {
 
             // If indicator is visible while it shouldn't, or visa versa

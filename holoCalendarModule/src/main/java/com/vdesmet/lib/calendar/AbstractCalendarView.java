@@ -453,7 +453,6 @@ public abstract class AbstractCalendarView extends LinearLayout {
             // Add another day
             daysInRow++;
         }
-
         return daysInRow;
     }
 
