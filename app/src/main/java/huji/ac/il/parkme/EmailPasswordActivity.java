@@ -158,15 +158,11 @@ public class EmailPasswordActivity extends BaseActivity implements
                                         if (child.getKey().equals(mAuth.getCurrentUser().getUid())) {
                                             isUserExist = true;
                                             newFullName = mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("fullName").toString();
-                                            System.out.println("newFullName in: " + newFullName);
-                                            System.out.println("in true exist");
                                         }
                                     }
                                     if (!isUserExist) {
-                                        System.out.println("in false exist");
                                         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(userProfile);
                                         newFullName = userProfile.fullName;
-                                        System.out.println("newFullName in: " + newFullName);
                                         Intent MainActivity = new Intent(EmailPasswordActivity.this, MainActivity.class);
 
                                         MainActivity.putExtra("fullName", newFullName.toString());

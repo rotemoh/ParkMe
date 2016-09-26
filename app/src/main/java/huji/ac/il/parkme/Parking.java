@@ -10,14 +10,14 @@ public class Parking {
     public String address;
     public double latitude;
     public double longitude;
-    public Date startDate;
-    public Date endDate;
+    public long startDate;
+    public long endDate;
     public String ownerID;
     public String cost;
 
 
-    public Parking(String address, double latitude, double longitude, Date startDate,
-                   Date endDate, String ownerID, String cost){
+    public Parking(String address, double latitude, double longitude, long startDate,
+                   long endDate, String ownerID, String cost){
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;

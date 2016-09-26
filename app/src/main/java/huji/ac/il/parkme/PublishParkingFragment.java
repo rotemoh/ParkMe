@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
@@ -36,6 +38,8 @@ public class PublishParkingFragment extends Fragment {
     public DatabaseReference PPdatabase;
     public Geocoder geocoder;
     public List<Address> addresses;
+    public TimePicker startTimePicker;
+    public TimePicker endTimePicker;
 
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.publish_park_layout, container, false);
@@ -48,6 +52,9 @@ public class PublishParkingFragment extends Fragment {
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
         costInput = (EditText) rootView.findViewById(R.id.cost_input);
+        startTimePicker = (TimePicker)rootView.findViewById(R.id.startTimePicker);
+        endTimePicker = (TimePicker)rootView.findViewById(R.id.endTimePicker);
+
 
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +104,13 @@ public class PublishParkingFragment extends Fragment {
 //                String key = PPdatabase.child("Parking").push().getKey();
 //                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
 //                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
+                long addToStartDate = TimeUnit.MINUTES.toMillis(startTimePicker.getCurrentMinute()) + TimeUnit.HOURS.toMillis(startTimePicker.getCurrentHour());
+                long addToEndDate = TimeUnit.MINUTES.toMillis(endTimePicker.getMinute()) + TimeUnit.HOURS.toMillis(endTimePicker.getHour());
+
                 String key = PPdatabase.child("Parking").push().getKey();
                 Parking addParking = new Parking(addressIn.getText().toString(),
-                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), startDate,
-                        endDate,PPauth.getCurrentUser().getUid(), "" + costInput.getText().toString());
+                        addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), startDate.getTime() + addToStartDate,
+                        endDate.getTime() + addToEndDate,PPauth.getCurrentUser().getUid(), "" + costInput.getText().toString());
                 PPdatabase.child("Parking").child(key).setValue(addParking);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
