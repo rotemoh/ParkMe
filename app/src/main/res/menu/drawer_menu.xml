@@ -5,12 +5,12 @@
         <menu>
             <item
                 android:id="@+id/change_parking"
-                android:title="Change parking details"
+                android:title="@string/change_parking_dit"
                 android:icon="@drawable/settings"
                 ></item>
             <item
                 android:id="@+id/change_payment"
-                android:title="Change payment details"
+                android:title="@string/chang_payment_dit"
                 android:icon="@drawable/paidparking"
                 ></item>
 
@@ -18,17 +18,17 @@
     </item>
     <item
         android:id="@+id/home"
-        android:title="Home"
+        android:title="@string/home"
         android:icon="@drawable/home"
         ></item>
     <item
         android:id="@+id/contact_us"
-        android:title="Contact us"
+        android:title="@string/contact_us"
         android:icon="@drawable/phone"
         ></item>
     <item
         android:id="@+id/logout"
-        android:title="Logout"
+        android:title="@string/logout"
         android:icon="@drawable/logout"
         ></item>
 </menu>

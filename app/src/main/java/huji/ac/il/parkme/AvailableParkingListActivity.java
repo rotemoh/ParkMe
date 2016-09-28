@@ -156,10 +156,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                             results);
                     parkingDistances.add(new ParkPair(parking.getKey(), (results[0] / 1000)));
 
-//                    System.out.println("parkingDistances[" + i + "] :  " + parkingDistances.get(i).distance);
-//                    i++;
                 }
-//                System.out.println("parkingDistances size1 " + parkingDistances.size());
 
                 Collections.sort(parkingDistances);
 
@@ -172,10 +169,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 adapter.add(addressesList);
                 adapter.add(disCostList);
                 adapter.notifyDataSetChanged();
-//                System.out.println("addressesList " + addressesList.get(0));
-//                System.out.println("disCostList " + disCostList.get(0));
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

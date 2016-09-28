@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layoutMode="clipBounds"
     android:layout_width="350dp"
     android:layout_height="400dp"
     android:layout_gravity="center_horizontal">
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_gravity="center_horizontal|bottom">-->
-       <!-- -->
-    <!--</LinearLayout>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,7 +20,7 @@
     <Button
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Conform and pay"
+        android:text="@string/conform_and_pay"
         android:id="@+id/continue_btn"
         android:theme="@style/Button.Tinted"
         android:layout_alignTop="@+id/conform_and_pay_btn"

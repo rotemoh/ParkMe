@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class CustomAdapter extends FragmentPagerAdapter {
-        private String fragments[] = {"My calender", "Add park", "Find park"};
+        private String fragments[] = {getResources().getString(R.string.my_calender), getResources().getString(R.string.add_park), getResources().getString(R.string.find_park)};
         public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
             super(supportFragmentManager);
         }

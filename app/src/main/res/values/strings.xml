@@ -27,5 +27,34 @@
     <string name="title_activity_drawer" translatable="false">DrawerActivity</string>
     <string name="title_activity_parking_payment" translatable="false">ParkingPaymentActivity</string>
     <string name="title_activity_maps1" translatable="false">Map</string>
+    <string name="paypal_username">Paypal username</string>
+    <string name="pay_and_park">pay and go park</string>
+    <string name="pay_and_home">pay and go to home</string>
+    <string name="paypal_password">Password</string>
+    <string name="coming_soon">Coming soon...</string>
+    <string name="parking_address">Parking address:</string>
+    <string name="when_to_rent">When to rent it?</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="start_time">Start time (per day)</string>
+    <string name="end_time">End time (per day)</string>
+    <string name="cost">Cost per hour:</string>
+    <string name="comments">Comments:</string>
+    <string name="i_approve_owner">I approve that the parking is in my property</string>
+    <string name="update">Update</string>
+    <string name="reset">Reset</string>
+    <string name="conform_and_pay">Conform and pay</string>
+    <string name="change_parking_dit">Change parking details</string>
+    <string name="chang_payment_dit">Change payment details</string>
+    <string name="home">Home</string>
+    <string name="contact_us">Contact us</string>
+    <string name="logout">Logout</string>
+    <string name="my_calender">My calender</string>
+    <string name="add_park">Add park</string>
+    <string name="find_park">Find park</string>
+    <string name="continue_next">Continue</string>
+    <string name="where_to_search">Where to search?</string>
+    <string name="by_what">By address or by location</string>
+    <string name="i_commit">I commit to pay a fine of 150 NIS in case that I will leave the parking late.</string>
 
 </resources>

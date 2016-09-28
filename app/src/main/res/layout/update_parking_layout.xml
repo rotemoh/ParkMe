@@ -65,7 +65,7 @@
             android:id="@+id/textView"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:hint="Coming soon..."/>
+            android:hint="@string/coming_soon"/>
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="250dp"
