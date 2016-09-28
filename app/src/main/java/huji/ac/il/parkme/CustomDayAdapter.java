@@ -35,31 +35,27 @@ public class CustomDayAdapter implements DayAdapter {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
+
         mToday = calendar.getTimeInMillis();
+        System.out.println();
     }
 
     @Override
     public int[] getCategoryColors(final long dayInMillis) {
-        // Fill the category colors with random int arrays.
-//        final int index = mRandom.nextInt(CATEGORY_COLORS.length);
-//        Boolean inOrders = Arrays.asList(orders).contains(dayInMillis),
-//                inRents = Arrays.asList(rents).contains(dayInMillis);
-        // Fill the category colors with random int arrays.
-//        final int index = mRandom.nextInt(CATEGORY_COLORS.length);
-//        return CATEGORY_COLORS[index];
-//        rent.add(10000998442L);
-//        order.add(10000998441L);
-//        order.add(dayInMillis);
-        if(rent != null) {
+
+        if(rent.size() != 0) {
+//            System.out.println("in rent");
+//            System.out.println("rent " + rent.get(0));
+//            System.out.println("date " + (new Date(dayInMillis).toString()));
+//            System.out.println("date rent " + (new Date(rent.get(0)).toString()));
+//            System.out.println("dayInMillis " + dayInMillis);
+//            System.out.println(rent.contains(dayInMillis));
             inRents = rent.contains(dayInMillis);
         }
-        if(order != null){
+        if(order.size() != 0){
             inOrders = order.contains(dayInMillis);
         }
 
-        //        System.out.println("dayInMillis " + dayInMillis);
-//        System.out.println("inOrders " + inOrders);
-//        System.out.println("inRents" + inRents);
         if (inOrders && inRents) {
             return CATEGORY_COLORS[3];
         } else if (inOrders) {
