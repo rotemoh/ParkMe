@@ -10,12 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Adi on 21/08/2016.
@@ -24,6 +29,9 @@ public class FindParkingFragment extends Fragment{
     public EditText addressIn, sDateIn, eDateIn;
     public List<Address> addresses;
     public Geocoder geocoder;
+    public CheckBox commit;
+    public TimePicker startTimePickerF;
+    public TimePicker endTimePickerF;
 
     @Nullable
     @Override
@@ -33,6 +41,9 @@ public class FindParkingFragment extends Fragment{
         sDateIn = (EditText)rootView.findViewById(R.id.publish_start_date_input);
         eDateIn = (EditText)rootView.findViewById(R.id.publish_end_date_input);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
+        commit = (CheckBox)rootView.findViewById(R.id.checkBox);
+        startTimePickerF = (TimePicker)rootView.findViewById(R.id.startTimePickerF);
+        endTimePickerF = (TimePicker)rootView.findViewById(R.id.endTimePickerF);
 
         Button continueBtn = (Button) rootView.findViewById(R.id.continue_btn);
 
@@ -44,10 +55,34 @@ public class FindParkingFragment extends Fragment{
                     return;
                 }
 
+                String startDateStr = sDateIn.getText().toString();
+                Date startDate;
+                String endDateStr = eDateIn.getText().toString();
+                Date endDate;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    startDate = dateFormat.parse(startDateStr);
+                    endDate = dateFormat.parse(endDateStr);
+
+                    //todo-  check (startDate.after(new Date()))
+                    if (startDate.after(endDate))
+                    {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Invalid date scheduling",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long addToStartDate = TimeUnit.MINUTES.toMillis(startTimePickerF.getCurrentMinute()) + TimeUnit.HOURS.toMillis(startTimePickerF.getCurrentHour() + 3);
+                long addToEndDate = TimeUnit.MINUTES.toMillis(endTimePickerF.getCurrentMinute()) + TimeUnit.HOURS.toMillis(endTimePickerF.getCurrentHour() + 3);
+
                 Intent intent = new Intent(getContext(), AvailableParkingListActivity.class);
                 intent.putExtra("address", address.getText().toString());
                 intent.putExtra("addressLat", addresses.get(0).getLatitude());
                 intent.putExtra("addressLng", addresses.get(0).getLongitude());
+                intent.putExtra("startDateF", startDate.getTime() + addToStartDate);
+                intent.putExtra("endDateF", endDate.getTime() + addToEndDate);
                 startActivity(intent);
             }
         });
@@ -82,6 +117,13 @@ public class FindParkingFragment extends Fragment{
             valid = false;
         } else {
             eDateIn.setError(null);
+        }
+
+        if (!commit.isChecked()) {
+            commit.setError("Required.");
+            valid = false;
+        } else {
+            commit.setError(null);
         }
 
         //check if address is legal

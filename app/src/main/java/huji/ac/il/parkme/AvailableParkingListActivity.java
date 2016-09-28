@@ -26,12 +26,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Objects;
 
 public class AvailableParkingListActivity extends AppCompatActivity {
     ListView listView;
     public String address;
     public double addressLat;
     public double addressLng;
+    public long thisStartDate;
+    public long thisEndDate;
+    public ArrayList<String> addressesList;
+    public ArrayList<String> disCostList;
     TextView dest;
 
     public Context context = this;
@@ -82,6 +88,19 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         //TODO: check if good
         addressLat = intent.getDoubleExtra("addressLat", 0);
         addressLng = intent.getDoubleExtra("addressLng", 0);
+//        thisStartDate = bundle.getLong("startDateF", 0);
+//        thisStartDate = bundle.getLong("startDateF", 0);
+//        thisStartDate = (Long)intent.getSerializableExtra("startDateF");
+//        thisEndDate = (Long)intent.getSerializableExtra("endDateF");
+
+//        thisEndDate = bundle.getLong("endDateF", 0);
+        thisStartDate = intent.getLongExtra("startDateF", 0);
+        thisEndDate = intent.getLongExtra(("endDateF"), 0);
+//        System.out.println("thisStartDate type " + Objects.thisStartDate);
+        System.out.println("thisStartDate class" + ((Object)thisStartDate).getClass());
+
+        addressesList = new ArrayList<>();
+        disCostList = new ArrayList<>();
 
         dest = (TextView)findViewById(R.id.destination_txt);
         dest.setText("Available parking for address: " + address);
@@ -91,27 +110,46 @@ public class AvailableParkingListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot parkingSnapshot) {
                 int i = 0;
                 for(DataSnapshot parking : parkingSnapshot.getChildren()) {
-                    if (!isOverlapDates()) {
+                    Parking parkFromDB = parking.getValue(Parking.class);
+                    if (!(thisStartDate <= parkFromDB.getEndDate() &&
+                            thisEndDate >= parkFromDB.getStartDate())){
                         continue;
                     }
+                    //******** 1 ********
+                    //(StartA <= EndB) and (EndA >= StartB)
+//                    if (!(thisStartDate <=  Long.parseLong(parking.child("endDate").getValue().toString())) &&
+//                            (thisEndDate >= Long.parseLong(parking.child("startDate").getValue().toString()))) {
+//                        continue;
+//                    }
                     results = new float[]{0 , 0 , 0, 0};
+
+                    //******** 2 ********
                     Location.distanceBetween(
                             (double) parking.child("latitude").getValue(),
                             (double) parking.child("longitude").getValue(),
                             addressLat,
                             addressLng,
                             results);
-                    parkingDistances.add(new ParkPair(parking.getKey(), results[0] / 1000))
-                    ;
+                    parkingDistances.add(new ParkPair(parking.getKey(), results[0] / 1000));
 
                     System.out.println("parkingDistances[" + i + "] :  " + parkingDistances.get(i).distance);
                     i++;
                 }
                 Collections.sort(parkingDistances);
-//                System.out.println(parkingDistances.get(0).distance);
-//                System.out.println(parkingDistances.get(1).distance);
-//                System.out.println(parkingDistances.get(2).distance);
-//                System.out.println(parkingDistances.get(3).distance);
+                System.out.println(parkingDistances.get(0).distance);
+                System.out.println(parkingDistances.get(1).distance);
+
+                for (ParkPair relevantParkPair : parkingDistances) {
+                    Parking addPark = parkingSnapshot.child(relevantParkPair.parkId).getValue(Parking.class);
+                    addressesList.add(addPark.address);
+                    disCostList.add(relevantParkPair.distance + " , " + addPark.cost);
+                }
+                System.out.println("addressesList " + addressesList.get(0));
+                System.out.println("disCostList " + disCostList.get(0));
+
+                System.out.println("addressesList " + addressesList.get(1));
+                System.out.println("disCostList " + disCostList.get(1));
+
             }
 
 
@@ -244,9 +282,5 @@ public class AvailableParkingListActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public boolean isOverlapDates(){
-        return false;
     }
 }

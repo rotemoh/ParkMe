@@ -14,7 +14,6 @@ public class UserProfile {
     public String email;
     public String fullName;
     public String phone;
-    public Calendar calendar;
     public ArrayList myOrderedParking;
     public String myPublicParking;
 
