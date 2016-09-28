@@ -110,12 +110,20 @@ public class AvailableParkingListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot parkingSnapshot) {
                 int i = 0;
                 for(DataSnapshot parking : parkingSnapshot.getChildren()) {
-                    //(StartA <= EndB) and (EndA >= StartB)
-                    if (!(thisStartDate <=  parking.child("endDate").getValue(Long.class)) &&
-                            (thisEndDate >= Long.parseLong(parking.child("startDate").getValue().toString()))) {
+                    Parking parkFromDB = parking.getValue(Parking.class);
+                    if (!(thisStartDate <= parkFromDB.getEndDate() &&
+                            thisEndDate >= parkFromDB.getStartDate())){
                         continue;
                     }
+                    //******** 1 ********
+                    //(StartA <= EndB) and (EndA >= StartB)
+//                    if (!(thisStartDate <=  Long.parseLong(parking.child("endDate").getValue().toString())) &&
+//                            (thisEndDate >= Long.parseLong(parking.child("startDate").getValue().toString()))) {
+//                        continue;
+//                    }
                     results = new float[]{0 , 0 , 0, 0};
+
+                    //******** 2 ********
                     Location.distanceBetween(
                             (double) parking.child("latitude").getValue(),
                             (double) parking.child("longitude").getValue(),
