@@ -26,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.Objects;
 
 public class AvailableParkingListActivity extends AppCompatActivity {
     ListView listView;
@@ -36,8 +34,8 @@ public class AvailableParkingListActivity extends AppCompatActivity {
     public double addressLng;
     public long thisStartDate;
     public long thisEndDate;
-    public ArrayList<String> addressesList;
-    public ArrayList<String> disCostList;
+    public ArrayList<String> addressesList = new ArrayList<>();
+    public ArrayList<String> disCostList = new ArrayList<>();
     TextView dest;
 
     public Context context = this;
@@ -74,6 +72,38 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.found_parking_list);
         listView = (ListView) findViewById(R.id.listViewParking);
+
+        // Define a new Adapter:
+        //Context, Layout for the row, ID of the TextView to which
+        // the data is written and the Array of data.
+        final ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_2, android.R.id.text1, addressesList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(addressesList.get(position));
+                text2.setText(disCostList.get(position));
+                return view;
+            }
+        };
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
+
+        // ListView Item Click Listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // ListView Clicked item value
+                ArrayList addressesAL = (ArrayList) listView.getItemAtPosition(0);
+                String addressFromArr = (String)addressesAL.get(position);
+                Intent intent = new Intent(AvailableParkingListActivity.this, ParkingInfoActivity.class);
+                intent.putExtra("address", addressFromArr);
+                startActivity(intent);
+            }
+        });
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle("ParkeMe");
         setSupportActionBar(toolbar);
@@ -88,16 +118,8 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         //TODO: check if good
         addressLat = intent.getDoubleExtra("addressLat", 0);
         addressLng = intent.getDoubleExtra("addressLng", 0);
-//        thisStartDate = bundle.getLong("startDateF", 0);
-//        thisStartDate = bundle.getLong("startDateF", 0);
-//        thisStartDate = (Long)intent.getSerializableExtra("startDateF");
-//        thisEndDate = (Long)intent.getSerializableExtra("endDateF");
-
-//        thisEndDate = bundle.getLong("endDateF", 0);
         thisStartDate = intent.getLongExtra("startDateF", 0);
         thisEndDate = intent.getLongExtra(("endDateF"), 0);
-//        System.out.println("thisStartDate type " + Objects.thisStartDate);
-        System.out.println("thisStartDate class" + ((Object)thisStartDate).getClass());
 
         addressesList = new ArrayList<>();
         disCostList = new ArrayList<>();
@@ -108,20 +130,22 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         ValueEventListener parkingListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot parkingSnapshot) {
-                int i = 0;
-                for(DataSnapshot parking : parkingSnapshot.getChildren()) {
+//                int i = 0;
+                for (DataSnapshot parking : parkingSnapshot.getChildren()) {
                     Parking parkFromDB = parking.getValue(Parking.class);
+
                     if (!(thisStartDate <= parkFromDB.getEndDate() &&
-                            thisEndDate >= parkFromDB.getStartDate())){
+                            thisEndDate >= parkFromDB.getStartDate())) {
                         continue;
                     }
+
                     //******** 1 ********
                     //(StartA <= EndB) and (EndA >= StartB)
 //                    if (!(thisStartDate <=  Long.parseLong(parking.child("endDate").getValue().toString())) &&
 //                            (thisEndDate >= Long.parseLong(parking.child("startDate").getValue().toString()))) {
 //                        continue;
 //                    }
-                    results = new float[]{0 , 0 , 0, 0};
+                    results = new float[]{0, 0, 0, 0};
 
                     //******** 2 ********
                     Location.distanceBetween(
@@ -130,26 +154,26 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                             addressLat,
                             addressLng,
                             results);
-                    parkingDistances.add(new ParkPair(parking.getKey(), results[0] / 1000));
+                    parkingDistances.add(new ParkPair(parking.getKey(), (results[0] / 1000)));
 
-                    System.out.println("parkingDistances[" + i + "] :  " + parkingDistances.get(i).distance);
-                    i++;
+//                    System.out.println("parkingDistances[" + i + "] :  " + parkingDistances.get(i).distance);
+//                    i++;
                 }
+//                System.out.println("parkingDistances size1 " + parkingDistances.size());
+
                 Collections.sort(parkingDistances);
-                System.out.println(parkingDistances.get(0).distance);
-                System.out.println(parkingDistances.get(1).distance);
 
                 for (ParkPair relevantParkPair : parkingDistances) {
                     Parking addPark = parkingSnapshot.child(relevantParkPair.parkId).getValue(Parking.class);
                     addressesList.add(addPark.address);
                     disCostList.add(relevantParkPair.distance + " , " + addPark.cost);
                 }
-                System.out.println("addressesList " + addressesList.get(0));
-                System.out.println("disCostList " + disCostList.get(0));
-
-                System.out.println("addressesList " + addressesList.get(1));
-                System.out.println("disCostList " + disCostList.get(1));
-
+                System.out.println("addressesL " + addressesList.size());
+                adapter.add(addressesList);
+                adapter.add(disCostList);
+                adapter.notifyDataSetChanged();
+//                System.out.println("addressesList " + addressesList.get(0));
+//                System.out.println("disCostList " + disCostList.get(0));
             }
 
 
@@ -161,59 +185,6 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         };
         availableParkingDatabase.child("Parking").addValueEventListener(parkingListener);
 
-
-        // Defined Array values to show in ListView
-        //TODO: change to the addresses in the area. will get it from the DB.
-        final String[] addresses = new String[] {"Android List View",
-                "Gilboa 94 Alfei Menashe",
-                "hi",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"};
-        final String[] info = new String[] {"dis 1, cost 1",
-                "address 2, cost 2",
-                "address 3, cost 3",
-                "address 4, cost 4",
-                "address 5, cost 5",
-                "address 6, cost 6",
-                "address 7, cost 7",
-                "address 8, cost 8"};
-
-
-        // Define a new Adapter:
-        //Context, Layout for the row, ID of the TextView to which
-        // the data is written and the Array of data.
-        ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_2, android.R.id.text1, addresses) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-
-                text1.setText(addresses[position]);
-                text2.setText(info[position]);
-                return view;
-            }
-        };
-        // Assign adapter to ListView
-        listView.setAdapter(adapter);
-
-        // ListView Item Click Listener
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // ListView Clicked item value
-                String address = (String) listView.getItemAtPosition(position);
-
-                Intent intent = new Intent(AvailableParkingListActivity.this, ParkingInfoActivity.class);
-//                Intent intent = new Intent(AvailableParkingListActivity.this, ParkingPaymentActivity.class);
-                intent.putExtra("address", address);
-                startActivityForResult(intent,1);//TODO: check if need result
-            }
-        });
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.drawer_open, R.string.drawer_close);
@@ -257,8 +228,6 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
     @Override
