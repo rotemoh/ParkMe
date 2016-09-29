@@ -108,7 +108,7 @@
                 <TimePicker
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/startTimePicker"
+                    android:id="@+id/startTimePickerP"
                     android:timePickerMode="spinner" />
 
             </LinearLayout>
@@ -130,7 +130,7 @@
                 <TimePicker
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/endTimePicker"
+                    android:id="@+id/endTimePickerP"
                     android:timePickerMode="spinner" />
             </LinearLayout>
             <LinearLayout

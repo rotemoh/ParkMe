@@ -44,7 +44,8 @@ public class FindParkingFragment extends Fragment{
         commit = (CheckBox)rootView.findViewById(R.id.checkBox);
         startTimePickerF = (TimePicker)rootView.findViewById(R.id.startTimePickerF);
         endTimePickerF = (TimePicker)rootView.findViewById(R.id.endTimePickerF);
-
+        startTimePickerF.setIs24HourView(true);
+        endTimePickerF.setIs24HourView(true);
         Button continueBtn = (Button) rootView.findViewById(R.id.continue_btn);
 
         final EditText address = (EditText)rootView.findViewById(R.id.by_address_input);
@@ -104,7 +105,7 @@ public class FindParkingFragment extends Fragment{
         boolean valid = true;
         String startDateStr = sDateIn.getText().toString();
         String endDateStr = eDateIn.getText().toString();
-        
+
         if (startDateStr.equals("") || !isValidDate(startDateStr)) {
             sDateIn.setError("Incorrect or missing date");
             valid = false;
@@ -141,5 +142,5 @@ public class FindParkingFragment extends Fragment{
         }
         return valid;
     }
-    
+
 }
