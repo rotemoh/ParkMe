@@ -80,41 +80,24 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         multiMonth.setOnDayClickListener(this);
         multiMonth.setDayAdapter(adapter);
 
-        //Query recentPostsQuery = CalFragDatabase.child("Parking").equalTo()
-//        ValueEventListener listener = new ValueEventListener() {
+//        ValueEventListener userListener = new ValueEventListener() {
 //            @Override
-//            public void onDataChange(DataSnapshot Snapshot) {
-//                String userId = CalFragAuth.getCurrentUser().getUid();
-//
+//            public void onDataChange(DataSnapshot userPublicParkingSnapshot) {
+//                for (DataSnapshot parking : userPublicParkingSnapshot.getChildren()) {
+//                    final String myParkID = parking.getValue().toString();
+//                    CalFragDatabase.child("Parking").child(myParkID);
+//                    myParksId.add(myParkID);
+//                }
 //            }
 //
 //            @Override
 //            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                // ...
 //            }
 //        };
-//        CalFragDatabase.addValueEventListener(listener);
-
-        ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot userPublicParkingSnapshot) {
-                for (DataSnapshot parking : userPublicParkingSnapshot.getChildren()) {
-                    final String myParkID = parking.getValue().toString();
-                    CalFragDatabase.child("Parking").child(myParkID);
-                    System.out.println("hi1!!!!!!! " + myParkID);
-                    myParksId.add(myParkID);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                // ...
-            }
-        };
-        CalFragDatabase.child("Users").child(CalFragAuth.getCurrentUser().getUid()).
-                child("myPublicParking").addValueEventListener(userListener);
+//        CalFragDatabase.child("Users").child(CalFragAuth.getCurrentUser().getUid()).
+//                child("myPublicParking").addValueEventListener(userListener);
 
 
         ValueEventListener parkingListener = new ValueEventListener() {
@@ -128,6 +111,10 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
                         endDates.add(parkFromDB.getEndDate());
                     }
                 }
+                for (int i = 0; i < startDates.size(); i++) {
+                    rents.addAll(getDates(startDates.get(i), endDates.get(i)));
+                }
+                multiMonth.notifyDataSetChanged();
             }
 
             @Override
@@ -136,12 +123,12 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         };
         CalFragDatabase.child("Parking").addListenerForSingleValueEvent(parkingListener);
 
-
-        for (int i = 0; i < startDates.size(); i++) {
-            System.out.println("hi3 " + startDates.get(i) + "  :  " + endDates.get(i));
-            rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-        }
-        multiMonth.notifyDataSetChanged();
+//
+//        for (int i = 0; i < startDates.size(); i++) {
+//            System.out.println("hi3 " + startDates.get(i) + "  :  " + endDates.get(i));
+//            rents.addAll(getDates(startDates.get(i), endDates.get(i)));
+//        }
+//        multiMonth.notifyDataSetChanged();
 //        Intent intent = getActivity().getIntent();
 //        Bundle bundle = intent.getExtras();
 //        if(bundle != null) {
