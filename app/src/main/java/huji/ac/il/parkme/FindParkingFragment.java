@@ -129,10 +129,13 @@ public class FindParkingFragment extends Fragment{
         //check if address is legal
         try {
             addresses = geocoder.getFromLocationName(addressIn.getText().toString(), 1);
+            System.out.println("getFromLocationName = " + geocoder.getFromLocationName(addressIn.getText().toString(), 1) );
+            System.out.println("getFromLocationName size = " + geocoder.getFromLocationName(addressIn.getText().toString(), 1).size() );
             if (addresses.size() < 1) {
                 throw new Exception();
             }
         } catch (Exception e) {
+            e.printStackTrace(System.out);
             addressIn.setError("Illegal address");
             valid = false;
         }
