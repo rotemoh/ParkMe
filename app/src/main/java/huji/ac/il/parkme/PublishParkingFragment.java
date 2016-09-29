@@ -82,8 +82,8 @@ public class PublishParkingFragment extends Fragment {
                 try {
                     startDate = dateFormat.parse(startDateStr);
                     endDate = dateFormat.parse(endDateStr);
-                    startDates.add(startDate.getTime());
-                          endDates.add(endDate.getTime());
+//                    startDates.add(startDate.getTime());
+//                          endDates.add(endDate.getTime());
                     //todo-  check (startDate.after(new Date()))
                     if (startDate.after(endDate))
                     {
