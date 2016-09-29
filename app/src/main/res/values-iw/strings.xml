@@ -6,7 +6,6 @@
     <string name="action_settings">הגדרות</string>
     <string name="auth_failed">אימות נכשל</string>
     <string name="create_account">צור חשבון</string>
-    <string name="emailpassword_status_fmt"></string>
     <string name="hint_password">סיסמא</string>
     <string name="hint_user_id">שם משתמש</string>
     <string name="loading">טוען...</string>
@@ -42,4 +41,5 @@
     <string name="where_to_search">היכן לחפש?</string>
     <string name="continue_next">המשך</string>
     <string name="by_what">לפי כתובת או מיקום מרכזי</string>
+    <string name="i_commit">במידה ואצא מהחניה באיחור אני מתחייב/ת לשלם קנס כספי בשווי 150 ש"ח.</string>
 </resources>

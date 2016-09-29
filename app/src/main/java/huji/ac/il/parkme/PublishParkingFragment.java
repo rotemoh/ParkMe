@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +40,8 @@ public class PublishParkingFragment extends Fragment {
     public Geocoder geocoder;
     public List<Address> addresses;
     public ArrayList<Long> startDates = new ArrayList<>(), endDates = new ArrayList<>();
+    public TimePicker startTimePickerP;
+    public TimePicker endTimePickerP;
 
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.publish_park_layout, container, false);
@@ -51,6 +54,10 @@ public class PublishParkingFragment extends Fragment {
         approve = (CheckBox)rootView.findViewById(R.id.approve_check);
         geocoder = new Geocoder(container.getContext(), Locale.getDefault());
         costInput = (EditText) rootView.findViewById(R.id.cost_input);
+        startTimePickerP = (TimePicker)rootView.findViewById(R.id.startTimePickerP);
+        endTimePickerP = (TimePicker)rootView.findViewById(R.id.endTimePickerP);
+        startTimePickerP.setIs24HourView(true);
+        endTimePickerP.setIs24HourView(true);
 
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
