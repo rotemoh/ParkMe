@@ -33,6 +33,7 @@ public class ParkingInfoActivity extends AppCompatActivity implements OnMapReady
 
         Intent intent = getIntent();
         address = intent.getStringExtra("address");
+        System.out.println("address is : " + address);
         TextView editText = (TextView) findViewById(R.id.address_txt);
         editText.setText(address);
 
