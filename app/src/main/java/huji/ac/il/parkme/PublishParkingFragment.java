@@ -106,11 +106,12 @@ public class PublishParkingFragment extends Fragment {
                         addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), startDate.getTime(),
                         endDate.getTime(),PPauth.getCurrentUser().getUid(), "" + costInput.getText().toString());
                 PPdatabase.child("Parking").child(key).setValue(addParking);
+                PPdatabase.child("Users").child(PPauth.getCurrentUser().getUid()).child("myPublicParking").push().setValue(key);
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
                 Intent homeIntent = new Intent(getActivity(), MainActivity.class);
-                homeIntent.putExtra("startDates", startDates);
-                                homeIntent.putExtra("endDates", endDates);
+//                homeIntent.putExtra("startDates", startDates);
+//                                homeIntent.putExtra("endDates", endDates);
 
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeIntent);

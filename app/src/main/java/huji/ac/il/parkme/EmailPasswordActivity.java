@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class EmailPasswordActivity extends BaseActivity implements
         View.OnClickListener {
@@ -121,7 +123,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                         hideProgressDialog();
                     }
                 });
-        userProfile = new UserProfile(email, fullName, phone);
+        userProfile = new UserProfile(email, fullName, phone, new ArrayList(), new ArrayList());
     }
 
     /**

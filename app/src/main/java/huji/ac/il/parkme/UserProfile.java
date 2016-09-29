@@ -15,15 +15,46 @@ public class UserProfile {
     public String fullName;
     public String phone;
     public ArrayList myOrderedParking;
-    public String myPublicParking;
+    public ArrayList myPublicParking;
 
     public UserProfile() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public UserProfile(String email, String fullName, String phone) {
+    public UserProfile(String email, String fullName, String phone,
+                       ArrayList myOrderedParking, ArrayList myPublicParking) {
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
+        this.myOrderedParking = myOrderedParking;
+        this.myPublicParking = myPublicParking;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getFullName() {
+        return this.fullName;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public ArrayList getMyOrderedParking() {
+        return myOrderedParking;
+    }
+
+    public ArrayList getMyPublicParking() {
+        return myPublicParking;
+    }
+
+    public void setMyOrderedParking(String addParkingID) {
+        myOrderedParking.add(addParkingID);
+    }
+
+    public void setMyPublicParking(String addParkingID) {
+        myPublicParking.add(addParkingID);
     }
 }

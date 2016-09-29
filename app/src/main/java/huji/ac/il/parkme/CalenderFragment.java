@@ -17,11 +17,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vdesmet.lib.calendar.MultiCalendarView;
 import com.vdesmet.lib.calendar.OnDayClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
 /**
  * Created by Adi on 22/08/2016.
@@ -34,6 +39,9 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     public ArrayList<Long> startDates = new ArrayList<>(), endDates = new ArrayList<>();
     //todo: change to the dates of the user
     private ArrayList<Long> orders = new ArrayList<>(), rents = new ArrayList<>();
+
+    public FirebaseAuth CalFragAuth;
+    public DatabaseReference CalFragDatabase;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +51,9 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         // Set the first valid day
         final Calendar firstValidDay = Calendar.getInstance();
         multiMonth.setFirstValidDay(firstValidDay);
+
+        CalFragDatabase = FirebaseDatabase.getInstance().getReference();
+        CalFragAuth = getInstance();
 
         // Set the last valid day
         final Calendar lastValidDay = Calendar.getInstance();
@@ -57,15 +68,16 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         multiMonth.setOnDayClickListener(this);
         multiMonth.setDayAdapter(adapter);
 
-        Intent intent = getActivity().getIntent();
-        Bundle bundle = intent.getExtras();
-        if(bundle != null) {
-            startDates = (ArrayList<Long>)bundle.getSerializable("startDates");
-            endDates = (ArrayList<Long>)bundle.getSerializable("endDates");
-            for (int i = 0; i < startDates.size(); i++){
-                rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-            }
-        }
+
+//        Intent intent = getActivity().getIntent();
+//        Bundle bundle = intent.getExtras();
+//        if(bundle != null) {
+//            startDates = (ArrayList<Long>)bundle.getSerializable("startDates");
+//            endDates = (ArrayList<Long>)bundle.getSerializable("endDates");
+//            for (int i = 0; i < startDates.size(); i++){
+//                rents.addAll(getDates(startDates.get(i), endDates.get(i)));
+//            }
+//        }
         multiMonth.notifyDataSetChanged();
 
         return rootView;
