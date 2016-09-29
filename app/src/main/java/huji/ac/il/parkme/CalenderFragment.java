@@ -57,15 +57,15 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         multiMonth.setOnDayClickListener(this);
         multiMonth.setDayAdapter(adapter);
 
-        Intent intent = getActivity().getIntent();
-        Bundle bundle = intent.getExtras();
-        if(bundle != null) {
-            startDates = (ArrayList<Long>)bundle.getSerializable("startDates");
-            endDates = (ArrayList<Long>)bundle.getSerializable("endDates");
-            for (int i = 0; i < startDates.size(); i++){
-                rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-            }
-        }
+//        Intent intent = getActivity().getIntent();
+//        Bundle bundle = intent.getExtras();
+//        if(bundle != null) {
+//            startDates = (ArrayList<Long>)bundle.getSerializable("startDates");
+//            endDates = (ArrayList<Long>)bundle.getSerializable("endDates");
+//            for (int i = 0; i < startDates.size(); i++){
+//                rents.addAll(getDates(startDates.get(i), endDates.get(i)));
+//            }
+//        }
         multiMonth.notifyDataSetChanged();
 
         return rootView;

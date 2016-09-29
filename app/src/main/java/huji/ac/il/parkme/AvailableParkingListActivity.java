@@ -34,8 +34,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
     public double addressLng;
     public long thisStartDate;
     public long thisEndDate;
-    public ArrayList<String> addressesList = new ArrayList<>();
-    public ArrayList<String> disCostList = new ArrayList<>();
+    public ArrayList<String> addressesList, disCostList = new ArrayList<>();
     TextView dest;
 
     public Context context = this;
@@ -72,6 +71,8 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.found_parking_list);
         listView = (ListView) findViewById(R.id.listViewParking);
+        addressesList = new ArrayList<>();
+        disCostList = new ArrayList<>();
 
         // Define a new Adapter:
         //Context, Layout for the row, ID of the TextView to which
@@ -97,8 +98,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // ListView Clicked item value
-                ArrayList addressesAL = (ArrayList) listView.getItemAtPosition(0);
-                String addressFromArr = (String)addressesAL.get(position);
+                String addressFromArr = (String)listView.getItemAtPosition(position);
                 Intent intent = new Intent(AvailableParkingListActivity.this, ParkingInfoActivity.class);
                 intent.putExtra("address", addressFromArr);
                 startActivity(intent);
@@ -121,8 +121,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         thisStartDate = intent.getLongExtra("startDateF", 0);
         thisEndDate = intent.getLongExtra(("endDateF"), 0);
 
-        addressesList = new ArrayList<>();
-        disCostList = new ArrayList<>();
+
 
         dest = (TextView)findViewById(R.id.destination_txt);
         dest.setText("Available parking for address: " + address);
@@ -166,8 +165,8 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                     disCostList.add(relevantParkPair.distance + " , " + addPark.cost);
                 }
                 System.out.println("addressesL " + addressesList.size());
-                adapter.add(addressesList);
-                adapter.add(disCostList);
+//                adapter.addAll(addressesList);
+//                adapter.addAll(disCostList);
                 adapter.notifyDataSetChanged();
             }
 
