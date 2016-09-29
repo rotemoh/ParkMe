@@ -33,7 +33,6 @@ public class ParkingInfoActivity extends AppCompatActivity implements OnMapReady
 
         Intent intent = getIntent();
         address = intent.getStringExtra("address");
-        System.out.println("address is : " + address);
         TextView editText = (TextView) findViewById(R.id.address_txt);
         editText.setText(address);
 
@@ -77,7 +76,7 @@ public class ParkingInfoActivity extends AppCompatActivity implements OnMapReady
             mMap.addMarker(options);
             //zoom on the asked address.
             mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -109,6 +109,9 @@ public class PublishParkingFragment extends Fragment {
 //                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
 //                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 String key = PPdatabase.child("Parking").push().getKey();
+                String parkingStartDate = startTimePickerP.getCurrentHour() + ":" + startTimePickerP.getCurrentMinute();
+                String parkingEndDate = endTimePickerP.getCurrentHour() + ":" + endTimePickerP.getCurrentMinute();
+
                 Parking addParking = new Parking(addressIn.getText().toString(),
                         addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), startDate.getTime(),
                         endDate.getTime(),PPauth.getCurrentUser().getUid(), "" + costInput.getText().toString());

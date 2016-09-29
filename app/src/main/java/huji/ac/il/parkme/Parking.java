@@ -1,7 +1,5 @@
 package huji.ac.il.parkme;
 
-import java.util.Date;
-
 /**
  * Created by rotemoh on 06/09/2016.
  */
@@ -14,6 +12,8 @@ public class Parking {
     public long endDate;
     public String ownerID;
     public String cost;
+    public String startTimeP;
+    public String endTimeP;
 
     public Parking(){
     }
