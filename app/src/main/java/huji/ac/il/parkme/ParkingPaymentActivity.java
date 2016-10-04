@@ -77,6 +77,7 @@ public class ParkingPaymentActivity extends AppCompatActivity {
                         break;
                     case R.id.logout:
                         Intent intentEmailPassword = new Intent(ParkingPaymentActivity.this, EmailPasswordActivity.class);
+                        intentEmailPassword.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intentEmailPassword);
                         break;
                     case R.id.home:
