@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -32,6 +33,7 @@ public class FindParkingFragment extends Fragment{
     public CheckBox commit;
     public TimePicker startTimePickerF;
     public TimePicker endTimePickerF;
+    public SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Nullable
     @Override
@@ -55,7 +57,6 @@ public class FindParkingFragment extends Fragment{
                 if (!validateForm()) {
                     return;
                 }
-
                 String startDateStr = sDateIn.getText().toString();
                 Date startDate;
                 String endDateStr = eDateIn.getText().toString();
@@ -66,8 +67,7 @@ public class FindParkingFragment extends Fragment{
                     endDate = dateFormat.parse(endDateStr);
 
                     //todo-  check (startDate.after(new Date()))
-                    if (startDate.after(endDate))
-                    {
+                    if (startDate.after(endDate)) {
                         throw new Exception();
                     }
                 } catch (Exception e) {
@@ -90,18 +90,82 @@ public class FindParkingFragment extends Fragment{
         return rootView;
     }
 
-    public static boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public boolean isValidDate(String inDate) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
+
         try {
             dateFormat.parse(inDate.trim());
+            Date today = new Date();
+            today = setCalendarObj(today, 0, 0, 0, 0);
+//            Calendar now = Calendar.getInstance();
+//            now.setTime(today);
+//            now.set(Calendar.HOUR_OF_DAY, 0);
+//            now.set(Calendar.MINUTE, 0);
+//            now.set(Calendar.SECOND, 0);
+//            now.set(Calendar.MILLISECOND, 0);
+//            today = now.getTime();
+
+            if(dateFormat.parse(inDate.trim()).before(today) &&
+                    !dateFormat.parse(inDate.trim()).equals(today)){
+                throw new Exception();
+            }
         } catch (ParseException pe) {
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    public Date setCalendarObj(Date date, int h, int m, int s, int ms) throws ParseException {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, h);
+        cal.set(Calendar.MINUTE, m);
+        cal.set(Calendar.SECOND, s);
+        cal.set(Calendar.MILLISECOND, ms);
+
+        return cal.getTime();
+    }
+    public boolean isValidTime(String sDate, String eDate, TimePicker startTimePickerP, TimePicker endTimePickerP) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        int startHour = startTimePickerP.getCurrentHour();
+        int startMinute = startTimePickerP.getCurrentMinute();
+        int endHour = endTimePickerP.getCurrentHour();
+        int endMinute = endTimePickerP.getCurrentMinute();
+        try {
+            Date sd = dateFormat.parse(sDate.trim());
+            Date ed = dateFormat.parse(eDate.trim());
+//            Calendar startDateAndTime = Calendar.getInstance();
+//            startDateAndTime.setTime(sd);
+//            startDateAndTime.set(Calendar.HOUR_OF_DAY, startHour);
+//            startDateAndTime.set(Calendar.MINUTE, startMinute);
+//            startDateAndTime.set(Calendar.SECOND, 0);
+//            startDateAndTime.set(Calendar.MILLISECOND, 0);
+            sd = setCalendarObj(sd, startHour, startMinute, 0, 0);
+            ed = setCalendarObj(ed, endHour, endMinute, 0, 0);
+//            Calendar endDateAndTime = Calendar.getInstance();
+//            endDateAndTime.setTime(ed);
+//            endDateAndTime.set(Calendar.HOUR_OF_DAY, endHour);
+//            endDateAndTime.set(Calendar.MINUTE, endMinute);
+//            endDateAndTime.set(Calendar.SECOND, 0);
+//            endDateAndTime.set(Calendar.MILLISECOND, 0);
+//            ed = endDateAndTime.getTime();
+
+            if(ed.before(sd) || ed.equals(sd)){
+                throw new Exception();
+            }
+        } catch (ParseException e) {
+            return false;
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
     private boolean validateForm() {
+
         boolean valid = true;
         String startDateStr = sDateIn.getText().toString();
         String endDateStr = eDateIn.getText().toString();
@@ -112,12 +176,16 @@ public class FindParkingFragment extends Fragment{
         } else {
             sDateIn.setError(null);
         }
-
-        if (endDateStr.equals("") || !isValidDate(endDateStr)) {
-            eDateIn.setError("Incorrect or missing date");
+        try {
+            if (endDateStr.equals("") || !isValidDate(endDateStr) ||
+                    dateFormat.parse(endDateStr.trim()).before(dateFormat.parse(startDateStr.trim()))) {
+                eDateIn.setError("Incorrect or missing date");
+                valid = false;
+            } else {
+                eDateIn.setError(null);
+            }
+        } catch (ParseException e) {
             valid = false;
-        } else {
-            eDateIn.setError(null);
         }
 
         if (!commit.isChecked()) {
@@ -130,17 +198,17 @@ public class FindParkingFragment extends Fragment{
         //check if address is legal
         try {
             addresses = geocoder.getFromLocationName(addressIn.getText().toString(), 1);
-            System.out.println("getFromLocationName = " + geocoder.getFromLocationName(addressIn.getText().toString(), 1) );
-            System.out.println("getFromLocationName size = " + geocoder.getFromLocationName(addressIn.getText().toString(), 1).size() );
             if (addresses.size() < 1) {
                 throw new Exception();
             }
         } catch (Exception e) {
-            e.printStackTrace(System.out);
             addressIn.setError("Illegal address");
+            valid = false;
+        }
+        if(!isValidTime(startDateStr, endDateStr, startTimePickerF, endTimePickerF)){
+            Toast.makeText(getActivity(), "Illegal time scheduling", Toast.LENGTH_SHORT).show();
             valid = false;
         }
         return valid;
     }
-
 }

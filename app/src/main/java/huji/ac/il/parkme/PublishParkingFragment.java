@@ -3,6 +3,7 @@ package huji.ac.il.parkme;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,12 +40,14 @@ public class PublishParkingFragment extends Fragment {
     public DatabaseReference PPdatabase;
     public Geocoder geocoder;
     public List<Address> addresses;
-    public ArrayList<Long> startDates = new ArrayList<>(), endDates = new ArrayList<>();
     public TimePicker startTimePickerP;
     public TimePicker endTimePickerP;
-
+    public String parkingStartDate;
+    public String parkingEndDate;
+    public SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    View rootView;
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.publish_park_layout, container, false);
+        rootView = inflater.inflate(R.layout.publish_park_layout, container, false);
         addressIn = (EditText)rootView.findViewById(R.id.address_input);
         commentsIn = (EditText)rootView.findViewById(R.id.comments_input);
         sDateIn = (EditText)rootView.findViewById(R.id.publish_start_date_input);
@@ -85,17 +88,17 @@ public class PublishParkingFragment extends Fragment {
                 Date startDate;
                 String endDateStr = eDateIn.getText().toString();
                 Date endDate;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
                 try {
                     startDate = dateFormat.parse(startDateStr);
                     endDate = dateFormat.parse(endDateStr);
 //                    startDates.add(startDate.getTime());
 //                          endDates.add(endDate.getTime());
                     //todo-  check (startDate.after(new Date()))
-                    if (startDate.after(endDate))
-                    {
-                        throw new Exception();
-                    }
+//                    if (startDate.after(endDate))
+//                    {
+//                        throw new Exception();
+//                    }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), "Invalid date scheduling",
                             Toast.LENGTH_SHORT).show();
@@ -109,8 +112,14 @@ public class PublishParkingFragment extends Fragment {
 //                Parking addParking = new Parking(addressIn.getText().toString(), point.latitude, point.longitude, "Azrieli",
 //                        "Tel Aviv",PPauth.getCurrentUser().getUid(), "" + numberpicker.getValue());
                 String key = PPdatabase.child("Parking").push().getKey();
-                String parkingStartDate = startTimePickerP.getCurrentHour() + ":" + startTimePickerP.getCurrentMinute();
-                String parkingEndDate = endTimePickerP.getCurrentHour() + ":" + endTimePickerP.getCurrentMinute();
+
+                if (Build.VERSION.SDK_INT >= 23 ){
+                    parkingStartDate = startTimePickerP.getHour() + ":" + startTimePickerP.getMinute();
+                    parkingEndDate = endTimePickerP.getHour() + ":" + endTimePickerP.getMinute();
+                }else{
+                    parkingStartDate = startTimePickerP.getCurrentHour() + ":" + startTimePickerP.getCurrentMinute();
+                    parkingEndDate = endTimePickerP.getCurrentHour() + ":" + endTimePickerP.getCurrentMinute();
+                }
 
                 Parking addParking = new Parking(addressIn.getText().toString(),
                         addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), startDate.getTime(),
@@ -120,9 +129,6 @@ public class PublishParkingFragment extends Fragment {
                 Toast.makeText(getActivity(), "Parking published successfully",
                         Toast.LENGTH_SHORT).show();
                 Intent homeIntent = new Intent(getActivity(), MainActivity.class);
-//                homeIntent.putExtra("startDates", startDates);
-//                                homeIntent.putExtra("endDates", endDates);
-
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeIntent);
             }
@@ -131,18 +137,83 @@ public class PublishParkingFragment extends Fragment {
     }
 
 
-    public static boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public boolean isValidDate(String inDate) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
+
         try {
             dateFormat.parse(inDate.trim());
+            Date today = new Date();
+            today = setCalendarObj(today, 0, 0, 0, 0);
+//            Calendar now = Calendar.getInstance();
+//            now.setTime(today);
+//            now.set(Calendar.HOUR_OF_DAY, 0);
+//            now.set(Calendar.MINUTE, 0);
+//            now.set(Calendar.SECOND, 0);
+//            now.set(Calendar.MILLISECOND, 0);
+//            today = now.getTime();
+
+            if(dateFormat.parse(inDate.trim()).before(today) &&
+                    !dateFormat.parse(inDate.trim()).equals(today)){
+                throw new Exception();
+            }
         } catch (ParseException pe) {
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+public Date setCalendarObj(Date date, int h, int m, int s, int ms) throws ParseException {
+
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    cal.set(Calendar.HOUR_OF_DAY, h);
+    cal.set(Calendar.MINUTE, m);
+    cal.set(Calendar.SECOND, s);
+    cal.set(Calendar.MILLISECOND, ms);
+
+    return cal.getTime();
+}
+    public boolean isValidTime(String sDate, String eDate, TimePicker startTimePickerP, TimePicker endTimePickerP) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        int startHour = startTimePickerP.getCurrentHour();
+        int startMinute = startTimePickerP.getCurrentMinute();
+        int endHour = endTimePickerP.getCurrentHour();
+        int endMinute = endTimePickerP.getCurrentMinute();
+        try {
+            Date sd = dateFormat.parse(sDate.trim());
+            Date ed = dateFormat.parse(eDate.trim());
+//            Calendar startDateAndTime = Calendar.getInstance();
+//            startDateAndTime.setTime(sd);
+//            startDateAndTime.set(Calendar.HOUR_OF_DAY, startHour);
+//            startDateAndTime.set(Calendar.MINUTE, startMinute);
+//            startDateAndTime.set(Calendar.SECOND, 0);
+//            startDateAndTime.set(Calendar.MILLISECOND, 0);
+            sd = setCalendarObj(sd, startHour, startMinute, 0, 0);
+            ed = setCalendarObj(ed, endHour, endMinute, 0, 0);
+//            Calendar endDateAndTime = Calendar.getInstance();
+//            endDateAndTime.setTime(ed);
+//            endDateAndTime.set(Calendar.HOUR_OF_DAY, endHour);
+//            endDateAndTime.set(Calendar.MINUTE, endMinute);
+//            endDateAndTime.set(Calendar.SECOND, 0);
+//            endDateAndTime.set(Calendar.MILLISECOND, 0);
+//            ed = endDateAndTime.getTime();
+
+            if(ed.before(sd) || ed.equals(sd)){
+                throw new Exception();
+            }
+        } catch (ParseException e) {
+            return false;
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
     private boolean validateForm() {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         boolean valid = true;
         String startDateStr = sDateIn.getText().toString();
         String endDateStr = eDateIn.getText().toString();
@@ -153,12 +224,16 @@ public class PublishParkingFragment extends Fragment {
         } else {
             sDateIn.setError(null);
         }
-
-        if (endDateStr.equals("") || !isValidDate(endDateStr)) {
-            eDateIn.setError("Incorrect or missing date");
+        try {
+            if (endDateStr.equals("") || !isValidDate(endDateStr) ||
+                    dateFormat.parse(endDateStr.trim()).before(dateFormat.parse(startDateStr.trim()))) {
+                eDateIn.setError("Incorrect or missing date");
+                valid = false;
+            } else {
+                eDateIn.setError(null);
+            }
+        } catch (ParseException e) {
             valid = false;
-        } else {
-            eDateIn.setError(null);
         }
 
         if (!approve.isChecked()) {
@@ -176,6 +251,10 @@ public class PublishParkingFragment extends Fragment {
             }
         } catch (Exception e) {
             addressIn.setError("Illegal address");
+            valid = false;
+        }
+        if(!isValidTime(startDateStr, endDateStr, startTimePickerP, endTimePickerP)){
+            Toast.makeText(getActivity(), "Illegal time scheduling", Toast.LENGTH_SHORT).show();
             valid = false;
         }
         return valid;

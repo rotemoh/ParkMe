@@ -120,7 +120,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         addressLat = intent.getDoubleExtra("addressLat", 0);
         addressLng = intent.getDoubleExtra("addressLng", 0);
         thisStartDate = intent.getLongExtra("startDateF", 0);
-        thisEndDate = intent.getLongExtra(("endDateF"), 0);
+        thisEndDate = intent.getLongExtra("endDateF", 0);
 
         dest = (TextView)findViewById(R.id.destination_txt);
         dest.setText("Available parking for address: " + address);
