@@ -38,6 +38,7 @@
         <item name="tabSelectedTextColor">#ffffff</item>
 
     </style>
+
     <style name="TextAppearance.Design.Tab" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?android:textColorSecondaryInverse</item>

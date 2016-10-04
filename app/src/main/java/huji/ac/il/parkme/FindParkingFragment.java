@@ -34,6 +34,7 @@ public class FindParkingFragment extends Fragment{
     public TimePicker startTimePickerF;
     public TimePicker endTimePickerF;
     public SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public  Button continueBtn, seeMapBtn;
 
     @Nullable
     @Override
@@ -48,7 +49,30 @@ public class FindParkingFragment extends Fragment{
         endTimePickerF = (TimePicker)rootView.findViewById(R.id.endTimePickerF);
         startTimePickerF.setIs24HourView(true);
         endTimePickerF.setIs24HourView(true);
-        Button continueBtn = (Button) rootView.findViewById(R.id.continue_btn);
+        seeMapBtn = (Button)rootView.findViewById(R.id.see_map_btn);
+        seeMapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                String addressFromArr = ;
+//                String addressFromArr = (String)addressesAL.get(position);
+                //check if address is legal
+                try {
+                    addresses = geocoder.getFromLocationName(addressIn.getText().toString(), 1);
+                    if (addresses.size() < 1) {
+                        throw new Exception();
+                    }
+                    else{
+                        Intent intent = new Intent(getContext(), seeMapActivity.class);
+                        intent.putExtra("address", addressIn.getText().toString());
+                        startActivity(intent);
+                    }
+                } catch (Exception e) {
+                    addressIn.setError("Illegal address");
+                }
+            }
+        });
+
+        continueBtn = (Button) rootView.findViewById(R.id.continue_btn);
 
         final EditText address = (EditText)rootView.findViewById(R.id.by_address_input);
         continueBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,13 +122,6 @@ public class FindParkingFragment extends Fragment{
             dateFormat.parse(inDate.trim());
             Date today = new Date();
             today = setCalendarObj(today, 0, 0, 0, 0);
-//            Calendar now = Calendar.getInstance();
-//            now.setTime(today);
-//            now.set(Calendar.HOUR_OF_DAY, 0);
-//            now.set(Calendar.MINUTE, 0);
-//            now.set(Calendar.SECOND, 0);
-//            now.set(Calendar.MILLISECOND, 0);
-//            today = now.getTime();
 
             if(dateFormat.parse(inDate.trim()).before(today) &&
                     !dateFormat.parse(inDate.trim()).equals(today)){
@@ -137,21 +154,9 @@ public class FindParkingFragment extends Fragment{
         try {
             Date sd = dateFormat.parse(sDate.trim());
             Date ed = dateFormat.parse(eDate.trim());
-//            Calendar startDateAndTime = Calendar.getInstance();
-//            startDateAndTime.setTime(sd);
-//            startDateAndTime.set(Calendar.HOUR_OF_DAY, startHour);
-//            startDateAndTime.set(Calendar.MINUTE, startMinute);
-//            startDateAndTime.set(Calendar.SECOND, 0);
-//            startDateAndTime.set(Calendar.MILLISECOND, 0);
+
             sd = setCalendarObj(sd, startHour, startMinute, 0, 0);
             ed = setCalendarObj(ed, endHour, endMinute, 0, 0);
-//            Calendar endDateAndTime = Calendar.getInstance();
-//            endDateAndTime.setTime(ed);
-//            endDateAndTime.set(Calendar.HOUR_OF_DAY, endHour);
-//            endDateAndTime.set(Calendar.MINUTE, endMinute);
-//            endDateAndTime.set(Calendar.SECOND, 0);
-//            endDateAndTime.set(Calendar.MILLISECOND, 0);
-//            ed = endDateAndTime.getTime();
 
             if(ed.before(sd) || ed.equals(sd)){
                 throw new Exception();

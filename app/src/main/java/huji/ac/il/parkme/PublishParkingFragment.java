@@ -33,17 +33,15 @@ import static com.google.firebase.auth.FirebaseAuth.getInstance;
  */
 public class PublishParkingFragment extends Fragment {
     public EditText costInput;
-    public Button resetBtn, updateBtn;
+    public Button resetBtn, updateBtn, seeMapBtn;
     public EditText addressIn, commentsIn, sDateIn, eDateIn;
     public CheckBox approve;
     public FirebaseAuth PPauth;
     public DatabaseReference PPdatabase;
     public Geocoder geocoder;
     public List<Address> addresses;
-    public TimePicker startTimePickerP;
-    public TimePicker endTimePickerP;
-    public String parkingStartDate;
-    public String parkingEndDate;
+    public TimePicker startTimePickerP, endTimePickerP;
+    public String parkingStartDate, parkingEndDate;
     public SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     View rootView;
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -61,6 +59,26 @@ public class PublishParkingFragment extends Fragment {
         endTimePickerP = (TimePicker)rootView.findViewById(R.id.endTimePickerP);
         startTimePickerP.setIs24HourView(true);
         endTimePickerP.setIs24HourView(true);
+
+        seeMapBtn = (Button)rootView.findViewById(R.id.see_map_btn);
+        seeMapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //check if address is legal
+                try {
+                    addresses = geocoder.getFromLocationName(addressIn.getText().toString(), 1);
+                    if (addresses.size() < 1) {
+                        throw new Exception();
+                    } else {
+                        Intent intent = new Intent(getContext(), seeMapActivity.class);
+                        intent.putExtra("address", addressIn.getText().toString());
+                        startActivity(intent);
+                    }
+                } catch (Exception e) {
+                    addressIn.setError("Illegal address");
+                }
+            }
+        });
 
         resetBtn = (Button)rootView.findViewById(R.id.reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
@@ -145,13 +163,6 @@ public class PublishParkingFragment extends Fragment {
             dateFormat.parse(inDate.trim());
             Date today = new Date();
             today = setCalendarObj(today, 0, 0, 0, 0);
-//            Calendar now = Calendar.getInstance();
-//            now.setTime(today);
-//            now.set(Calendar.HOUR_OF_DAY, 0);
-//            now.set(Calendar.MINUTE, 0);
-//            now.set(Calendar.SECOND, 0);
-//            now.set(Calendar.MILLISECOND, 0);
-//            today = now.getTime();
 
             if(dateFormat.parse(inDate.trim()).before(today) &&
                     !dateFormat.parse(inDate.trim()).equals(today)){
@@ -184,21 +195,9 @@ public Date setCalendarObj(Date date, int h, int m, int s, int ms) throws ParseE
         try {
             Date sd = dateFormat.parse(sDate.trim());
             Date ed = dateFormat.parse(eDate.trim());
-//            Calendar startDateAndTime = Calendar.getInstance();
-//            startDateAndTime.setTime(sd);
-//            startDateAndTime.set(Calendar.HOUR_OF_DAY, startHour);
-//            startDateAndTime.set(Calendar.MINUTE, startMinute);
-//            startDateAndTime.set(Calendar.SECOND, 0);
-//            startDateAndTime.set(Calendar.MILLISECOND, 0);
+
             sd = setCalendarObj(sd, startHour, startMinute, 0, 0);
             ed = setCalendarObj(ed, endHour, endMinute, 0, 0);
-//            Calendar endDateAndTime = Calendar.getInstance();
-//            endDateAndTime.setTime(ed);
-//            endDateAndTime.set(Calendar.HOUR_OF_DAY, endHour);
-//            endDateAndTime.set(Calendar.MINUTE, endMinute);
-//            endDateAndTime.set(Calendar.SECOND, 0);
-//            endDateAndTime.set(Calendar.MILLISECOND, 0);
-//            ed = endDateAndTime.getTime();
 
             if(ed.before(sd) || ed.equals(sd)){
                 throw new Exception();
@@ -212,8 +211,6 @@ public Date setCalendarObj(Date date, int h, int m, int s, int ms) throws ParseE
     }
 
     private boolean validateForm() {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
         boolean valid = true;
         String startDateStr = sDateIn.getText().toString();
         String endDateStr = eDateIn.getText().toString();
