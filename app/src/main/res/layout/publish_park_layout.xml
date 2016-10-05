@@ -21,7 +21,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginTop="38dp"
                 android:layout_alignParentTop="true"
-                android:hint="@string/full_add"
                 android:layout_alignLeft="@+id/address_input"
                 android:layout_alignStart="@+id/address_input" />
 <LinearLayout
@@ -34,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/full_add"
         android:inputType="textPostalAddress"/>
     <Button
         android:layout_width="wrap_content"

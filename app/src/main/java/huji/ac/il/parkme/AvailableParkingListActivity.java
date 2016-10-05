@@ -161,7 +161,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                 for (ParkPair relevantParkPair : parkingDistances) {
                     Parking addPark = parkingSnapshot.child(relevantParkPair.parkId).getValue(Parking.class);
                     addressesList.add(addPark.address);
-                    disCostList.add(relevantParkPair.distance + " , " + addPark.cost);
+                    disCostList.add("Distance from asked address: "+ relevantParkPair.distance + "km, cost: " + addPark.cost);
                 }
                 System.out.println("addressesL " + addressesList.size());
 //                adapter.add(addressesList);

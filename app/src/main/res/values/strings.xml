@@ -43,7 +43,7 @@
     <string name="i_approve_owner">I approve that the parking is in my property</string>
     <string name="update">Update</string>
     <string name="reset">Reset</string>
-    <string name="conform_and_pay">Conform and pay</string>
+    <string name="confirm_and_pay">Confirm and pay</string>
     <string name="change_parking_dit">Change parking details</string>
     <string name="chang_payment_dit">Change payment details</string>
     <string name="home">Home</string>
@@ -54,9 +54,9 @@
     <string name="find_park">Find park</string>
     <string name="continue_next">Continue</string>
     <string name="where_to_search">Where to search?</string>
-    <string name="by_what">By address or by location</string>
+    <string name="by_what">By address or location</string>
     <string name="i_commit">I commit to pay a fine of 150 NIS in case that I will leave the parking late.</string>
-    <string name="title_activity_see_map">seeMapActivity</string>
+    <string name="title_activity_see_map">Address</string>
     <string name="full_add">Full address</string>
 
 </resources>
