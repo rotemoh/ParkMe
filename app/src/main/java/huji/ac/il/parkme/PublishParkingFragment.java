@@ -66,6 +66,8 @@ public class PublishParkingFragment extends Fragment {
             public void onClick(View v) {
                 //check if address is legal
                 try {
+//                    System.out.println("geocoder.isPresent() = " + geocoder.isPresent()
+//                    );
                     addresses = geocoder.getFromLocationName(addressIn.getText().toString(), 1);
                     if (addresses.size() < 1) {
                         throw new Exception();
@@ -75,6 +77,8 @@ public class PublishParkingFragment extends Fragment {
                         startActivity(intent);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
+
                     addressIn.setError("Illegal address");
                 }
             }
