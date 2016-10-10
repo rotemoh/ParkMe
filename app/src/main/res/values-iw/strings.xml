@@ -22,7 +22,6 @@
     <string name="change_parking_dit">עדכן נתוני חניה</string>
     <string name="coming_soon">בקרוב...</string>
     <string name="comments">הערות:</string>
-    <string name="conform_and_pay">אשר ושלם</string>
     <string name="contact_us">צור קשר</string>
     <string name="cost">עלות לפי שעה:</string>
     <string name="end_date">תאריך סיום</string>
@@ -42,4 +41,7 @@
     <string name="continue_next">המשך</string>
     <string name="by_what">לפי כתובת או מיקום מרכזי</string>
     <string name="i_commit">במידה ואצא מהחניה באיחור אני מתחייב/ת לשלם קנס כספי בשווי 150 ש"ח.</string>
+    <string name="confirm_and_pay">אשר והמשך לתשלום</string>
+    <string name="title_activity_see_map">ראה מפה</string>
+    <string name="full_add">כתובת מלאה</string>
 </resources>

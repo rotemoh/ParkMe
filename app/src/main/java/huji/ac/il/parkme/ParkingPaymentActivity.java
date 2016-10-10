@@ -12,12 +12,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class ParkingPaymentActivity extends AppCompatActivity {
     String address;
+    public String parkID;
     Intent intent;
     private Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    public DatabaseReference ParkingInfoDatabase;
+    public FirebaseAuth ParkingInfoAuth;
+    public String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +41,18 @@ public class ParkingPaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         intent = getIntent();
         address = intent.getStringExtra("address");
+        parkID = intent.getStringExtra("parkID");
+
+        ParkingInfoDatabase = FirebaseDatabase.getInstance().getReference();
+        ParkingInfoAuth = FirebaseAuth.getInstance();
+        userId = ParkingInfoAuth.getCurrentUser().getUid();
+
         routBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent routIntent = new Intent(ParkingPaymentActivity.this, MapsActivity.class);
                 routIntent.putExtra("address", address);
+                //addParkToUserOrderedParking();
                 startActivity(routIntent);
             }
         });
@@ -46,6 +61,9 @@ public class ParkingPaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent homeIntent = new Intent(ParkingPaymentActivity.this, MainActivity.class);
+                System.out.println("in ParkingPayment with user: " + userId + " and parking " + parkID);
+                ParkingInfoDatabase.child("Users").child(userId).child("myOrderedParking").push().setValue(parkID);
+                ParkingInfoDatabase.child("Parking").child(parkID).child("isAvailable").setValue("false");
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeIntent);
             }

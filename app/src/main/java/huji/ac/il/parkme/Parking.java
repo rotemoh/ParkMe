@@ -14,12 +14,14 @@ public class Parking {
     public String cost;
     public String startTimeP;
     public String endTimeP;
-
+    public String key;
+    public String isAvailable;
     public Parking(){
     }
 
     public Parking(String address, double latitude, double longitude, long startDate,
-                   long endDate, String ownerID, String cost){
+                   long endDate, String ownerID, String cost, String startTimeP,
+                   String endTimeP, String key, String isAvailable){
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -27,6 +29,10 @@ public class Parking {
         this.endDate = endDate;
         this.ownerID = ownerID;
         this.cost = cost;
+        this.startTimeP = startTimeP;
+        this.endTimeP = endTimeP;
+        this.key = key;
+        this.isAvailable = isAvailable;
     }
 
     public String getAddress() {
@@ -56,4 +62,12 @@ public class Parking {
     public String getCost() {
         return cost;
     }
+
+    public String getStartTimeP() { return startTimeP; }
+
+    public String getEndTimeP() { return endTimeP; }
+
+    public String getKey() { return key; }
+
+    public String getIsAvailable() { return isAvailable; }
 }

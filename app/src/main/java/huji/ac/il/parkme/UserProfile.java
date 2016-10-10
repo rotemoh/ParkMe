@@ -50,11 +50,4 @@ public class UserProfile {
         return myPublicParking;
     }
 
-    public void setMyOrderedParking(String addParkingID) {
-        myOrderedParking.add(addParkingID);
-    }
-
-    public void setMyPublicParking(String addParkingID) {
-        myPublicParking.add(addParkingID);
-    }
 }

@@ -18,6 +18,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +29,8 @@ import java.util.Locale;
 public class ParkingInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     String address ="";
+    public String parkID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,7 @@ public class ParkingInfoActivity extends AppCompatActivity implements OnMapReady
 
         Intent intent = getIntent();
         address = intent.getStringExtra("address");
+        parkID = intent.getStringExtra("parkID");
         TextView editText = (TextView) findViewById(R.id.address_txt);
         editText.setText(address);
 
@@ -45,8 +51,9 @@ public class ParkingInfoActivity extends AppCompatActivity implements OnMapReady
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ParkingInfoActivity.this, ParkingPaymentActivity.class);
-                startActivity(intent);
+                Intent ParkingPayment = new Intent(ParkingInfoActivity.this, ParkingPaymentActivity.class);
+                ParkingPayment.putExtra("parkID", parkID);
+                startActivity(ParkingPayment);
             }
         });
     }

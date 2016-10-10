@@ -36,6 +36,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
     public long thisEndDate;
     public ArrayList<String> addressesList;
     public ArrayList<String> disCostList;
+    public ArrayList<String> IDparkList;
     TextView dest;
 
     public Context context = this;
@@ -74,10 +75,12 @@ public class AvailableParkingListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listViewParking);
         addressesList = new ArrayList<>();
         disCostList = new ArrayList<>();
+        IDparkList = new ArrayList<>();
         // Define a new Adapter:
         //Context, Layout for the row, ID of the TextView to which
         // the data is written and the Array of data.
-        final ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_2, android.R.id.text1, addressesList) {
+        final ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_2,
+                android.R.id.text1, addressesList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -102,6 +105,7 @@ public class AvailableParkingListActivity extends AppCompatActivity {
 //                String addressFromArr = (String)addressesAL.get(position);
                 Intent intent = new Intent(AvailableParkingListActivity.this, ParkingInfoActivity.class);
                 intent.putExtra("address", addressFromArr);
+                intent.putExtra("parkID", IDparkList.get(position));
                 startActivity(intent);
             }
         });
@@ -136,7 +140,9 @@ public class AvailableParkingListActivity extends AppCompatActivity {
                             thisEndDate >= parkFromDB.getStartDate())) {
                         continue;
                     }
-
+                    if (!parkFromDB.getIsAvailable().equals("true")) {
+                        continue;
+                    }
                     //******** 1 ********
                     //(StartA <= EndB) and (EndA >= StartB)
 //                    if (!(thisStartDate <=  Long.parseLong(parking.child("endDate").getValue().toString())) &&
@@ -160,10 +166,10 @@ public class AvailableParkingListActivity extends AppCompatActivity {
 
                 for (ParkPair relevantParkPair : parkingDistances) {
                     Parking addPark = parkingSnapshot.child(relevantParkPair.parkId).getValue(Parking.class);
+                    IDparkList.add(addPark.getKey());
                     addressesList.add(addPark.address);
-                    disCostList.add("Distance from asked address: "+ relevantParkPair.distance + "km, cost: " + addPark.cost);
+                    disCostList.add("Distance from asked address: " + String.format("%.2f", relevantParkPair.distance) + "km, cost: " + addPark.cost + " nis.");
                 }
-                System.out.println("addressesL " + addressesList.size());
 //                adapter.add(addressesList);
 //                adapter.add(disCostList);
                 adapter.notifyDataSetChanged();

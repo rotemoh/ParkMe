@@ -42,13 +42,20 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     private Typeface mSelectedTypeface;
     private MultiCalendarView multiMonth;
     private ListView publishLV, orderedLV;
-    public ArrayList<Long> startDates , endDates ;
-    public ArrayList myParksId;
+    //public ArrayList<Long> startDates , endDates ;
+    //public ArrayList myParksId;
+    public ArrayList<Parking> myPublishedParks;
+    public ArrayList<Parking> myOrderedParks;
+    public ArrayList<String> myOrderedParksID;
+    public String userId;
     //todo: change to the dates of the user
     private ArrayList<Long> orders, rents;
 
     public FirebaseAuth CalFragAuth;
     public DatabaseReference CalFragDatabase;
+
+    //public ArrayList<String> publishParkingAddresses;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,12 +68,16 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
 
         CalFragDatabase = FirebaseDatabase.getInstance().getReference();
         CalFragAuth = getInstance();
-
-        startDates = new ArrayList<>();
-        endDates = new ArrayList<>();
+        userId = CalFragAuth.getCurrentUser().getUid();
+        //startDates = new ArrayList<>();
+        //endDates = new ArrayList<>();
         rents = new ArrayList<>();
         orders = new ArrayList<>();
-        myParksId = new ArrayList<>();
+        //myParksId = new ArrayList<>();
+        myPublishedParks = new ArrayList<>();
+        myOrderedParks = new ArrayList<>();
+        myOrderedParksID = new ArrayList<>();
+        //publishParkingAddresses = new ArrayList<>();
         // Set the last valid day
         final Calendar lastValidDay = Calendar.getInstance();
         lastValidDay.add(Calendar.YEAR, 1);
@@ -99,21 +110,59 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
 //        CalFragDatabase.child("Users").child(CalFragAuth.getCurrentUser().getUid()).
 //                child("myPublicParking").addValueEventListener(userListener);
 
+//        CalFragDatabase.child("Users").child(userId).child("myOrderedParking").addListenerForSingleValueEvent(
+//                new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot orderedParkID : dataSnapshot.getChildren()) {
+//                            System.out.println("orderedParkID");
+//                            myOrderedParksID.add(orderedParkID.getValue().toString());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                    }
+//                });
 
+        ValueEventListener userIdListener =
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        DataSnapshot myOrderedParking = dataSnapshot.child("myOrderedParking");
+                        for (DataSnapshot orderedParkID : myOrderedParking.getChildren()) {
+                            System.out.println("orderedParkID");
+                            myOrderedParksID.add(orderedParkID.getValue().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+        CalFragDatabase.child("Users").child(userId).addValueEventListener(userIdListener);
+
+        System.out.println("myOrderedParksID.size() "  + myOrderedParksID.size());
         ValueEventListener parkingListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot parkingSnapshot) {
                 for (DataSnapshot parking : parkingSnapshot.getChildren()) {
                     Parking parkFromDB = parking.getValue(Parking.class);
-                    if ((parkFromDB.ownerID).equals(CalFragAuth.getCurrentUser().getUid())) {
-                        System.out.println("myPark address!!!!: " + parkFromDB.address);
-                        startDates.add(parkFromDB.getStartDate());
-                        endDates.add(parkFromDB.getEndDate());
+                    if ((parkFromDB.ownerID).equals(userId)) {
+                        //publishParkingAddresses.add(parkFromDB.getAddress());
+                        //startDates.add(parkFromDB.getStartDate());
+                        //endDates.add(parkFromDB.getEndDate());
+                        myPublishedParks.add(parkFromDB);
+                        rents.addAll(getDates(parkFromDB.getStartDate(), parkFromDB.getEndDate()));
+                    }
+                    else if (myOrderedParksID.contains(parkFromDB.getKey())) {
+                        myOrderedParks.add(parkFromDB);
+                        orders.addAll(getDates(parkFromDB.getStartDate(), parkFromDB.getEndDate()));
                     }
                 }
-                for (int i = 0; i < startDates.size(); i++) {
-                    rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-                }
+//                for (int i = 0; i < startDates.size(); i++) {
+//                    rents.addAll(getDates(startDates.get(i), endDates.get(i)));
+//                }
                 multiMonth.notifyDataSetChanged();
             }
 
@@ -122,6 +171,8 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             }
         };
         CalFragDatabase.child("Parking").addListenerForSingleValueEvent(parkingListener);
+
+
 
 //
 //        for (int i = 0; i < startDates.size(); i++) {
@@ -145,7 +196,7 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
 
     private static ArrayList<Long> getDates(Long startDate, Long endDate)
     {
-        ArrayList<Long> dates = new ArrayList<Long>();
+        ArrayList<Long> dates = new ArrayList<>();
 
         Calendar cal1 = Calendar.getInstance();
         cal1.setTimeInMillis(startDate);
@@ -182,46 +233,42 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         dialog.setContentView(R.layout.day_dialog);
         dialog.show();
 
-        //TODO: change to the addresses in the area. will get it from the DB.
-        final String[] addresses = new String[] {"Android List View",
-                "Gilboa 94 Alfei Menashe",
-                "hi",
-                "Create List View Android"};
-        final String[] info = new String[] {"dis 1, cost 1",
-                "address 2, cost 2",
-                "address 3, cost 3",
-                "address 4, cost 4"};
-        final String[] addresses2 = new String[] {"Android List View",
-                "Gilboa 94 Alfei Menashe",
-                "hi",
-                "Create List View Android"};
-        final String[] info2 = new String[] {"dis 1, cost 1",
-                "address 2, cost 2",
-                "address 3, cost 3",
-                "address 4, cost 4"};
 
-        ArrayAdapter orderedLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, addresses) {
+        ArrayAdapter orderedLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, myOrderedParks) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                text1.setText(addresses[position]);
-                text2.setText(info[position]);
+                text1.setText(myOrderedParks.get(position).getAddress());
+                text2.setText(myOrderedParks.get(position).getStartTimeP() + "- " + myOrderedParks.get(position).getEndTimeP() + " , " + myOrderedParks.get(position).getCost() + " NIS.");
                 return view;
             }
         };
 
-        ArrayAdapter publishLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, addresses2) {
+//        ArrayAdapter publishLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, addresses2) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getView(position, convertView, parent);
+//                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+//                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+//
+//                text1.setText(addresses2[position]);
+//                text2.setText(info2[position]);
+//                return view;
+//            }
+//        };
+
+        ArrayAdapter publishLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, myPublishedParks) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
 
-                text1.setText(addresses2[position]);
-                text2.setText(info2[position]);
+                text1.setText(myPublishedParks.get(position).getAddress());
+                text2.setText(myPublishedParks.get(position).getStartTimeP() + "- " + myPublishedParks.get(position).getEndTimeP() + " , " + myPublishedParks.get(position).getCost() + " NIS.");
                 return view;
             }
         };
