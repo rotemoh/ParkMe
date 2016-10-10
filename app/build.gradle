@@ -8,8 +8,8 @@ android {
         applicationId "huji.ac.il.parkme"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 12
-        versionName "12"
+        versionCode 13
+        versionName "13"
 //        multiDexEnabled true
     }
     buildTypes {
