@@ -56,7 +56,7 @@
     <string name="where_to_search">Where to search?</string>
     <string name="by_what">By address or location</string>
     <string name="i_commit">I commit to pay a fine of 150 NIS in case that I will leave the parking late.</string>
-    <string name="title_activity_see_map" translatable="false">Address</string>
+    <string name="title_activity_see_map">Address</string>
     <string name="full_add">Full address</string>
 
 </resources>

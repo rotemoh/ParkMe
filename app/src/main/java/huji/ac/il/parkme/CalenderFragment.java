@@ -48,6 +48,7 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
     public ArrayList<Parking> myOrderedParks;
     public ArrayList<String> myOrderedParksID;
     public String userId;
+    public String userPhone;
     //todo: change to the dates of the user
     private ArrayList<Long> orders, rents;
 
@@ -77,6 +78,7 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         myPublishedParks = new ArrayList<>();
         myOrderedParks = new ArrayList<>();
         myOrderedParksID = new ArrayList<>();
+        userPhone = "0524775580";
         //publishParkingAddresses = new ArrayList<>();
         // Set the last valid day
         final Calendar lastValidDay = Calendar.getInstance();
@@ -90,23 +92,6 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
         // Set listener and adapter
         multiMonth.setOnDayClickListener(this);
         multiMonth.setDayAdapter(adapter);
-
-//        ValueEventListener userListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot userPublicParkingSnapshot) {
-//                for (DataSnapshot parking : userPublicParkingSnapshot.getChildren()) {
-//                    final String myParkID = parking.getValue().toString();
-//                    CalFragDatabase.child("Parking").child(myParkID);
-//                    myParksId.add(myParkID);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                // ...
-//            }
-//        };
 //        CalFragDatabase.child("Users").child(CalFragAuth.getCurrentUser().getUid()).
 //                child("myPublicParking").addValueEventListener(userListener);
 
@@ -130,8 +115,9 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         DataSnapshot myOrderedParking = dataSnapshot.child("myOrderedParking");
+                        userPhone = dataSnapshot.child("phone").getValue().toString();
                         for (DataSnapshot orderedParkID : myOrderedParking.getChildren()) {
-                            System.out.println("orderedParkID");
+
                             myOrderedParksID.add(orderedParkID.getValue().toString());
                         }
                     }
@@ -142,7 +128,6 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
                 };
         CalFragDatabase.child("Users").child(userId).addValueEventListener(userIdListener);
 
-        System.out.println("myOrderedParksID.size() "  + myOrderedParksID.size());
         ValueEventListener parkingListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot parkingSnapshot) {
@@ -155,14 +140,12 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
                         myPublishedParks.add(parkFromDB);
                         rents.addAll(getDates(parkFromDB.getStartDate(), parkFromDB.getEndDate()));
                     }
-                    else if (myOrderedParksID.contains(parkFromDB.getKey())) {
+                    if (myOrderedParksID.contains(parkFromDB.getKey())) {
                         myOrderedParks.add(parkFromDB);
                         orders.addAll(getDates(parkFromDB.getStartDate(), parkFromDB.getEndDate()));
                     }
                 }
-//                for (int i = 0; i < startDates.size(); i++) {
-//                    rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-//                }
+
                 multiMonth.notifyDataSetChanged();
             }
 
@@ -171,25 +154,6 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             }
         };
         CalFragDatabase.child("Parking").addListenerForSingleValueEvent(parkingListener);
-
-
-
-//
-//        for (int i = 0; i < startDates.size(); i++) {
-//            System.out.println("hi3 " + startDates.get(i) + "  :  " + endDates.get(i));
-//            rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-//        }
-//        multiMonth.notifyDataSetChanged();
-//        Intent intent = getActivity().getIntent();
-//        Bundle bundle = intent.getExtras();
-//        if(bundle != null) {
-//            startDates = (ArrayList<Long>)bundle.getSerializable("startDates");
-//            endDates = (ArrayList<Long>)bundle.getSerializable("endDates");
-//            for (int i = 0; i < startDates.size(); i++){
-//                rents.addAll(getDates(startDates.get(i), endDates.get(i)));
-//            }
-//        }
-
         return rootView;
     }
 
@@ -240,25 +204,13 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-
-                text1.setText(myOrderedParks.get(position).getAddress());
-                text2.setText(myOrderedParks.get(position).getStartTimeP() + "- " + myOrderedParks.get(position).getEndTimeP() + " , " + myOrderedParks.get(position).getCost() + " NIS.");
+                Parking currPark = myOrderedParks.get(position);
+                text1.setText(currPark.getAddress());
+                text2.setText(currPark.getStartTimeP() + "- " + currPark.getEndTimeP() + " , " + currPark.getCost() + " NIS.");
                 return view;
             }
         };
 
-//        ArrayAdapter publishLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, addresses2) {
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                View view = super.getView(position, convertView, parent);
-//                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-//                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-//
-//                text1.setText(addresses2[position]);
-//                text2.setText(info2[position]);
-//                return view;
-//            }
-//        };
 
         ArrayAdapter publishLVAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_2, android.R.id.text1, myPublishedParks) {
             @Override
@@ -266,9 +218,9 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-
-                text1.setText(myPublishedParks.get(position).getAddress());
-                text2.setText(myPublishedParks.get(position).getStartTimeP() + "- " + myPublishedParks.get(position).getEndTimeP() + " , " + myPublishedParks.get(position).getCost() + " NIS.");
+                Parking currPark = myPublishedParks.get(position);
+                text1.setText(currPark.getAddress());
+                text2.setText(currPark.getStartTimeP() + "- " + currPark.getEndTimeP() + " , " + currPark.getCost() + " NIS.");
                 return view;
             }
         };
@@ -282,12 +234,11 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 // 1. Instantiate an AlertDialog.Builder with its constructor
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                //TODO: get the owner number
-                final String numberToCall = "0508655309";
+//                final String numberToCall = "0508655309";
                 builder.setPositiveButton("call owner", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intentCall = new Intent(Intent.ACTION_CALL);
-                        intentCall.setData(Uri.parse("tel:" + numberToCall));
+                        intentCall.setData(Uri.parse("tel:" + userPhone));
                         startActivity(intentCall);
                     }
                 });
@@ -302,12 +253,11 @@ public class CalenderFragment extends Fragment implements OnDayClickListener {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 // 1. Instantiate an AlertDialog.Builder with its constructor
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                //TODO: get the owner number
-                final String numberToCall = "0508655309";
+//                final String numberToCall = "0508655309";
                 builder.setPositiveButton("call owner", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intentCall = new Intent(Intent.ACTION_CALL);
-                        intentCall.setData(Uri.parse("tel:" + numberToCall));
+                        intentCall.setData(Uri.parse("tel:" + userPhone));
                         startActivity(intentCall);
                     }
                 });
